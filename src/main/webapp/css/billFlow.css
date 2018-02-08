@@ -1,0 +1,61 @@
+body{
+    padding: 0px;
+    margin: 0px;
+}
+a{text-decoration:none}
+
+
+#danghanglan{
+    width: 100%;
+    background-color: #EEEEEE;
+    height:40px;
+}
+
+ul .li{
+    margin-right: 20px;
+    width: 100px;
+    color: #7E7E81;
+    float: right;
+    list-style-type: none;
+    line-height: 40px;
+}
+ul .li:hover{
+    color: #ee3400;
+}
+#gouwuc{
+    margin-right: 50px;
+}
+.ft_left{
+    float: left;
+    color: #7E7E81;
+    list-style-type: none;
+    line-height: 40px;
+}
+
+body, html {
+    font-family: Roboto,"Helvetica Neue",Helvetica,Tahoma,Arial,"PingFang SC","Microsoft YaHei";
+}
+.table_he{
+    width: 790px;
+    margin: auto;
+}
+.table_nr{
+    width: 790px;
+    background-color: #cccccc;
+}
+.table_bt{
+    border: 1px;
+    width: 790px;
+    border-bottom-style: solid;
+}
+.bt{
+    background-color: grey;
+    font-size: 20px;
+}
+td{
+    text-align: center;
+}
+caption{
+    font-size: 35px;
+    color: #00A1E9;
+}

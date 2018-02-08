@@ -1,0 +1,141 @@
+﻿<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+  <display-name>Archetype Created Web Application</display-name>
+    <!--lvchong servlet-->
+    <servlet>
+        <servlet-name>DengLuServlet</servlet-name>
+        <servlet-class>wechat_business.servlet.DengLuServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DengLuServlet</servlet-name>
+        <url-pattern>/dengLu.do</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>FindByItemInfoServlet</servlet-name>
+        <servlet-class>wechat_business.servlet.FindByItemInfoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FindByItemInfoServlet</servlet-name>
+        <url-pattern>/findByItemInfo.do</url-pattern>
+    </servlet-mapping>
+
+    <!--wangjunjie servlet-->
+    <servlet>
+        <servlet-name>SellerRegisterServlet</servlet-name>
+        <servlet-class>wechat_business.servlet.SellerRegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SellerRegisterServlet</servlet-name>
+        <url-pattern>/SellerRegisterServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>SellerPublishServlet</servlet-name>
+        <servlet-class>wechat_business.servlet.SellerPublishServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SellerPublishServlet</servlet-name>
+        <url-pattern>/SellerPublishServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--caixing 支付流水servlet配置-->
+    <servlet>
+        <servlet-name>BillFlowServlet</servlet-name>
+        <servlet-class>wechat_business.servlet.BillFlowServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BillFlowServlet</servlet-name>
+        <url-pattern>/BillFlowServlet.do</url-pattern>
+    </servlet-mapping>
+
+    <!--hehongjv servlet-->
+    <servlet>
+        <servlet-name>OrderQuiryServlet</servlet-name>
+        <servlet-class>wechat_business.servlet.OrderQuiryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderQuiryServlet</servlet-name>
+        <url-pattern>/OrderQuiryServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShoppingCartServlet</servlet-name>
+        <servlet-class>wechat_business.servlet.ShoppingCartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShoppingCartServlet</servlet-name>
+        <url-pattern>/ShoppingCartServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DelShoppingCartServlet</servlet-name>
+        <servlet-class>wechat_business.servlet.DelShoppingCartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DelShoppingCartServlet</servlet-name>
+        <url-pattern>/DelShoppingCartServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OrderDetailServlet</servlet-name>
+        <servlet-class>wechat_business.servlet.OrderDetailServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderDetailServlet</servlet-name>
+        <url-pattern>/OrderDetailServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CreateOrderServlet</servlet-name>
+        <servlet-class>wechat_business.servlet.CreateOrderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateOrderServlet</servlet-name>
+        <url-pattern>/CreateOrderServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PayServlet</servlet-name>
+        <servlet-class>wechat_business.servlet.PayServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PayServlet</servlet-name>
+        <url-pattern>/PayServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--dengchao servlet-->
+    <servlet>
+        <servlet-name>userInfoServlet</servlet-name>
+        <servlet-class>wechat_business.servlet.UserInfoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userInfoServlet</servlet-name>
+        <url-pattern>/userInfoServlet.do</url-pattern>
+    </servlet-mapping>
+
+    <!--huangpai servlet-->
+    <servlet>
+        <servlet-name>AddByPeopleInfoServlet</servlet-name>
+        <servlet-class>wechat_business.servlet.AddByPeopleInfoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddByPeopleInfoServlet</servlet-name>
+        <url-pattern>/addByPeopleInfo.do</url-pattern>
+    </servlet-mapping>
+
+    <!--huanglei servlet-->
+    <servlet>
+        <servlet-name> ItemInfoServlet</servlet-name>
+        <servlet-class> wechat_business.servlet.ItemInfoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ItemInfoServlet</servlet-name>
+        <url-pattern>/ItemInfoServlet.do</url-pattern>
+    </servlet-mapping>
+
+</web-app>
