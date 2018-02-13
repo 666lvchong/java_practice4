@@ -1,0 +1,74 @@
+html body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Microsoft Yahei', '微软雅黑', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.activity_box .float_left{
+    float: left;
+}
+.activity_box .activity_title{
+    margin-top: 50px;
+    margin-left: 45%;
+    color: #ee3400;
+}
+.search_box{
+    width: 700px;
+    background-size: 100%;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    padding-left:25%;
+    position: relative;
+    text-align: right;
+}
+.activitySearch_box input{
+    margin-left: 20px;
+    font-family: 'Microsoft Yahei', '微软雅黑', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    width: 580px;
+    height:32px;
+    border: solid 2px #ee3400;
+}
+#submit{
+    border: 0px;
+    background-color: #ee3400;
+    color: #EEEEEE;
+    font-size: 18px;
+    width: 80px;
+    height:37px;
+}
+.activityItem_box{
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    border: 2px solid;
+    border-color: #ee3400;
+
+}
+.activityShow_box .activityName_title{
+    text-align: left;
+    margin-left: 40px;
+    font-size: 22px;
+    color: #ee3400;
+}
+.activityShow_box .discount_info{
+    text-align: center;
+    margin-left: 380px;
+    font-size: 22px;
+    color: #ee3400;
+}
+.activityShow_box .date_info{
+    text-align: right;
+    margin-left: 420px;
+    font-size: 22px;
+    color: #ee3400;
+}
+.activityShow_box .activityItem_box ul li{
+    margin-bottom: 10px;
+    font-size: 22px;
+    color: #ee3400;
+}
+.activityShow_box .activityItem_box ul li label{
+    text-align: left;
+    margin-left: 5px;
+
+}
