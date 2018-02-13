@@ -78,6 +78,7 @@ public class ItemRelationServiceImpl implements ItemRelationService {
      */
 
     public ItemRelation findById(Long id) throws SQLException {
+        dao.getConnection();
         return dao.findById(id);
 
     }
