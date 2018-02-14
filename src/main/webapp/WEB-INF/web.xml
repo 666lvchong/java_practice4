@@ -44,14 +44,14 @@
     </servlet-mapping>
 
     <!--caixing 支付流水servlet配置-->
-    <servlet>
-        <servlet-name>BillFlowServlet</servlet-name>
-        <servlet-class>wechat_business.servlet.BillFlowServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>BillFlowServlet</servlet-name>
-        <url-pattern>/BillFlowServlet.do</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>BillFlowServlet</servlet-name>-->
+        <!--<servlet-class>wechat_business.servlet.BillFlowServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>BillFlowServlet</servlet-name>-->
+        <!--<url-pattern>/BillFlowServlet.do</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <!--hehongjv servlet-->
     <servlet>
@@ -99,14 +99,14 @@
         <url-pattern>/CreateOrderServlet</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>PayServlet</servlet-name>
-        <servlet-class>wechat_business.servlet.PayServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PayServlet</servlet-name>
-        <url-pattern>/PayServlet</url-pattern>
-    </servlet-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>PayServlet</servlet-name>-->
+        <!--<servlet-class>wechat_business.servlet.PayServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>PayServlet</servlet-name>-->
+        <!--<url-pattern>/PayServlet</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <!--dengchao servlet-->
     <servlet>
@@ -116,6 +116,14 @@
     <servlet-mapping>
         <servlet-name>userInfoServlet</servlet-name>
         <url-pattern>/userInfoServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>activityInfoServlet</servlet-name>
+        <servlet-class>wechat_business.servlet.ActivityInfoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>activityInfoServlet</servlet-name>
+        <url-pattern>/activityInfoServlet.do</url-pattern>
     </servlet-mapping>
 
     <!--huangpai servlet-->
