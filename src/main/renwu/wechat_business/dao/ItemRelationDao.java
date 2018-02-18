@@ -9,7 +9,6 @@ package wechat_business.dao;
  */
 
 import wechat_business.entity.ItemRelation;
-import wechat_business.entity.OrderStatementInfo;
 import wechat_business.service.ItemInfoServiceImpl;
 import wechat_business.service.SellerInfoServiceImpl;
 
@@ -123,12 +122,13 @@ public class ItemRelationDao extends Dao<ItemRelation> {
     public ItemRelation findById(Long id) throws SQLException {
         SellerInfoServiceImpl sellerInfoServiceImpl = new SellerInfoServiceImpl();
         ItemInfoServiceImpl itemInfoServiceImpl= new ItemInfoServiceImpl();
-        sql = "SELECT ID, SELLER_INFO_ID, ITEM_INFO_ID, INVENTORY, PRICE, IMG_ADDR\n" +
-                "FROM\n" +
-                "ITEM_RELATION";
+        sql = "SELECT ID,SELLER_INFO_ID,ITEM_INFO_ID,INVENTORY,PRICE" +
+                " FROM" +
+                " ITEM_RELATION WHERE ID=?";
         preparedStatement = getPreparedStatement(sql);
         preparedStatement.setLong(1,id);
         resultSet = preparedStatement.executeQuery();
+        commit();
         ItemRelation itemRelation = null;
         if (resultSet.next()){
             itemRelation = new ItemRelation();
@@ -137,7 +137,6 @@ public class ItemRelationDao extends Dao<ItemRelation> {
             itemRelation.setItemInfo(itemInfoServiceImpl.findById(resultSet.getLong(3)));
             itemRelation.setInventory(resultSet.getDouble(4));
             itemRelation.setPrice(resultSet.getDouble(5));
-            itemRelation.setImgAddr(resultSet.getString(6));
         }
         return itemRelation;
     }
