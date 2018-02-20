@@ -9,7 +9,7 @@ package wechat_business.entity;/************************************************
  */
 
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author dengchao
@@ -245,6 +245,5 @@ public class PeopleInfo {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-
 
 }
