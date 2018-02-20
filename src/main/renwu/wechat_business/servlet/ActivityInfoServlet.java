@@ -55,30 +55,47 @@ public class ActivityInfoServlet extends HttpServlet {
         Map<String,Object> mapActivityRelation=new HashMap<String, Object>();
         //获取搜索条件
         String keyword=request.getParameter("keyword");
-        if (keyword != null && keyword != ""){
+        if (keyword != null && keyword != "") {//若有搜索条件则继续
             //将条件存入map
-            map.put("ACTIVITY_NAME",keyword);
-        }
-        //按条件查询
-        try {
-            List<ActivityInfo> listActivityInfo=activityInfoService.findByCondtionForPage(map,0,10);
-            for (ActivityInfo activityInfo:listActivityInfo){
-                mapActivityRelation.put("ACTIVITY_INFO_ID",activityInfo.getId());
-            }
-            List<ActivityRelation> listActivityRelation=activityRelationService.findByCondtionForPage(mapActivityRelation,0,10);
-            //保存查询结果
-//            request.setAttribute("listActivityInfo",listActivityInfo);
-            request.setAttribute("listActivityRelation",listActivityRelation);
-            //转发页面
-            request.getRequestDispatcher("jsp/activity_info.jsp").forward(request,response);
-        } catch (SQLException e) {
+            map.put("ACTIVITY_NAME", keyword);
+            //按条件查询
             try {
-                activityRelationDao.rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
+                List<ActivityInfo> listActivityInfo = activityInfoService.findByCondtionForPage(map, 0, 10);
+                for (ActivityInfo activityInfo : listActivityInfo) {
+                    mapActivityRelation.put("ACTIVITY_INFO_ID", activityInfo.getId());
+                }
+                List<ActivityRelation> listActivityRelation = activityRelationService.findByCondtionForPage(mapActivityRelation, 0, 10);
+                //保存查询结果
+//            request.setAttribute("listActivityInfo",listActivityInfo);
+                request.setAttribute("listActivityRelation", listActivityRelation);
+                //转发页面
+                request.getRequestDispatcher("jsp/activity_info.jsp").forward(request, response);
+            } catch (SQLException e) {
+                try {
+                    activityRelationDao.rollback();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            } finally {
+                activityRelationDao.release();
             }
-        }finally {
-            activityRelationDao.release();
+        }else {//若无搜索条件
+            try {
+                //查询
+                List<ActivityRelation> listActivityRelation = activityRelationService.findByCondtionForPage(mapActivityRelation,0,10);
+                //保存查询结果
+                request.setAttribute("listActivityRelation",listActivityRelation);
+                //转发页面
+                request.getRequestDispatcher("jsp/activity_info.jsp").forward(request,response);
+            } catch (SQLException e) {
+                try {
+                    activityRelationDao.rollback();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }finally {
+                activityRelationDao.release();
+            }
         }
     }
 
