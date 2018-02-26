@@ -19,7 +19,7 @@ import java.sql.SQLException;
  * @Description 类描述 支付宝业务实现类
  * @date 2018/1/29
  */
-public class PaypalInfoServiceImpl implements PaypalInfoService {
+public class paypalInfoServiceImpl implements  paypalInfoService{
     /**
      * @Title: pay
      * @Description: 方法描述 支付
