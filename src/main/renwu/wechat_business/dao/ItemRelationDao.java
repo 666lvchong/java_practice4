@@ -8,6 +8,7 @@ package wechat_business.dao;
  * @version V1.0
  */
 
+import org.springframework.stereotype.Repository;
 import wechat_business.entity.ItemRelation;
 import wechat_business.service.ItemInfoServiceImpl;
 import wechat_business.service.SellerInfoServiceImpl;
@@ -21,6 +22,7 @@ import java.util.*;
  * @Description 类描述
  * @date 2018/1/31
  */
+@Repository
 public class ItemRelationDao extends Dao<ItemRelation> {
     private String sql = null;
     private Integer result;
