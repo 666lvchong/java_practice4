@@ -81,19 +81,27 @@
                 <tr>
                     <td><span>状态：</span>
                         <c:choose>
-                            <c:when test="${list.orderStatus==1}">订单开始</c:when>
-                            <c:when test="${list.orderStatus==2}">付款成功</c:when>
-                            <c:when test="${list.orderStatus==3}">已发货</c:when>
-                            <c:when test="${list.orderStatus==4}">已收货</c:when>
-                            <c:when test="${list.orderStatus==5}">交易失败</c:when>
-                            <c:when test="${list.orderStatus==6}">交易成功</c:when>
+                            <c:when test="${list.orderStatus==1}">待付款</c:when>
+                            <c:when test="${list.orderStatus==2}">待发货</c:when>
+                            <c:when test="${list.orderStatus==3}">运输中</c:when>
+                            <c:when test="${list.orderStatus==4}">待收货</c:when>
+                            <c:when test="${list.orderStatus==5}">已收货</c:when>
+                            <c:when test="${list.orderStatus==6}">申请退货</c:when>
+                            <c:when test="${list.orderStatus==7}">已退货</c:when>
+                            <c:when test="${list.orderStatus==8}">交易失败</c:when>
                         </c:choose>
                     </td>
                     <td><span>商品购买数量：</span>${list.itemNumber}</td>
                     <td ><span> 价格：</span>${list.amount}<span> 元 </span></td>
-                    <%--<c:if test="${list.orderStatus!=5}">--%>
-                        <%--<td ><a>申请退货</a></td>--%>
-                    <%--</c:if>--%>
+                    <c:if test="${list.orderStatus==4 || list.orderStatus==3 || list.orderStatus==2 || list.orderStatus==5 }">
+                        <td ><a>申请退货</a></td>
+                    </c:if>
+                    <c:if test="${list.orderStatus==6}">
+                        <td ><a>确认退货</a></td>
+                    </c:if>
+                    <c:if test="${list.orderStatus==8}">
+                        <td ><a>如有疑问，请咨询客服</a></td>
+                    </c:if>
                 </tr>
             </table>
             <hr>

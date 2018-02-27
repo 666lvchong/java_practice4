@@ -70,6 +70,7 @@ public class CreateOrderServlet extends HttpServlet {
                 OrderDetailServiceImpl orderDetailService=new OrderDetailDaoImpl();
                 orderDetailService.setId(orderDetailServiceList.get(i).getId());
                 orderDetailService.setOrderInfoId(orderInfoServiceList.get(0).getId());
+                orderDetailService.setOrderStatus((byte)1);
                 orderDetailDao.saveOrUpdate(orderDetailService);
             }
         } catch (SQLException e) {

@@ -43,14 +43,17 @@ public class OrderQuiryServlet extends HttpServlet {
         stringObjectMap.put("TAOBAO_ACCOUNT_ID",taobaoAccount.getId());
         List<OrderInfoServiceImpl> orderInfoServiceList=new ArrayList<OrderInfoServiceImpl>();
         OrderInfoDaoImpl orderInfoDao = new OrderInfoDaoImpl();
+        int index=0;
 
         try {
             //获取当前用户的订单信息
             orderInfoServiceList=orderInfoDao.findByCondtion(stringObjectMap);
+            index=orderInfoServiceList.size();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         request.setAttribute("list",orderInfoServiceList);
+        request.setAttribute("index",index);
         request.setAttribute("buyer",taobaoAccount.getPersonnelAccount().toString());
         request.getRequestDispatcher("jsp/order_quiry.jsp").forward(request,response);
     }
