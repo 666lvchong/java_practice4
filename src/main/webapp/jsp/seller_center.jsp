@@ -142,7 +142,7 @@
                                             <input name="SHOP_TYPE" type="radio" value="1" checked> 个人商铺
                                             <input name="SHOP_TYPE" type="radio" value="0">企业商铺</td>
                                     </tr>
-、
+
                                     <tr>
                                         <td colspan="2" align="right" height="50px">
                                             <input type="submit" name="提交" onclick="toRegister()" value="提交" class="seller_center_From_submit"/>&nbsp;&nbsp;&nbsp;
@@ -190,8 +190,12 @@
                         </div>
                         <ul class="list">
                             <li>
-                                <a target="_blank" href="publish_commodity.jsp" data-spm="d28">
-                                    发货</a>
+                                <a target="_blank" href="shipments.jsp" data-spm="d28">
+                                    订单处理</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="shipments.jsp" data-spm="d28">
+                                    新增快递</a>
                             </li>
                         </ul>
                     </div>
@@ -201,13 +205,10 @@
                         </div>
                         <ul class="list">
                             <li>
-                                <a target="_blank" href="" data-spm="d48">发布宝贝</a>
+                                <a target="_blank" href="" data-spm="d48">发布商品</a>
                             </li>
                             <li>
-                                <a target="_blank" href="" data-spm="d45">出售中的宝贝</a>
-                            </li>
-                            <li>
-                                <a target="_blank" href="" data-spm="d44">仓库中的宝贝</a>
+                                <a target="_blank" href="" data-spm="d45">管理商品</a>
                             </li>
                         </ul>
                     </div>
