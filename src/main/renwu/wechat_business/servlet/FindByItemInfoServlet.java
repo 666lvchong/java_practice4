@@ -8,6 +8,8 @@ package wechat_business.servlet;
  * @version V1.0
  */
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import wechat_business.entity.ItemInfo;
 import wechat_business.entity.ItemRelation;
 import wechat_business.service.ItemInfoServiceImpl;
@@ -52,10 +54,13 @@ public class FindByItemInfoServlet extends HttpServlet {
      * @throw YnCorpSysException
      */
     public void doPost(HttpServletRequest httpServletRequest , HttpServletResponse httpServletResponse) throws ServletException, IOException{
-        //创建一个商品关系的service
-        ItemRelationServiceImpl itemRelationService = new ItemRelationServiceImpl();
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ItemRelationServiceImpl itemRelationService = (ItemRelationServiceImpl) applicationContext.getBean("itemRelationServiceImpl");
+/*        //创建一个商品关系的service
+        ItemRelationServiceImpl itemRelationService = new ItemRelationServiceImpl();*/
+        //创建一个商品信息的service
         ItemInfoServiceImpl itemInfoService = new ItemInfoServiceImpl();
-        //创建一个条件的map key值条件字段名  value值 条件的值
+        //创建一个条件的map key值条件字段名  value值 条件的值.
         Map<String,Object> map = new HashMap<String, Object>();
         List<ItemInfo> itemInfoList =null;
         //判断传过来的条件是否存在 如果存在则添加到map中
