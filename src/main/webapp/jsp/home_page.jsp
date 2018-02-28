@@ -20,9 +20,9 @@
 <div id="danghanglan">
     <ul>
         <a href="/Team4/findByItemInfo.do"><li class="ft_left">嘿嘿 欢迎来到WechatBusiness</li></a>
-        <a href="../OrderQuiryServlet"><li id="gouwuc">购物车</li></a>
+        <a href="/Team4/ShoppingCartServlet"><li id="gouwuc">购物车</li></a>
         <a href="/Team4/SellerRegisterServlet"><li >卖家中心</li></a>
-        <a href="../ShoppingCartServlet"><li >订单信息</li></a>
+        <a href="/Team4/OrderQuiryServlet"><li >订单信息</li></a>
         <a href="/Team4/BillFlowServlet.do"><li >流水记录</li></a>
     </ul>
 </div>

@@ -224,7 +224,11 @@
                         <ul class="list">
                             <li>
                                 <a target="_blank" href="shipments.jsp" data-spm="d28">
-                                    发货</a>
+                                    订单处理</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="shipments.jsp" data-spm="d28">
+                                    新增快递</a>
                             </li>
                         </ul>
                     </div>
@@ -234,13 +238,10 @@
                         </div>
                         <ul class="list">
                             <li>
-                                <a target="_blank" href="" data-spm="d48">发布宝贝</a>
+                                <a target="_blank" href="publish_commodity.jsp" data-spm="d48">发布商品</a>
                             </li>
                             <li>
-                                <a target="_blank" href="" data-spm="d45">出售中的宝贝</a>
-                            </li>
-                            <li>
-                                <a target="_blank" href="" data-spm="d44">仓库中的宝贝</a>
+                                <a target="_blank" href="manage_commodity.jsp" data-spm="d45">管理商品</a>
                             </li>
                         </ul>
                     </div>

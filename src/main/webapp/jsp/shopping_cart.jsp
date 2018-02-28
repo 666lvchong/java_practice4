@@ -31,7 +31,7 @@
         <span class="moneySum orangered">
             订单总金额：${money} 元
             <c:if test="${money!=0}">
-            <a href="CreateOrderServlet?money=${money}">购买</a>
+            <a href="CreateOrderServlet?money=${money}" onclick="return confirm('确定购买')">购买</a>
                 <%--<a  onclick="pay(${money})" href="#">购买</a>--%>
             </c:if>
         </span>
@@ -46,7 +46,7 @@
                 <tr>
                     <td rowspan="2"><img src="img/hu.jpg" width="120px"></td>
                     <td colspan="2">${listName.get(Integer.valueOf(i.count-1))}</td>
-                    <td><a onclick="delOrder(${list.id})" href="#">取消订单</a></td>
+                    <td><a onclick="delOrder(${list.id})" href="#" >取消订单</a></td>
                 </tr>
                 <tr>
                     <td ><span>价格：</span> ${list.amount} <span> 元 </span></td>

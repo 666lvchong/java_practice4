@@ -1,6 +1,5 @@
 package wechat_business.servlet;
 
-import javafx.collections.ObservableList;
 import wechat_business.dao.OrderDetailDaoImpl;
 import wechat_business.dao.OrderInfoDaoImpl;
 import wechat_business.dao.PaypalInfoDaoImpl;
@@ -67,8 +66,8 @@ public class PayServlet extends HttpServlet {
         //创建流水
         OrderStatementInfo orderStatementInfo=new OrderStatementInfo();
         orderStatementInfo.setSerialNumber(serialNum);
-        orderStatementInfo.setOrderInfo(orderInfoService);
-        orderStatementInfo.setPaypalInfo(paypalInfoList.get(0));
+        orderStatementInfo.setOrderInfoId(orderInfoService.getId());
+        orderStatementInfo.setPaypalInfoId(paypalInfoList.get(0).getId());
         orderStatementInfo.setFlowRecordType((byte) 2);
         orderStatementInfo.setIsPayStatus((byte) 1);
         orderStatementInfo.setAmounts(orderInfoService.getOrderTotalAmount());

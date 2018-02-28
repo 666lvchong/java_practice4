@@ -205,10 +205,10 @@
                         </div>
                         <ul class="list">
                             <li>
-                                <a target="_blank" href="" data-spm="d48">发布商品</a>
+                                <a target="_blank" href="publish_commodity.jsp" data-spm="d48">发布商品</a>
                             </li>
                             <li>
-                                <a target="_blank" href="" data-spm="d45">管理商品</a>
+                                <a target="_blank" href="manage_commodity.jsp" data-spm="d45">管理商品</a>
                             </li>
                         </ul>
                     </div>
