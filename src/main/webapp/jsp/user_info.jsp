@@ -13,7 +13,7 @@
     <meta http-equiv="keywords" content="keyword1,keyword2,keywprd3">
     <meta http-equiv="description" content="ajax方式">
     <title>账户管理</title>
-    <link rel="stylesheet" type="text/css" href="/code/css/user_info.css">
+    <link rel="stylesheet" type="text/css" href="/Team4/css/user_info.css">
     <script type="text/javascript" src="../js/jquery.js"/>
     <script>
         function doFind(){
@@ -37,9 +37,9 @@
 <iframe src="jsp/dao_hang_lan.jsp" width="100%" height="40" frameborder="0"></iframe>
 <div id="ajaxDiv"></div>
 <div class="diaplay_box">
-    <img id="logo" class="float_left" src="/code/img/lv_logo.png" alt="logo">
+    <img id="logo" class="float_left" src="/Team4/img/lv_logo.png" alt="logo">
     <div class="search_box">
-        <form class="search_form" id="search_form" action="/code/userInfoServlet.do" method="post">
+        <form class="search_form" id="search_form" action="/Team4/userInfoServlet.do" method="post">
             <div class="taobaoAccount"><input type="text" name="keyword" placeholder="请输入淘宝账号" value=""/>
                 <button type="submit" id="submit" onclick="doFind()" value="搜索">搜索</button></div>
         </form>
