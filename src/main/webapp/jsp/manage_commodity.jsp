@@ -70,10 +70,43 @@
     <div class="layout">
         <div class="col-main">
             <div class="main-wrap" id="main">
-                <div id="ice_page" data-company="false" data-current-page="ApplyShop"></div>
                 <div>
 
-
+                    <hr>
+                    <table class="commodityInfoTable">
+                        <tr >
+                            <th>序号</th>
+                            <th> | </th>
+                            <th>商品名字</th>
+                            <th> | </th>
+                            <th>商品编号</th>
+                            <th> | </th>
+                            <th>金额（元）</th>
+                            <th> | </th>
+                            <th>数量</th>
+                            <th></th>
+                        </tr>
+                        <c:forEach items="${list}"  var="list" varStatus="i">
+                            <tr>
+                                <td class="orangered"> ${i.count} </td>
+                                <td class="orangered"> | </td>
+                                <td>${list.name}</td>
+                                <td class="orangered"> | </td>
+                                <td>${list.number}</td>
+                                <td class="orangered"> | </td>
+                                <td>${list.price}</td>
+                                <td class="orangered"> | </td>
+                                <td>${list.inventory}</td>
+                                <td>
+                                    <c:if test="${list.tradingTime.toString()!=null}">${list.tradingTime.toString().substring(0,19)}</c:if>
+                                    <c:if test="${list.tradingTime.toString()==null}">暂无记录</c:if>
+                                </td>
+                                <td>
+                                  <%--<button name="putaway"--%>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
 
 
 
