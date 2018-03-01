@@ -22,7 +22,7 @@ import java.util.Map;
  * @Description dao工具类
  * @date 2018/1/19
  */
-public abstract class Dao<E> {
+public abstract class Dao<E> extends BaseDaoImpl<E> {
     protected Connection connection = null;
     protected PreparedStatement preparedStatement = null;
     protected ResultSet resultSet = null;
