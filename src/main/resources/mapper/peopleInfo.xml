@@ -4,21 +4,21 @@
 
     <!-- 定义结果集-->
     <resultMap id="peopleInfoMap" type="wechat_business.entity.PeopleInfo">
-        <id property="id" column="ID" jdbcType="BIGINT"/>
-        <result property="name" column="NAME" jdbcType="VARCHAR"/>
-        <result property="sex" column="SEX" jdbcType="TINYINT"/>
-        <result property="age" column="AGE" jdbcType="INT"/>
-        <result property="nation" column="NATION" jdbcType="VARCHAR"/>
-        <result property="birthdate" column="BIRTHDATE" jdbcType="DATE"/>
-        <result property="idNumber" column="ID_NUMBER" jdbcType="VARCHAR"/>
-        <result property="mobilePhone" column="MOBILE_PHONE" jdbcType="VARCHAR"/>
-        <result property="nativePlace" column="NATIVE_PLACE" jdbcType="VARCHAR"/>
+        <id property="id" column="ID"/>
+        <result property="name" column="NAME"/>
+        <result property="sex" column="SEX"/>
+        <result property="age" column="AGE"/>
+        <result property="nation" column="NATION"/>
+        <result property="birthdate" column="BIRTHDATE"/>
+        <result property="idNumber" column="ID_NUMBER"/>
+        <result property="mobilePhone" column="MOBILE_PHONE"/>
+        <result property="nativePlace" column="NATIVE_PLACE"/>
         <result property="mailBox" column="MAILBOX" jdbcType="VARCHAR"/>
-        <result property="permanentAdress" column="PERMANENT_ADDRESS" jdbcType="VARCHAR"/>
-        <result property="profession" column="PROFESSION" jdbcType="VARCHAR"/>
-        <result property="workUnit" column="WORK_UNIT" jdbcType="VARCHAR"/>
-        <result property="createTime" column="CREATE_TIME" jdbcType="DATETIME"/>
-        <result property="updateTime" column="UPDATE_TIME" jdbcType="DATETIME"/>
+        <result property="permanentAdress" column="PERMANENT_ADDRESS"/>
+        <result property="profession" column="PROFESSION"/>
+        <result property="workUnit" column="WORK_UNIT"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
     </resultMap>
     <!-- 定义sql操作列 -->
     <sql id="columns">

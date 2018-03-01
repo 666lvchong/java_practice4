@@ -3,15 +3,15 @@
 <mapper namespace="wechat_business.entity.ActivityRelation">
     <!-- 定义结果集 -->
     <resultMap id="activityRelationMap" type="wechat_business.entity.ActivityRelation">
-        <id property="id" column="ID" jdbcType="BIGINT"/>
-        <result property="activityInfoId" column="ACTIVITY_INFO_ID" jdbcType="BIGINT"/>
+        <id property="id" column="ID"/>
+        <result property="activityInfoId" column="ACTIVITY_INFO_ID"/>
         <!-- 与商品是一对多关系 collection中的column是ActivityRelation表中的id-->
         <collection property="itemRelationId" ofType="wechat_business.entity.ItemRelation" column="ID">
-            <id column="ID" property="id" jdbcType="BIGINT"/>
-            <result column="SELLER_INFO_ID" property="sellerInfo" jdbcType="BIGINT"/>
-            <result column="ITEM_INFO_ID" property="itemInfo" jdbcType="BIGINT"/>
-            <result column="INVENTORY" property="inventory" jdbcType="DOUBLE"/>
-            <result column="PRICE" property="price" jdbcType="DOUBLE"/>
+            <id column="ID" property="id"/>
+            <result column="SELLER_INFO_ID" property="sellerInfo"/>
+            <result column="ITEM_INFO_ID" property="itemInfo"/>
+            <result column="INVENTORY" property="inventory"/>
+            <result column="PRICE" property="price"/>
         </collection>
     </resultMap>
     <!-- 根据id删除 -->

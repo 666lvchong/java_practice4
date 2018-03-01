@@ -4,9 +4,9 @@
 
     <!-- 定义结果集-->
     <resultMap type="wechat_business.entity.Grade" id="gradeMap">
-        <id property="id" column="ID" jdbcType="BIGINT"/>
-        <result property="gradeNumber" column="GRADE_NUMBER" jdbcType="TINYINT"/>
-        <result property="gradeName" column="GRADE_NAME" jdbcType="VARCHAR"/>
+        <id property="id" column="ID"/>
+        <result property="gradeNumber" column="GRADE_NUMBER"/>
+        <result property="gradeName" column="GRADE_NAME"/>
     </resultMap>
     <!-- 根据id删除 -->
     <delete id="deleteById" parameterType="java.lang.Long">

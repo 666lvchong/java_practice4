@@ -3,11 +3,11 @@
 <mapper namespace="wechat_business.entity.ActivityInfo">
     <!-- 定义结果集 -->
     <resultMap id="activityInfoMap" type="wechat_business.entity.ActivityInfo">
-        <id property="id" column="ID" jdbcType="BIGINT"/>
-        <result property="discount" column="DISCOUNT" jdbcType="DOUBLE"/>
-        <result property="activityName" column="ACTIVITY_NAME" jdbcType="VARCHAR"/>
-        <result property="activityStartTime" column="ACTIVITY_START_TIME" jdbcType="DATETIME"/>
-        <result property="activityEndTime" column="ACTIVITY_END_TIME" jdbcType="DATETIME"/>
+        <id property="id" column="ID"/>
+        <result property="discount" column="DISCOUNT"/>
+        <result property="activityName" column="ACTIVITY_NAME"/>
+        <result property="activityStartTime" column="ACTIVITY_START_TIME"/>
+        <result property="activityEndTime" column="ACTIVITY_END_TIME"/>
     </resultMap>
     <!-- 定义查询列 -->
     <sql id="columns">
