@@ -32,17 +32,17 @@
         SELECT ID,GRADE_NUMBER,GRADE_NAME FROM GRADE WHERE ID=#{id}
     </select>
     <!-- 根据条件查询 -->
-    <select id="findByCondtion" parameterType="java.util.HashMap" resultMap="gradeMap">
+    <select id="findByCondtion" parameterType="stringObjectMap" resultMap="gradeMap">
         SELECT ID,GRADE_NUMBER,GRADE_NAME FROM GRADE WHERE 1=1
         <if test="@Ognl@isNotEmpty(GRADE_NAME)">
             AND GRADE_NAME LIKE #{gradeName}
         </if>
     </select>
     <!-- 根据条件分页查询 -->
-    <!--<select id="findByCondtionForPage" parameterType="stringObjectMap" resultMap="gradeMap">-->
-        <!--SELECT ID,GRADE_NUMBER,GRADE_NAME FROM GRADE WHERE 1=1-->
-        <!--<if test="@Ognl@isNotEmpty(GRADE_NAME)">-->
-            <!--AND GRADE_NAME LIKE #{gradeName}-->
-        <!--</if>-->
-    <!--</select>-->
+    <select id="findByCondtionForPage" parameterType="stringObjectMap" resultMap="gradeMap">
+        SELECT ID,GRADE_NUMBER,GRADE_NAME FROM GRADE WHERE 1=1
+        <if test="@Ognl@isNotEmpty(GRADE_NAME)">
+            AND GRADE_NAME LIKE #{gradeName}
+        </if>
+    </select>
 </mapper>
