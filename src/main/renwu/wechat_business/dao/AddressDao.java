@@ -1,6 +1,7 @@
 package wechat_business.dao;
 
 import wechat_business.entity.Address;
+import wechat_business.util.FormatUtils;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -15,9 +16,10 @@ public  class AddressDao extends Dao<Address> {
     @Override
     /**
      * @Title: deleteById
-     * @Description: 根据Id删除数据
-     * @author huangpai
-     * @date 2018-02-17
+     * @Description: 方法描述
+     * @author hehongju
+     * @date 2018-03-01
+     * @throw YnCorpSysException
      */
     public Integer deleteById(Long id) throws SQLException {
         sql="DELETE FROM ADDRESS WHERE ID=?";
@@ -30,17 +32,19 @@ public  class AddressDao extends Dao<Address> {
 
     @Override
     /**
-     * @Title: deleteById
-     * @Description: 根据Id删除多个数据
-     * @author huangpai
-     * @date 2018-02-17
+     * @Title: deleteByIds
+     * @Description: 方法描述
+     * @author hehongju
+     * @date 2018-03-01
+     * @throw YnCorpSysException
      */
     public Integer deleteByIds(Long[] ids) throws SQLException {
         if (ids.length>0){
             sql ="DELETE FROM ADDRESS WHERE ID=?";
             for(int i=0; i<ids.length;i++){
                 sql += "or id = " + ids[i];
-            }preparedStatement = getPreparedStatement(sql);
+            }
+            preparedStatement = getPreparedStatement(sql);
             result = preparedStatement.executeUpdate();
             commit();
         }
@@ -48,33 +52,90 @@ public  class AddressDao extends Dao<Address> {
     }
 
     @Override
-    /**
-     * @Title: saveOrUpdate
-     * @Description: 添加或者删除
-     * @author huangpai
-     * @date 2018-02-17
-     */
+   /**
+    * @Title: saveOrUpdate
+    * @Description: 方法描述
+    * @author hehongju
+    * @date 2018-03-01
+    * @throw YnCorpSysException
+    */
     public Integer saveOrUpdate(Address test) throws SQLException {
-        if (test.getId()!=0){
-            sql="UPDATE ADDRESS"+
-                    "SET"+
-                    "MY_ADDRESS=?,"+
-                    "TAOBAO_ACCOUNT_ID=?," +
-                    "WHERE ID=?";
-            preparedStatement=getPreparedStatement(sql);
-            preparedStatement.setString(1,test.getMyaddress());
-            preparedStatement.setString(2, String.valueOf(test.getTaobaoaccount()));
-            preparedStatement.setLong(3,test.getId());
-            result = preparedStatement.executeUpdate();
-            commit();
+        if (test.getId() != null){
+            sql="SELECT ID,TAOBAO_ACCOUNT_ID,ADDRESS_TYPE,ADDRESS,LINKMAN_CONTACTS,TELEPHONE,CREATE_TIME,UPDATE_TIME,IS_DEFAULT  FROM ADDRESS WHERE ID="+test.getId();
+            resultSet=connection.prepareStatement(sql).executeQuery();
+            //判定id是否存在
+            if(resultSet.first()){
+                //判定不更新的值
+                if(test.getTaobaoAccountID()==null){
+                    test.setTaobaoAccountID(resultSet.getLong(2));
+                }
+                if(test.getAddressType()==null){
+                    test.setAddressType(resultSet.getByte(3));
+                }
+                if(test.getAddress()==null){
+                    test.setAddress(resultSet.getString(4));
+                }
+                if(test.getLinkmanContacts()==null){
+                    test.setLinkmanContacts(resultSet.getString(5));
+                }
+                if(test.getTelephone()==null){
+                    test.setTelephone(resultSet.getString(6));
+                }
+                if(test.getCreateTime()==null){
+                    test.setCreateTime(resultSet.getTimestamp(7));
+                }
+                if(test.getUpdateTime()==null){
+                    test.setUpdateTime(resultSet.getTimestamp(8));
+                }
+                if(test.getIsDefault()==null){
+                    test.setIsDefault(resultSet.getBoolean(9));
+                }
+                //根据ID更新地址信息
+                sql="UPDATE ADDRESS SET TAOBAO_ACCOUNT_ID=?,ADDRESS_TYPE=?,ADDRESS=?,LINKMAN_CONTACTS=?,TELEPHONE=?,CREATE_TIME=?,UPDATE_TIME=?,IS_DEFAULT=?"+
+                        " WHERE ID = ?";
+                preparedStatement=connection.prepareStatement(sql);
+                preparedStatement.setLong(1,test.getTaobaoAccountID());
+                preparedStatement.setByte(2,test.getAddressType());
+                preparedStatement.setString(3,test.getAddress());
+                preparedStatement.setString(4,test.getLinkmanContacts());
+                preparedStatement.setString(5,test.getTelephone());
+                preparedStatement.setString(6, FormatUtils.dateTimeFormat(test.getCreateTime()));
+                preparedStatement.setString(7,FormatUtils.dateTimeFormat(test.getUpdateTime()));
+                preparedStatement.setBoolean(8, test.getIsDefault());
+                preparedStatement.setLong(9,test.getId());
+                result=preparedStatement.executeUpdate();
+                commit();
+            }else {
+                //根据ID插入地址信息
+                sql="INSERT INTO ADDRESS( ID,TAOBAO_ACCOUNT_ID,ADDRESS_TYPE,ADDRESS,LINKMAN_CONTACTS,TELEPHONE,CREATE_TIME,UPDATE_TIME,IS_DEFAULT) " +
+                        "VALUES (?,?,?,?,?,?,?,?,?)";
+                preparedStatement=connection.prepareStatement(sql);
+                preparedStatement.setLong(1,test.getId());
+                preparedStatement.setLong(2,test.getTaobaoAccountID());
+                preparedStatement.setByte(3, test.getAddressType());
+                preparedStatement.setString(4, test.getAddress());
+                preparedStatement.setString(5, test.getLinkmanContacts());
+                preparedStatement.setString(6,test.getTelephone());
+                preparedStatement.setString(7, FormatUtils.dateTimeFormat(test.getCreateTime()));
+                preparedStatement.setString(8,FormatUtils.dateTimeFormat(test.getUpdateTime()));
+                preparedStatement.setBoolean(9,test.getIsDefault());
+                result=preparedStatement.executeUpdate();
+                commit();
+            }
         }else {
-            sql="INSERT INTO ADDRESS(ID,MY_ADDRESS,TAOBAO_ACCOUNT_ID"+
-                    "VALUES(DEFAULT,?,?)";
-            preparedStatement=getPreparedStatement(sql);
-            preparedStatement.setString(1,test.getMyaddress());
-            preparedStatement.setString(2, String.valueOf(test.getTaobaoaccount()));
-            preparedStatement.setLong(3,test.getId());
-            result =preparedStatement.executeUpdate();
+            //默认自增主键ID插入地址信息
+            sql="INSERT INTO ADDRESS( ID,TAOBAO_ACCOUNT_ID,ADDRESS_TYPE,ADDRESS,LINKMAN_CONTACTS,TELEPHONE,CREATE_TIME,UPDATE_TIME,IS_DEFAULT) " +
+                    "VALUES (DEFAULT,?,?,?,?,?,?,?,?)";
+            preparedStatement=connection.prepareStatement(sql);
+            preparedStatement.setLong(1,test.getTaobaoAccountID());
+            preparedStatement.setByte(2,test.getAddressType());
+            preparedStatement.setString(3,test.getAddress());
+            preparedStatement.setString(4,test.getLinkmanContacts());
+            preparedStatement.setString(5,test.getTelephone());
+            preparedStatement.setString(6, FormatUtils.dateTimeFormat(test.getCreateTime()));
+            preparedStatement.setString(7,FormatUtils.dateTimeFormat(test.getUpdateTime()));
+            preparedStatement.setBoolean(8,test.getIsDefault());
+            result=preparedStatement.executeUpdate();
             commit();
         }
         return result;
@@ -83,20 +144,27 @@ public  class AddressDao extends Dao<Address> {
     @Override
     /**
      * @Title: findById
-     * @Description: 根据id查找数据
-     * @author huangpai
-     * @date 2018-02-17
+     * @Description: 方法描述
+     * @author hehongju
+     * @date 2018-03-01
+     * @throw YnCorpSysException
      */
     public Address findById(Long id) throws SQLException {
-        sql="SELECT ID,MY_ADDRESS,TAOBAO_ACCOUNT_ID FROM ADDRESS WHERE ID=?";
+        sql="SELECT ID,TAOBAO_ACCOUNT_ID,ADDRESS_TYPE,ADDRESS,LINKMAN_CONTACTS,TELEPHONE,CREATE_TIME,UPDATE_TIME,IS_DEFAULT FROM ADDRESS WHERE ID=?";
         preparedStatement=getPreparedStatement(sql);
-        preparedStatement.setLong(1,id);
+//        preparedStatement.setLong(1,id);
         resultSet=preparedStatement.executeQuery();
         Address address=new Address();
         while (resultSet.next()){
             address.setId(id);
-            address.setMyaddress(resultSet.getString(4));
-            address.setTaobaoaccount(resultSet.getShort(2));
+            address.setTaobaoAccountID(resultSet.getLong(2));
+            address.setAddressType(resultSet.getByte(3));
+            address.setAddress(resultSet.getString(4));
+            address.setLinkmanContacts(resultSet.getString(5));
+            address.setTelephone(resultSet.getString(6));
+            address.setCreateTime(resultSet.getTimestamp(7));
+            address.setUpdateTime(resultSet.getTimestamp(8));
+            address.setIsDefault(resultSet.getBoolean(9));
         }
 
         return address;
@@ -105,14 +173,15 @@ public  class AddressDao extends Dao<Address> {
     @Override
     /**
      * @Title: findByCondtion
-     * @Description: 根据表查询数据
-     * @author huangpai
-     * @date 2018-01-19
+     * @Description: 方法描述
+     * @author hehongju
+     * @date 2018-03-01
+     * @throw YnCorpSysException
      */
     public List<Address> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException {
         List<Address> list= new ArrayList<Address>();
         if (stringObjectMap !=null){
-            sql="SELECT ID,MY_ADDRESS,TAOBAO_ACCOUNT_ID FROM ADDRESS WHERE 1=1";
+            sql="SELECT  ID,TAOBAO_ACCOUNT_ID,ADDRESS_TYPE,ADDRESS,LINKMAN_CONTACTS,TELEPHONE,CREATE_TIME,UPDATE_TIME,IS_DEFAULT FROM ADDRESS FROM ADDRESS WHERE 1=1";
             Set<Map.Entry<String,Object>>set=stringObjectMap.entrySet();
             Iterator<Map.Entry<String, Object>> iterator = set.iterator();
             while (iterator.hasNext()){
@@ -125,8 +194,14 @@ public  class AddressDao extends Dao<Address> {
             while (resultSet.next()){
                 address=new Address();
                 address.setId(resultSet.getLong(1));
-                address.setMyaddress(resultSet.getString(2));
-                address.setTaobaoaccount(resultSet.getShort(3));
+                address.setTaobaoAccountID(resultSet.getLong(2));
+                address.setAddressType(resultSet.getByte(3));
+                address.setAddress(resultSet.getString(4));
+                address.setLinkmanContacts(resultSet.getString(5));
+                address.setTelephone(resultSet.getString(6));
+                address.setCreateTime(resultSet.getTimestamp(7));
+                address.setUpdateTime(resultSet.getTimestamp(8));
+                address.setIsDefault(resultSet.getBoolean(9));
                 list.add(address);
             }
         }
@@ -136,10 +211,17 @@ public  class AddressDao extends Dao<Address> {
 
 
     @Override
+    /**
+     * @Title:
+     * @Description: 方法描述
+     * @author hehongju
+     * @date 2018-03-01
+     * @throw YnCorpSysException
+     */
     public List<Address> findByCondtionForPage(Map<String, Object> stringObjectMap, Integer startRows, Integer size) throws SQLException {
         List<Address> list=new ArrayList<Address>();
         if (stringObjectMap !=null){
-            sql="SELECT ID,MY_ADDRESS,TAOBAO_ACCOUNT_ID FROM ADDRESS WHERE 1=1";
+            sql="SELECT ID,TAOBAO_ACCOUNT_ID,ADDRESS_TYPE,ADDRESS,LINKMAN_CONTACTS,TELEPHONE,CREATE_TIME,UPDATE_TIME,IS_DEFAULT FROM ADDRESS WHERE 1=1";
             Set<Map.Entry<String,Object>>set=stringObjectMap.entrySet();
             Iterator<Map.Entry<String,Object>>iterator=set.iterator();
             while (iterator.hasNext()){
@@ -154,8 +236,14 @@ public  class AddressDao extends Dao<Address> {
         while (resultSet.next()){
             address=new Address();
             address.setId(resultSet.getLong(1));
-            address.setMyaddress(resultSet.getString(2));
-            address.setTaobaoaccount(resultSet.getShort(3));
+            address.setTaobaoAccountID(resultSet.getLong(2));
+            address.setAddressType(resultSet.getByte(3));
+            address.setAddress(resultSet.getString(4));
+            address.setLinkmanContacts(resultSet.getString(5));
+            address.setTelephone(resultSet.getString(6));
+            address.setCreateTime(resultSet.getTimestamp(7));
+            address.setUpdateTime(resultSet.getTimestamp(8));
+            address.setIsDefault(resultSet.getBoolean(9));
             list.add(address);
         }
         return list;
