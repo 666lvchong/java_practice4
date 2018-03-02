@@ -7,6 +7,7 @@ package wechat_business.dao;/***************************************************
  * @Copyright: 2018 www.zyht.com Inc. All rights reserved.
  * @version V1.0
  */
+import org.springframework.stereotype.Repository;
 import wechat_business.common.util.JdbcUtils;
 import wechat_business.entity.PaypalInfo;
 
@@ -20,6 +21,7 @@ import java.util.*;
  * @Description 类描述 支付宝信息Dao实现
  * @date 2018/1/20
  */
+@Repository
 public class PaypalInfoDaoImpl implements PaypalInfoDao {
     //定义字符串保存sql语句
     String sql=null;
