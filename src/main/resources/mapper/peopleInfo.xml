@@ -13,7 +13,7 @@
         <result property="idNumber" column="ID_NUMBER"/>
         <result property="mobilePhone" column="MOBILE_PHONE"/>
         <result property="nativePlace" column="NATIVE_PLACE"/>
-        <result property="mailBox" column="MAILBOX" jdbcType="VARCHAR"/>
+        <result property="mailBox" column="MAILBOX"/>
         <result property="permanentAdress" column="PERMANENT_ADDRESS"/>
         <result property="profession" column="PROFESSION"/>
         <result property="workUnit" column="WORK_UNIT"/>
@@ -36,7 +36,6 @@
                 #{ids}
             </foreach>
         </if>
-
     </delete>
     <!-- 保存 -->
     <insert id="save" parameterType="wechat_business.entity.PeopleInfo">
