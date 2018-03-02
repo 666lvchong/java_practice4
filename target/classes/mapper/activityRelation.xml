@@ -4,15 +4,16 @@
     <!-- 定义结果集 -->
     <resultMap id="activityRelationMap" type="wechat_business.entity.ActivityRelation">
         <id property="id" column="ID"/>
-        <association property="activityInfoId" column="ACTIVITY_INFO_ID" select="getActivityInfo"></association>
-        <association property="itemRelationId" column= "ITEM_RELATION_ID" select="getItemRelation"></association>
+        <result property="activityInfoId" column="ACTIVITY_INFO_ID"/>
+        <!-- 与商品是一对多关系 collection中的column是ActivityRelation表中的id-->
+        <collection property="itemRelationId" ofType="wechat_business.entity.ItemRelation" column="ID">
+            <id column="ID" property="id"/>
+            <result column="SELLER_INFO_ID" property="sellerInfo"/>
+            <result column="ITEM_INFO_ID" property="itemInfo"/>
+            <result column="INVENTORY" property="inventory"/>
+            <result column="PRICE" property="price"/>
+        </collection>
     </resultMap>
-    <select id="getActivityInfo">
-        SELECT ID,DISCOUNT,ACTIVITY_NAME,ACTIVITY_START_TIME,ACTIVITY_END_TIME FROM ACTIVITY_INFO
-    </select>
-    <select id="getItemRelation">
-        SELECT ID,SELLER_INFO_ID,ITEM_INFO_ID,INVENTORY,PRICE FROM item_relation
-    </select>
     <!-- 根据id删除 -->
     <delete id="deleteById" parameterType="java.lang.Long">
         DELETE FROM ACTIVITY_RELATION WHERE ID=#{id}
@@ -37,7 +38,7 @@
         SELECT ID,ITEM_RELATION_ID,ACTIVITY_INFO_ID FROM ACTIVITY_RELATION WHERE ID=#{id}
     </select>
     <!-- 根据条件查询 -->
-    <select id="findByCondtion" parameterType="java.util.HashMap" resultMap="activityRelationMap">
+    <select id="findByCondtion" resultMap="activityRelationMap">
         SELECT ID,ITEM_RELATION_ID,ACTIVITY_INFO_ID FROM ACTIVITY_RELATION WHERE 1=1
         <if test="@Ognl@isNotEmpty(ITEM_RELATION_ID)">
             AND ITEM_RELATION_ID LIKE #{itemRelationId}
@@ -46,14 +47,14 @@
             AND ACTIVITY_INFO_ID LIKE #{activityInfoId}
         </if>
     </select>
-    <!--&lt;!&ndash; 根据条件分页查询 &ndash;&gt;-->
-    <!--<select id="findByCondtionForPage" parameterType="java.util.HashMap" resultMap="activityRelationMap">-->
-        <!--SELECT ID,ITEM_RELATION_ID,ACTIVITY_INFO_ID FROM ACTIVITY_RELATION WHERE 1=1-->
-        <!--<if test="@Ognl@isNotEmpty(ITEM_RELATION_ID)">-->
-            <!--AND ITEM_RELATION_ID LIKE #{itemRelationId}-->
-        <!--</if>-->
-        <!--<if test="@Ognl@isNotEmpty(ACTIVITY_INFO_ID)">-->
-            <!--AND ACTIVITY_INFO_ID LIKE #{activityInfoId}-->
-        <!--</if>-->
-    <!--</select>-->
+    <!-- 根据条件分页查询 -->
+    <select id="findByCondtionForPage" resultMap="activityRelationMap">
+        SELECT ID,ITEM_RELATION_ID,ACTIVITY_INFO_ID FROM ACTIVITY_RELATION WHERE 1=1
+        <if test="@Ognl@isNotEmpty(ITEM_RELATION_ID)">
+            AND ITEM_RELATION_ID LIKE #{itemRelationId}
+        </if>
+        <if test="@Ognl@isNotEmpty(ACTIVITY_INFO_ID)">
+            AND ACTIVITY_INFO_ID LIKE #{activityInfoId}
+        </if>
+    </select>
 </mapper>
