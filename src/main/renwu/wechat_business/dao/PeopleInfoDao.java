@@ -8,9 +8,9 @@ package wechat_business.dao;/***************************************************
      * @version V1.0
      */
 
+import org.springframework.stereotype.Repository;
 import wechat_business.entity.PeopleInfo;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -20,6 +20,7 @@ import java.util.*;
  * @Description 人员信息操作Dao
  * @date 2018/1/22
  */
+@Repository
 public class PeopleInfoDao extends Dao<PeopleInfo> {
     //定义sql语句
     public String sqlStr=null;
@@ -37,18 +38,19 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
      */
     @Override
     public Integer deleteById(Long id) throws SQLException {
-        //定义sql删除语句
-        sqlStr="DELETE FROM people_info WHERE ID=?";
-        //获取预编译对象
-        preparedStatement=getPreparedStatement(sqlStr);
-        //设值参考符的值
-        preparedStatement.setLong(1,id);
-        //执行sql语句
-        rows=preparedStatement.executeUpdate();
-        //提交
-        commit();
-        //返回受影响行数
-        return rows;
+        return sqlSessionTemplate.delete(getMybaitsNameSpace()+"deleteById",id);
+//        //定义sql删除语句
+//        sqlStr="DELETE FROM people_info WHERE ID=?";
+//        //获取预编译对象
+//        preparedStatement=getPreparedStatement(sqlStr);
+//        //设值参考符的值
+//        preparedStatement.setLong(1,id);
+//        //执行sql语句
+//        rows=preparedStatement.executeUpdate();
+//        //提交
+//        commit();
+//        //返回受影响行数
+//        return rows;
     }
 
     /**
@@ -62,22 +64,23 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
      */
     @Override
     public Integer deleteByIds(Long[] ids) throws SQLException {
-        if (ids.length > 0){
-            //定义sql删除语句
-            sqlStr="DELETE FROM people_info WHERE 1=1";
-            for (int i = 0; i < ids.length; i++) {
-                //设值id的值
-                sqlStr+=" OR ID="+ids[i];
-            }
-            //获取预编译对象
-            preparedStatement=getPreparedStatement(sqlStr);
-            //执行sql语句
-            rows=preparedStatement.executeUpdate();
-            //提交
-            commit();
-        }
-        //返回受影响行数
-        return rows;
+        return sqlSessionTemplate.delete(getMybaitsNameSpace()+"deleteByIds",ids);
+//        if (ids.length > 0){
+//            //定义sql删除语句
+//            sqlStr="DELETE FROM people_info WHERE 1=1";
+//            for (int i = 0; i < ids.length; i++) {
+//                //设值id的值
+//                sqlStr+=" OR ID="+ids[i];
+//            }
+//            //获取预编译对象
+//            preparedStatement=getPreparedStatement(sqlStr);
+//            //执行sql语句
+//            rows=preparedStatement.executeUpdate();
+//            //提交
+//            commit();
+//        }
+//        //返回受影响行数
+//        return rows;
     }
 
     /**
@@ -93,73 +96,75 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
     public Integer saveOrUpdate(PeopleInfo people) throws SQLException {
         //判断人员id是否为null，若是则修改,否则保存
         if (people.getId() != null){
-            //定义sql语句
-            sqlStr="UPDATE people_info  "+
-                    "SET"+
-                    " NAME=?,"+
-                    " SEX=?,"+
-                    " AGE=?,"+
-                    " NATION=?,"+
-                    " BIRTHDATE=?,"+
-                    " ID_NUMBER=?,"+
-                    "MOBILE_PHONE"+
-                    "NATIVE_PLACE"+
-                    "MAILBOX"+
-                    "PERMANENT_ADDRESS"+
-                    "PROFESSION"+
-                    "WORK_UNIT"+
-                    " CREATE_TIME=?,"+
-                    " UPDATE_TIME=?"+
-                    " WHERE ID=?";
-            //获取预编译对象
-            preparedStatement=getPreparedStatement(sqlStr);
-            //设值参考符的值
-            preparedStatement.setString(1,people.getName());
-            preparedStatement.setByte(2, people.getSex());
-            preparedStatement.setInt(3, people.getAge());
-            preparedStatement.setString(4, people.getNation());
-            preparedStatement.setDate(5, (Date) people.getBirthdate());
-            preparedStatement.setString(6,people.getIdNumber());
-            preparedStatement.setString(7,people.getMobilePhone());
-            preparedStatement.setString(8,people.getNativePlace());
-            preparedStatement.setString(9,people.getMailBox());
-            preparedStatement.setString(10,people.getPermanentAdress());
-            preparedStatement.setString(11,people.getProfession());
-            preparedStatement.setString(12,people.getWorkUnit());
-            preparedStatement.setDate(13, (Date) people.getCreateTime());
-            preparedStatement.setDate(14, (Date) people.getUpdateTime());
-            preparedStatement.setLong(15,people.getId());
-            //执行sql语句
-            rows=preparedStatement.executeUpdate();
-            //提交
-            commit();
+            return sqlSessionTemplate.update(getMybaitsNameSpace()+"saveOrUpdate",people);
+//            //定义sql语句
+//            sqlStr="UPDATE people_info  "+
+//                    "SET"+
+//                    " NAME=?,"+
+//                    " SEX=?,"+
+//                    " AGE=?,"+
+//                    " NATION=?,"+
+//                    " BIRTHDATE=?,"+
+//                    " ID_NUMBER=?,"+
+//                    "MOBILE_PHONE"+
+//                    "NATIVE_PLACE"+
+//                    "MAILBOX"+
+//                    "PERMANENT_ADDRESS"+
+//                    "PROFESSION"+
+//                    "WORK_UNIT"+
+//                    " CREATE_TIME=?,"+
+//                    " UPDATE_TIME=?"+
+//                    " WHERE ID=?";
+//            //获取预编译对象
+//            preparedStatement=getPreparedStatement(sqlStr);
+//            //设值参考符的值
+//            preparedStatement.setString(1,people.getName());
+//            preparedStatement.setByte(2, people.getSex());
+//            preparedStatement.setInt(3, people.getAge());
+//            preparedStatement.setString(4, people.getNation());
+//            preparedStatement.setDate(5, (Date) people.getBirthdate());
+//            preparedStatement.setString(6,people.getIdNumber());
+//            preparedStatement.setString(7,people.getMobilePhone());
+//            preparedStatement.setString(8,people.getNativePlace());
+//            preparedStatement.setString(9,people.getMailBox());
+//            preparedStatement.setString(10,people.getPermanentAdress());
+//            preparedStatement.setString(11,people.getProfession());
+//            preparedStatement.setString(12,people.getWorkUnit());
+//            preparedStatement.setDate(13, (Date) people.getCreateTime());
+//            preparedStatement.setDate(14, (Date) people.getUpdateTime());
+//            preparedStatement.setLong(15,people.getId());
+//            //执行sql语句
+//            rows=preparedStatement.executeUpdate();
+//            //提交
+//            commit();
         }else {
-            //定义sql语句
-            sqlStr="INSERT INTO people_info (ID,`NAME`,SEX,AGE,NATION,BIRTHDATE,ID_NUMBER,MOBILE_PHONE,NATIVE_PLACE,MAILBOX,PERMANENT_ADDRESS,PROFESSION,WORK_UNIT,CREATE_TIME,UPDATE_TIME)" +
-                    " VALUES(DEFAULT,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            //获取预编译对象
-            preparedStatement=getPreparedStatement(sqlStr);
-            //设值参考符的值
-            preparedStatement.setString(1,people.getName());
-            preparedStatement.setByte(2, people.getSex());
-            preparedStatement.setInt(3, people.getAge());
-            preparedStatement.setString(4, people.getNation());
-            preparedStatement.setDate(5, (Date) people.getBirthdate());
-            preparedStatement.setString(6, people.getIdNumber());
-            preparedStatement.setString(7,people.getMobilePhone());
-            preparedStatement.setString(8, people.getNativePlace());
-            preparedStatement.setString(9,people.getMailBox());
-            preparedStatement.setString(10,people.getPermanentAdress());
-            preparedStatement.setString(11,people.getProfession());
-            preparedStatement.setString(12,people.getWorkUnit());
-            preparedStatement.setDate(13, (Date) people.getCreateTime());
-            preparedStatement.setDate(14, (Date) people.getUpdateTime());
-            //执行sql语句
-            rows=preparedStatement.executeUpdate();
-            //提交
-            commit();
+            return sqlSessionTemplate.insert(getMybaitsNameSpace()+"saveOrUpdate",people);
+//            //定义sql语句
+//            sqlStr="INSERT INTO people_info (ID,`NAME`,SEX,AGE,NATION,BIRTHDATE,ID_NUMBER,MOBILE_PHONE,NATIVE_PLACE,MAILBOX,PERMANENT_ADDRESS,PROFESSION,WORK_UNIT,CREATE_TIME,UPDATE_TIME)" +
+//                    " VALUES(DEFAULT,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+//            //获取预编译对象
+//            preparedStatement=getPreparedStatement(sqlStr);
+//            //设值参考符的值
+//            preparedStatement.setString(1,people.getName());
+//            preparedStatement.setByte(2, people.getSex());
+//            preparedStatement.setInt(3, people.getAge());
+//            preparedStatement.setString(4, people.getNation());
+//            preparedStatement.setDate(5, (Date) people.getBirthdate());
+//            preparedStatement.setString(6, people.getIdNumber());
+//            preparedStatement.setString(7,people.getMobilePhone());
+//            preparedStatement.setString(8, people.getNativePlace());
+//            preparedStatement.setString(9,people.getMailBox());
+//            preparedStatement.setString(10,people.getPermanentAdress());
+//            preparedStatement.setString(11,people.getProfession());
+//            preparedStatement.setString(12,people.getWorkUnit());
+//            preparedStatement.setDate(13, (Date) people.getCreateTime());
+//            preparedStatement.setDate(14, (Date) people.getUpdateTime());
+//            //执行sql语句
+//            rows=preparedStatement.executeUpdate();
+//            //提交
+//            commit();
         }
-        return rows;
+//        return rows;
     }
 
     /**
@@ -174,27 +179,28 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
      */
     @Override
     public PeopleInfo findById(Long id) throws SQLException {
-        //定义sql语句
-        sqlStr="SELECT ID,NAME,SEX,AGE,MOBILE_PHONE FROM people_info WHERE ID=?";
-        //获取查询数据库的Statement对象
-        preparedStatement=getPreparedStatement(sqlStr);
-        //设置id的值
-        preparedStatement.setLong(1,id);
-        //执行sql语句，并获得结果集
-        resultSet=preparedStatement.executeQuery();
-        //提交
-        commit();
-        //定义人员对象
-        PeopleInfo peopleInfo=new PeopleInfo();
-        //获取人员信息
-        while (resultSet.next()){
-            peopleInfo.setId(resultSet.getLong(1));
-            peopleInfo.setName(resultSet.getString(2));
-            peopleInfo.setSex(resultSet.getByte(3));
-            peopleInfo.setAge(resultSet.getInt(4));
-            peopleInfo.setMobilePhone(resultSet.getString(5));
-        }
-        return peopleInfo;
+        return sqlSessionTemplate.selectOne(getMybaitsNameSpace()+"findById",id);
+//        //定义sql语句
+//        sqlStr="SELECT ID,NAME,SEX,AGE,MOBILE_PHONE FROM people_info WHERE ID=?";
+//        //获取查询数据库的Statement对象
+//        preparedStatement=getPreparedStatement(sqlStr);
+//        //设置id的值
+//        preparedStatement.setLong(1,id);
+//        //执行sql语句，并获得结果集
+//        resultSet=preparedStatement.executeQuery();
+//        //提交
+//        commit();
+//        //定义人员对象
+//        PeopleInfo peopleInfo=new PeopleInfo();
+//        //获取人员信息
+//        while (resultSet.next()){
+//            peopleInfo.setId(resultSet.getLong(1));
+//            peopleInfo.setName(resultSet.getString(2));
+//            peopleInfo.setSex(resultSet.getByte(3));
+//            peopleInfo.setAge(resultSet.getInt(4));
+//            peopleInfo.setMobilePhone(resultSet.getString(5));
+//        }
+//        return peopleInfo;
     }
 
     /**
@@ -208,43 +214,44 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
      */
     @Override
     public List<PeopleInfo> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException {
-        //定义人员集合
-        List<PeopleInfo> list=new ArrayList<PeopleInfo>();
-        //判断人员map对象是否为null
-        if (stringObjectMap != null){
-            //定义sql语句
-            sqlStr="SELECT ID,NAME,SEX,AGE,MOBILE_PHONE,ID_NUMBER,CREATE_TIME FROM people_info WHERE 1=1";
-            //定义Map.Entry对象
-            Set<Map.Entry<String, Object>> set=stringObjectMap.entrySet();
-            //迭代
-            Iterator<Map.Entry<String, Object>> iterator=set.iterator();
-            //获取判断条件
-            while (iterator.hasNext()){
-                Map.Entry<String, Object> mapEntry=iterator.next();
-                sqlStr+=" OR "+mapEntry.getKey()+" = '"+mapEntry.getValue()+" '";
-            }
-            //获取预编译对象
-            preparedStatement=getPreparedStatement(sqlStr);
-            //执行sql语句，并放进结果集
-            resultSet=preparedStatement.executeQuery();
-            //提交
-            commit();
-            //定义人员信息对象
-            PeopleInfo peopleInfo=null;
-            //存值
-            while (resultSet.next()){
-                peopleInfo=new PeopleInfo();
-                peopleInfo.setId(resultSet.getLong(1));
-                peopleInfo.setName(resultSet.getString(2));
-                peopleInfo.setSex(resultSet.getByte(3));
-                peopleInfo.setAge(resultSet.getInt(4));
-                peopleInfo.setMobilePhone(resultSet.getString(5));
-                peopleInfo.setIdNumber(resultSet.getString(6));
-                peopleInfo.setCreateTime(resultSet.getDate(7));
-                list.add(peopleInfo);
-            }
-        }
-        return list;
+        return sqlSessionTemplate.selectList(getMybaitsNameSpace()+"findByCondtion",stringObjectMap);
+//        //定义人员集合
+//        List<PeopleInfo> list=new ArrayList<PeopleInfo>();
+//        //判断人员map对象是否为null
+//        if (stringObjectMap != null){
+//            //定义sql语句
+//            sqlStr="SELECT ID,NAME,SEX,AGE,MOBILE_PHONE,ID_NUMBER,CREATE_TIME FROM people_info WHERE 1=1";
+//            //定义Map.Entry对象
+//            Set<Map.Entry<String, Object>> set=stringObjectMap.entrySet();
+//            //迭代
+//            Iterator<Map.Entry<String, Object>> iterator=set.iterator();
+//            //获取判断条件
+//            while (iterator.hasNext()){
+//                Map.Entry<String, Object> mapEntry=iterator.next();
+//                sqlStr+=" OR "+mapEntry.getKey()+" = '"+mapEntry.getValue()+" '";
+//            }
+//            //获取预编译对象
+//            preparedStatement=getPreparedStatement(sqlStr);
+//            //执行sql语句，并放进结果集
+//            resultSet=preparedStatement.executeQuery();
+//            //提交
+//            commit();
+//            //定义人员信息对象
+//            PeopleInfo peopleInfo=null;
+//            //存值
+//            while (resultSet.next()){
+//                peopleInfo=new PeopleInfo();
+//                peopleInfo.setId(resultSet.getLong(1));
+//                peopleInfo.setName(resultSet.getString(2));
+//                peopleInfo.setSex(resultSet.getByte(3));
+//                peopleInfo.setAge(resultSet.getInt(4));
+//                peopleInfo.setMobilePhone(resultSet.getString(5));
+//                peopleInfo.setIdNumber(resultSet.getString(6));
+//                peopleInfo.setCreateTime(resultSet.getDate(7));
+//                list.add(peopleInfo);
+//            }
+//        }
+//        return list;
     }
 
     /**
@@ -260,6 +267,7 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
      */
     @Override
     public List<PeopleInfo> findByCondtionForPage(Map<String, Object> stringObjectMap, Integer startRows, Integer size) throws SQLException {
+
         //定义人员集合
         List<PeopleInfo> list=new ArrayList<PeopleInfo>();
         //判断人员map对象是否为null
