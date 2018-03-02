@@ -8,6 +8,7 @@ package wechat_business.dao;/***************************************************
  * @version V1.0
  */
 
+import org.springframework.stereotype.Repository;
 import wechat_business.entity.Grade;
 
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ import java.util.*;
  * @Description 管理者dao类
  * @date 2018/1/29
  */
+@Repository
 public class GradeDao extends Dao<Grade> {
     //定义sql语句
     public String sqlStr=null;
@@ -35,18 +37,19 @@ public class GradeDao extends Dao<Grade> {
      */
     @Override
     public Integer deleteById(Long id) throws SQLException {
-        //定义sql删除语句
-        sqlStr="DELETE FROM GRADE WHERE ID=?";
-        //获取预编译对象
-        preparedStatement=getPreparedStatement(sqlStr);
-        //设值参考符的值
-        preparedStatement.setLong(1,id);
-        //执行sql语句
-        rows=preparedStatement.executeUpdate();
-        //提交
-        commit();
-        //返回受影响行数
-        return rows;
+       return super.sqlSessionTemplate.delete(getMybaitsNameSpace()+"deleteById",id);
+//        //定义sql删除语句
+//        sqlStr="DELETE FROM GRADE WHERE ID=?";
+//        //获取预编译对象
+//        preparedStatement=getPreparedStatement(sqlStr);
+//        //设值参考符的值
+//        preparedStatement.setLong(1,id);
+//        //执行sql语句
+//        rows=preparedStatement.executeUpdate();
+//        //提交
+//        commit();
+//        //返回受影响行数
+//        return rows;
     }
 
     /**
@@ -60,22 +63,23 @@ public class GradeDao extends Dao<Grade> {
      */
     @Override
     public Integer deleteByIds(Long[] ids) throws SQLException {
-        if (ids.length > 0){
-            //定义sql删除语句
-            sqlStr="DELETE FROM GRADE WHERE 1=1";
-            for (int i = 0; i < ids.length; i++) {
-                //设值id的值
-                sqlStr+=" OR ID="+ids[i];
-            }
-            //获取预编译对象
-            preparedStatement=getPreparedStatement(sqlStr);
-            //执行sql语句
-            rows=preparedStatement.executeUpdate();
-            //提交
-            commit();
-        }
-        //返回受影响行数
-        return rows;
+        return super.sqlSessionTemplate.delete(getMybaitsNameSpace()+"deleteByIds",ids);
+//        if (ids.length > 0){
+//            //定义sql删除语句
+//            sqlStr="DELETE FROM GRADE WHERE 1=1";
+//            for (int i = 0; i < ids.length; i++) {
+//                //设值id的值
+//                sqlStr+=" OR ID="+ids[i];
+//            }
+//            //获取预编译对象
+//            preparedStatement=getPreparedStatement(sqlStr);
+//            //执行sql语句
+//            rows=preparedStatement.executeUpdate();
+//            //提交
+//            commit();
+//        }
+//        //返回受影响行数
+//        return rows;
     }
 
     /**
@@ -91,37 +95,39 @@ public class GradeDao extends Dao<Grade> {
     public Integer saveOrUpdate(Grade grade) throws SQLException {
         //判断人员id是否为null，若是则修改,否则保存
         if (grade.getId() != null){
-            //定义sql语句
-            sqlStr="UPDATE GRADE  "+
-                    "SET"+
-                    " GRADE_NUMBER=?,"+
-                    " GRADE_NAME=?,"+
-                    " WHERE ID=?";
-            //获取预编译对象
-            preparedStatement=getPreparedStatement(sqlStr);
-            //设值参考符的值
-            preparedStatement.setByte(1,grade.getGradeNumber());
-            preparedStatement.setString(2,grade.getGradeName());
-            preparedStatement.setLong(3,grade.getId());
-            //执行sql语句
-            rows=preparedStatement.executeUpdate();
-            //提交
-            commit();
+            return super.sqlSessionTemplate.update(getMybaitsNameSpace()+"update",grade);
+//            //定义sql语句
+//            sqlStr="UPDATE GRADE  "+
+//                    "SET"+
+//                    " GRADE_NUMBER=?,"+
+//                    " GRADE_NAME=?,"+
+//                    " WHERE ID=?";
+//            //获取预编译对象
+//            preparedStatement=getPreparedStatement(sqlStr);
+//            //设值参考符的值
+//            preparedStatement.setByte(1,grade.getGradeNumber());
+//            preparedStatement.setString(2,grade.getGradeName());
+//            preparedStatement.setLong(3,grade.getId());
+//            //执行sql语句
+//            rows=preparedStatement.executeUpdate();
+//            //提交
+//            commit();
         }else {
-            //定义sql语句
-            sqlStr="INSERT INTO GRADE (ID,GRADE_NUMBER,GRADE_NAME)" +
-                    " VALUES(DEFAULT,?,?)";
-            //获取预编译对象
-            preparedStatement=getPreparedStatement(sqlStr);
-            //设值参考符的值
-            preparedStatement.setByte(1,grade.getGradeNumber());
-            preparedStatement.setString(2,grade.getGradeName());
-            //执行sql语句
-            rows=preparedStatement.executeUpdate();
-            //提交
-            commit();
+            return super.sqlSessionTemplate.insert(getMybaitsNameSpace()+"save",grade);
+//            //定义sql语句
+//            sqlStr="INSERT INTO GRADE (ID,GRADE_NUMBER,GRADE_NAME)" +
+//                    " VALUES(DEFAULT,?,?)";
+//            //获取预编译对象
+//            preparedStatement=getPreparedStatement(sqlStr);
+//            //设值参考符的值
+//            preparedStatement.setByte(1,grade.getGradeNumber());
+//            preparedStatement.setString(2,grade.getGradeName());
+//            //执行sql语句
+//            rows=preparedStatement.executeUpdate();
+//            //提交
+//            commit();
         }
-        return rows;
+//        return rows;
     }
 
 
@@ -137,25 +143,26 @@ public class GradeDao extends Dao<Grade> {
      */
     @Override
     public Grade findById(Long id) throws SQLException {
-        //定义sql语句
-        sqlStr="SELECT ID,GRADE_NUMBER,GRADE_NAME FROM GRADE WHERE ID=?";
-        //获取查询数据库的Statement对象
-        preparedStatement=getPreparedStatement(sqlStr);
-        //设置id的值
-        preparedStatement.setLong(1,id);
-        //执行sql语句，并获得结果集
-        resultSet=preparedStatement.executeQuery();
-        //提交
-        commit();
-        //定义人员对象
-        Grade grade=new Grade();
-        //获取人员信息
-        while (resultSet.next()){
-            grade.setId(id);
-            grade.setGradeNumber(resultSet.getByte(1));
-            grade.setGradeName(resultSet.getString(2));
-        }
-        return grade;
+        return super.sqlSessionTemplate.selectOne(getMybaitsNameSpace()+"findById",id);
+//        //定义sql语句
+//        sqlStr="SELECT ID,GRADE_NUMBER,GRADE_NAME FROM GRADE WHERE ID=?";
+//        //获取查询数据库的Statement对象
+//        preparedStatement=getPreparedStatement(sqlStr);
+//        //设置id的值
+//        preparedStatement.setLong(1,id);
+//        //执行sql语句，并获得结果集
+//        resultSet=preparedStatement.executeQuery();
+//        //提交
+//        commit();
+//        //定义人员对象
+//        Grade grade=new Grade();
+//        //获取人员信息
+//        while (resultSet.next()){
+//            grade.setId(id);
+//            grade.setGradeNumber(resultSet.getByte(1));
+//            grade.setGradeName(resultSet.getString(2));
+//        }
+//        return grade;
     }
 
     /**
@@ -169,39 +176,40 @@ public class GradeDao extends Dao<Grade> {
      */
     @Override
     public List<Grade> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException {
-        //定义人员集合
-        List<Grade> list=new ArrayList<Grade>();
-        //判断人员map对象是否为null
-        if (stringObjectMap != null){
-            //定义sql语句
-            sqlStr="SELECT ID,GRADE_NUMBER,GRADE_NAME FROM GRADE WHERE 1=1";
-            //定义Map.Entry对象
-            Set<Map.Entry<String, Object>> set=stringObjectMap.entrySet();
-            //迭代
-            Iterator<Map.Entry<String, Object>> iterator=set.iterator();
-            //获取判断条件
-            while (iterator.hasNext()){
-                Map.Entry<String, Object> mapEntry=iterator.next();
-                sqlStr+=" OR "+mapEntry.getKey()+" = '"+mapEntry.getValue()+" '";
-            }
-            //获取预编译对象
-            preparedStatement=getPreparedStatement(sqlStr);
-            //执行sql语句，并放进结果集
-            resultSet=preparedStatement.executeQuery();
-            //提交
-            commit();
-            //定义人员信息对象
-            Grade grade=null;
-            //存值
-            while (resultSet.next()){
-                grade=new Grade();
-                grade.setId(resultSet.getLong(1));
-                grade.setGradeNumber(resultSet.getByte(2));
-                grade.setGradeName(resultSet.getString(3));
-                list.add(grade);
-            }
-        }
-        return list;
+        return super.sqlSessionTemplate.selectList(getMybaitsNameSpace()+"findByCondtion",stringObjectMap);
+//        //定义人员集合
+//        List<Grade> list=new ArrayList<Grade>();
+//        //判断人员map对象是否为null
+//        if (stringObjectMap != null){
+//            //定义sql语句
+//            sqlStr="SELECT ID,GRADE_NUMBER,GRADE_NAME FROM GRADE WHERE 1=1";
+//            //定义Map.Entry对象
+//            Set<Map.Entry<String, Object>> set=stringObjectMap.entrySet();
+//            //迭代
+//            Iterator<Map.Entry<String, Object>> iterator=set.iterator();
+//            //获取判断条件
+//            while (iterator.hasNext()){
+//                Map.Entry<String, Object> mapEntry=iterator.next();
+//                sqlStr+=" OR "+mapEntry.getKey()+" = '"+mapEntry.getValue()+" '";
+//            }
+//            //获取预编译对象
+//            preparedStatement=getPreparedStatement(sqlStr);
+//            //执行sql语句，并放进结果集
+//            resultSet=preparedStatement.executeQuery();
+//            //提交
+//            commit();
+//            //定义人员信息对象
+//            Grade grade=null;
+//            //存值
+//            while (resultSet.next()){
+//                grade=new Grade();
+//                grade.setId(resultSet.getLong(1));
+//                grade.setGradeNumber(resultSet.getByte(2));
+//                grade.setGradeName(resultSet.getString(3));
+//                list.add(grade);
+//            }
+//        }
+//        return list;
     }
 
     /**
@@ -217,38 +225,39 @@ public class GradeDao extends Dao<Grade> {
      */
     @Override
     public List<Grade> findByCondtionForPage(Map<String, Object> stringObjectMap, Integer startRows, Integer size) throws SQLException {
-        //定义人员集合
-        List<Grade> list=new ArrayList<Grade>();
-        //判断人员map对象是否为null
-        if (stringObjectMap != null) {
-            //定义sql语句
-            sqlStr="SELECT ID,GRADE_NUMBER,GRADE_NAME FROM GRADE WHERE 1=1";
-            //定义Map.Entry对象
-            Set<Map.Entry<String, Object>> set=stringObjectMap.entrySet();
-            //迭代
-            Iterator<Map.Entry<String, Object>> iterator=set.iterator();
-            //获取判断条件
-            while (iterator.hasNext()){
-                Map.Entry<String, Object> mapEntry=iterator.next();
-                sqlStr+=" AND "+mapEntry.getKey()+"='"+mapEntry.getValue()+"'";
-            }
-            sqlStr += " LIMIT "+startRows+","+size;
-            //获取预编译
-            preparedStatement=getPreparedStatement(sqlStr);
-            //执行sql语句
-            resultSet=preparedStatement.executeQuery();
-            //提交
-            commit();
-            //定义等级对象
-            Grade grade=null;
-            while (resultSet.next()){
-                grade=new Grade();
-                grade.setId(resultSet.getLong(1));
-                grade.setGradeNumber(resultSet.getByte(2));
-                grade.setGradeName(resultSet.getString(3));
-                list.add(grade);
-            }
-        }
-        return list;
+        return super.sqlSessionTemplate.selectList(getMybaitsNameSpace()+"findByCondtionForPage",stringObjectMap);
+//        //定义人员集合
+//        List<Grade> list=new ArrayList<Grade>();
+//        //判断人员map对象是否为null
+//        if (stringObjectMap != null) {
+//            //定义sql语句
+//            sqlStr="SELECT ID,GRADE_NUMBER,GRADE_NAME FROM GRADE WHERE 1=1";
+//            //定义Map.Entry对象
+//            Set<Map.Entry<String, Object>> set=stringObjectMap.entrySet();
+//            //迭代
+//            Iterator<Map.Entry<String, Object>> iterator=set.iterator();
+//            //获取判断条件
+//            while (iterator.hasNext()){
+//                Map.Entry<String, Object> mapEntry=iterator.next();
+//                sqlStr+=" AND "+mapEntry.getKey()+"='"+mapEntry.getValue()+"'";
+//            }
+//            sqlStr += " LIMIT "+startRows+","+size;
+//            //获取预编译
+//            preparedStatement=getPreparedStatement(sqlStr);
+//            //执行sql语句
+//            resultSet=preparedStatement.executeQuery();
+//            //提交
+//            commit();
+//            //定义等级对象
+//            Grade grade=null;
+//            while (resultSet.next()){
+//                grade=new Grade();
+//                grade.setId(resultSet.getLong(1));
+//                grade.setGradeNumber(resultSet.getByte(2));
+//                grade.setGradeName(resultSet.getString(3));
+//                list.add(grade);
+//            }
+//        }
+//        return list;
     }
 }

@@ -4,29 +4,69 @@
     <!-- 定义结果集 -->
     <resultMap id="activityRelationMap" type="wechat_business.entity.ActivityRelation">
         <id property="id" column="ID"/>
-        <association property="activityInfoId" column="ACTIVITY_INFO_ID" select="getActivityInfo"></association>
-        <association property="itemRelationId" column= "ITEM_RELATION_ID" select="getItemRelation"></association>
+        <association property="activityInfoId" column="ACTIVITY_INFO_ID" javaType="wechat_business.entity.ActivityInfo">
+            <id property="id" column="ID"/>
+            <result property="discount" column="DISCOUNT"/>
+            <result property="activityName" column="ACTIVITY_NAME"/>
+            <result property="activityStartTime" column="ACTIVITY_START_TIME"/>
+            <result property="activityEndTime" column="ACTIVITY_END_TIME"/>
+        </association>
+        <association property="itemRelationId" column= "ITEM_RELATION_ID" javaType="wechat_business.entity.ItemRelation">
+            <id property="id" column="ID"/>
+            <result column="INVENTORY" property="inventory"></result>
+            <result column="PRICE" property="price"></result>
+            <result column="IMG_ADDR" property="imgAddr"></result>
+            <association property="sellerInfo" column="SELLER_INFO_ID" javaType="wechat_business.entity.SellerInfo">
+                <id column="ID" property="id"></id>
+                <result column="SHOP_NAME" property="shopName"></result>
+                <result column="SHOP_NUMBER" property="shopNumber"></result>
+                <result column="SHOP_TYPE" property="shopType"></result>
+                <result column="TAOBAO_ACCOUNT_ID" property="taobaoAccountId"></result>
+                <result column="REGISTRATION_TIME" property="registrationTime"></result>
+                <result column="ADDRESS" property="address"></result>
+                <result column="EMAIL" property="email"></result>
+                <result column="AFFILIATED_COMPANY" property="affiltaedCompany"></result>
+                <result column="COMMERCIAL_REGISTRATION_NUM" property="commercialRegistrationNum"></result>
+                <result column="UPDATE_TIME" property="updateTime"></result>
+                <result column="DEPOSIT" property="deposit"></result>
+                <result column="CREDITWORTHINESS" property="creditworthiness"></result>
+            </association>
+            <association property="itemInfo" column="ITEM_INFO_ID" javaType="wechat_business.entity.ItemInfo">
+                <id column="ID" property="id"></id>
+                <result column="NAME" property="name"></result>
+                <result column="NUMBER" property="number"></result>
+                <result column="IN_TIME" property="inTime"></result>
+                <result column="UPDATE_TIME" property="updateTimel"></result>
+                <result column="MAKER" property="maker"></result>
+                <result column="ADDR" property="addr"></result>
+                <result column="MAKE_TIME" property="makeTime"></result>
+                <result column="EXPIRATION" property="expiration"></result>
+                <result column="ORIGIN" property="origin"></result>
+                <result column="DESCRIPTION" property="description"></result>
+                <result column="DISCOUNT" property="discount"></result>
+            </association>
+        </association>
     </resultMap>
-    <select id="getActivityInfo">
-        SELECT ID,DISCOUNT,ACTIVITY_NAME,ACTIVITY_START_TIME,ACTIVITY_END_TIME FROM ACTIVITY_INFO
-    </select>
-    <select id="getItemRelation">
-        SELECT ID,SELLER_INFO_ID,ITEM_INFO_ID,INVENTORY,PRICE FROM item_relation
-    </select>
+    <!-- 定义sql -->
+    <sql id="columns">
+        ID,ITEM_RELATION_ID,ACTIVITY_INFO_ID
+    </sql>
     <!-- 根据id删除 -->
     <delete id="deleteById" parameterType="java.lang.Long">
         DELETE FROM ACTIVITY_RELATION WHERE ID=#{id}
     </delete>
     <!-- 根据多个id删除 -->
-    <delete id="deleteByIds" parameterType="java.util.Arrays">
-        DELETE FROM ACTIVITY_RELATION WHERE ID IN
-        <foreach collection="array" item="ids" open="(" separator="," close=")">
-            #{id}
-        </foreach>
+    <delete id="deleteByIds" parameterType="java.util.Map">
+        <if test="@wechat_business.dao.Ognl@isNotEmpty(ids)">
+            DELETE FROM ACTIVITY_RELATION WHERE ID IN
+            <foreach collection="ids" item="ids" open="(" separator="," close=")">
+                #{ids}
+            </foreach>
+        </if>
     </delete>
     <!-- 保存 -->
     <insert id="save" parameterType="wechat_business.entity.ActivityRelation">
-        INSERT INTO ACTIVITY_RELATION(ID,ITEM_RELATION_ID,ACTIVITY_INFO_ID) VALUES (#{id},#{itemRelationId},#{activityInfoId})
+        INSERT INTO ACTIVITY_RELATION(<include refid="columns"/> ) VALUES (DEFAULT ,#{itemRelationId},#{activityInfoId})
     </insert>
     <!-- 修改 -->
     <update id="update" parameterType="wechat_business.entity.ActivityRelation">
@@ -34,26 +74,30 @@
     </update>
     <!-- 根据id查询 -->
     <select id="findById" parameterType="java.lang.Long" resultMap="activityRelationMap">
-        SELECT ID,ITEM_RELATION_ID,ACTIVITY_INFO_ID FROM ACTIVITY_RELATION WHERE ID=#{id}
+        SELECT <include refid="columns"/> FROM ACTIVITY_RELATION WHERE ID=#{id}
     </select>
     <!-- 根据条件查询 -->
-    <select id="findByCondtion" parameterType="java.util.HashMap" resultMap="activityRelationMap">
-        SELECT ID,ITEM_RELATION_ID,ACTIVITY_INFO_ID FROM ACTIVITY_RELATION WHERE 1=1
-        <if test="@Ognl@isNotEmpty(ITEM_RELATION_ID)">
-            AND ITEM_RELATION_ID LIKE #{itemRelationId}
-        </if>
-        <if test="@Ognl@isNotEmpty(ACTIVITY_INFO_ID)">
-            AND ACTIVITY_INFO_ID LIKE #{activityInfoId}
-        </if>
+    <select id="findByCondtion" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT <include refid="columns"/> FROM ACTIVITY_RELATION
+        <where>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(itemRelationId)">
+                AND ITEM_RELATION_ID LIKE #{itemRelationId}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(activityInfoId)">
+                AND ACTIVITY_INFO_ID LIKE #{activityInfoId}
+            </if>
+        </where>
     </select>
     <!--&lt;!&ndash; 根据条件分页查询 &ndash;&gt;-->
-    <!--<select id="findByCondtionForPage" parameterType="java.util.HashMap" resultMap="activityRelationMap">-->
-        <!--SELECT ID,ITEM_RELATION_ID,ACTIVITY_INFO_ID FROM ACTIVITY_RELATION WHERE 1=1-->
-        <!--<if test="@Ognl@isNotEmpty(ITEM_RELATION_ID)">-->
-            <!--AND ITEM_RELATION_ID LIKE #{itemRelationId}-->
-        <!--</if>-->
-        <!--<if test="@Ognl@isNotEmpty(ACTIVITY_INFO_ID)">-->
-            <!--AND ACTIVITY_INFO_ID LIKE #{activityInfoId}-->
-        <!--</if>-->
-    <!--</select>-->
+    <select id="findByCondtionForPage" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT <include refid="columns"/> FROM ACTIVITY_RELATION
+        <where>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(itemRelationId)">
+                AND ITEM_RELATION_ID LIKE #{itemRelationId}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(activityInfoId)">
+                AND ACTIVITY_INFO_ID LIKE #{activityInfoId}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -38,7 +38,7 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
      */
     @Override
     public Integer deleteById(Long id) throws SQLException {
-        return sqlSessionTemplate.delete(getMybaitsNameSpace()+"deleteById",id);
+        return super.sqlSessionTemplate.delete(getMybaitsNameSpace()+"deleteById",id);
 //        //定义sql删除语句
 //        sqlStr="DELETE FROM people_info WHERE ID=?";
 //        //获取预编译对象
@@ -64,7 +64,7 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
      */
     @Override
     public Integer deleteByIds(Long[] ids) throws SQLException {
-        return sqlSessionTemplate.delete(getMybaitsNameSpace()+"deleteByIds",ids);
+        return super.sqlSessionTemplate.delete(getMybaitsNameSpace()+"deleteByIds",ids);
 //        if (ids.length > 0){
 //            //定义sql删除语句
 //            sqlStr="DELETE FROM people_info WHERE 1=1";
@@ -96,7 +96,7 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
     public Integer saveOrUpdate(PeopleInfo people) throws SQLException {
         //判断人员id是否为null，若是则修改,否则保存
         if (people.getId() != null){
-            return sqlSessionTemplate.update(getMybaitsNameSpace()+"saveOrUpdate",people);
+            return super.sqlSessionTemplate.update(getMybaitsNameSpace()+"update",people);
 //            //定义sql语句
 //            sqlStr="UPDATE people_info  "+
 //                    "SET"+
@@ -138,7 +138,7 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
 //            //提交
 //            commit();
         }else {
-            return sqlSessionTemplate.insert(getMybaitsNameSpace()+"saveOrUpdate",people);
+            return super.sqlSessionTemplate.insert(getMybaitsNameSpace()+"save",people);
 //            //定义sql语句
 //            sqlStr="INSERT INTO people_info (ID,`NAME`,SEX,AGE,NATION,BIRTHDATE,ID_NUMBER,MOBILE_PHONE,NATIVE_PLACE,MAILBOX,PERMANENT_ADDRESS,PROFESSION,WORK_UNIT,CREATE_TIME,UPDATE_TIME)" +
 //                    " VALUES(DEFAULT,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -179,7 +179,8 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
      */
     @Override
     public PeopleInfo findById(Long id) throws SQLException {
-        return sqlSessionTemplate.selectOne(getMybaitsNameSpace()+"findById",id);
+
+        return super.sqlSessionTemplate.selectOne(getMybaitsNameSpace()+"findById",id);
 //        //定义sql语句
 //        sqlStr="SELECT ID,NAME,SEX,AGE,MOBILE_PHONE FROM people_info WHERE ID=?";
 //        //获取查询数据库的Statement对象
@@ -214,7 +215,7 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
      */
     @Override
     public List<PeopleInfo> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException {
-        return sqlSessionTemplate.selectList(getMybaitsNameSpace()+"findByCondtion",stringObjectMap);
+        return super.sqlSessionTemplate.selectList(getMybaitsNameSpace()+"findByCondtion",stringObjectMap);
 //        //定义人员集合
 //        List<PeopleInfo> list=new ArrayList<PeopleInfo>();
 //        //判断人员map对象是否为null
@@ -267,43 +268,43 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
      */
     @Override
     public List<PeopleInfo> findByCondtionForPage(Map<String, Object> stringObjectMap, Integer startRows, Integer size) throws SQLException {
-
-        //定义人员集合
-        List<PeopleInfo> list=new ArrayList<PeopleInfo>();
-        //判断人员map对象是否为null
-        if (stringObjectMap != null) {
-            //定义sql语句
-            sqlStr = "SELECT ID,NAME,SEX,AGE,MOBILE_PHONE,ID_NUMBER,CREATE_TIME FROM people_info WHERE 1=1 ";
-            //定义Map.Entry对象
-            Set<Map.Entry<String, Object>> set=stringObjectMap.entrySet();
-            //迭代
-            Iterator<Map.Entry<String, Object>> iterator=set.iterator();
-            //获取判断条件
-            while (iterator.hasNext()){
-                Map.Entry<String, Object> mapEntry=iterator.next();
-                sqlStr+=" OR "+mapEntry.getKey()+" = '"+mapEntry.getValue()+"'";
-            }
-            sqlStr += " LIMIT "+startRows+" , "+size;
-            //获取预编译
-            preparedStatement=getPreparedStatement(sqlStr);
-            //执行sql语句
-            resultSet=preparedStatement.executeQuery();
-            //提交
-            commit();
-            //定义人员信息对象
-            PeopleInfo peopleInfo=null;
-            while (resultSet.next()){
-                peopleInfo=new PeopleInfo();
-                peopleInfo.setId(resultSet.getLong(1));
-                peopleInfo.setName(resultSet.getString(2));
-                peopleInfo.setSex(resultSet.getByte(3));
-                peopleInfo.setAge(resultSet.getInt(4));
-                peopleInfo.setMobilePhone(resultSet.getString(5));
-                peopleInfo.setIdNumber(resultSet.getString(6));
-                peopleInfo.setCreateTime(resultSet.getDate(7));
-                list.add(peopleInfo);
-            }
-        }
-        return list;
+        return super.sqlSessionTemplate.selectList(getMybaitsNameSpace()+"findByCondtionForPage",stringObjectMap);
+//        //定义人员集合
+//        List<PeopleInfo> list=new ArrayList<PeopleInfo>();
+//        //判断人员map对象是否为null
+//        if (stringObjectMap != null) {
+//            //定义sql语句
+//            sqlStr = "SELECT ID,NAME,SEX,AGE,MOBILE_PHONE,ID_NUMBER,CREATE_TIME FROM people_info WHERE 1=1 ";
+//            //定义Map.Entry对象
+//            Set<Map.Entry<String, Object>> set=stringObjectMap.entrySet();
+//            //迭代
+//            Iterator<Map.Entry<String, Object>> iterator=set.iterator();
+//            //获取判断条件
+//            while (iterator.hasNext()){
+//                Map.Entry<String, Object> mapEntry=iterator.next();
+//                sqlStr+=" OR "+mapEntry.getKey()+" = '"+mapEntry.getValue()+"'";
+//            }
+//            sqlStr += " LIMIT "+startRows+" , "+size;
+//            //获取预编译
+//            preparedStatement=getPreparedStatement(sqlStr);
+//            //执行sql语句
+//            resultSet=preparedStatement.executeQuery();
+//            //提交
+//            commit();
+//            //定义人员信息对象
+//            PeopleInfo peopleInfo=null;
+//            while (resultSet.next()){
+//                peopleInfo=new PeopleInfo();
+//                peopleInfo.setId(resultSet.getLong(1));
+//                peopleInfo.setName(resultSet.getString(2));
+//                peopleInfo.setSex(resultSet.getByte(3));
+//                peopleInfo.setAge(resultSet.getInt(4));
+//                peopleInfo.setMobilePhone(resultSet.getString(5));
+//                peopleInfo.setIdNumber(resultSet.getString(6));
+//                peopleInfo.setCreateTime(resultSet.getDate(7));
+//                list.add(peopleInfo);
+//            }
+//        }
+//        return list;
     }
 }

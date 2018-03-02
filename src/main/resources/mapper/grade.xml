@@ -8,20 +8,26 @@
         <result property="gradeNumber" column="GRADE_NUMBER"/>
         <result property="gradeName" column="GRADE_NAME"/>
     </resultMap>
+    <!-- 定义sql -->
+    <sql id="columns">
+        ID,GRADE_NUMBER,GRADE_NAME
+    </sql>
     <!-- 根据id删除 -->
     <delete id="deleteById" parameterType="java.lang.Long">
         DELETE FROM GRADE WHERE ID=#{id}
     </delete>
     <!-- 根据多个id删除 -->
-    <delete id="deleteByIds" parameterType="java.util.Arrays">
-        DELETE FROM GRADE WHERE ID IN
-        <foreach collection="array" item="ids" open="(" separator="," close=")">
-            #{id}
-        </foreach>
+    <delete id="deleteByIds" parameterType="java.util.Map">
+        <if test="@wechat_business.dao.Ognl@isNotEmpty(ids)">
+            DELETE FROM GRADE WHERE ID IN
+            <foreach collection="ids" item="ids" open="(" separator="," close=")">
+                #{ids}
+            </foreach>
+        </if>
     </delete>
     <!-- 保存 -->
     <insert id="save" parameterType="wechat_business.entity.Grade">
-      INSERT INTO GRADE(ID,GRADE_NUMBER,GRADE_NAME) VALUES (#{id},#{gradeNumber},#{gradeName})
+      INSERT INTO GRADE(<include refid="columns"/> ) VALUES (DEFAULT ,#{gradeNumber},#{gradeName})
     </insert>
     <!-- 修改 -->
     <update id="update" parameterType="wechat_business.entity.Grade">
@@ -29,20 +35,26 @@
     </update>
     <!-- 根据id查询 -->
     <select id="findById" parameterType="java.lang.Long" resultMap="gradeMap">
-        SELECT ID,GRADE_NUMBER,GRADE_NAME FROM GRADE WHERE ID=#{id}
-    </select>
-    <!-- 根据条件查询 -->
-    <select id="findByCondtion" parameterType="java.util.HashMap" resultMap="gradeMap">
-        SELECT ID,GRADE_NUMBER,GRADE_NAME FROM GRADE WHERE 1=1
-        <if test="@Ognl@isNotEmpty(GRADE_NAME)">
-            AND GRADE_NAME LIKE #{gradeName}
+        <if test="@wechat_business.dao.Ognl@isNotEmpty(id)">
+            SELECT <include refid="columns"/> FROM GRADE WHERE ID=#{id}
         </if>
     </select>
+    <!-- 根据条件查询 -->
+    <select id="findByCondtion" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT <include refid="columns"/> FROM GRADE
+        <where>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(gradeName)">
+                AND GRADE_NAME LIKE #{gradeName}
+            </if>
+        </where>
+    </select>
     <!-- 根据条件分页查询 -->
-    <!--<select id="findByCondtionForPage" parameterType="stringObjectMap" resultMap="gradeMap">-->
-        <!--SELECT ID,GRADE_NUMBER,GRADE_NAME FROM GRADE WHERE 1=1-->
-        <!--<if test="@Ognl@isNotEmpty(GRADE_NAME)">-->
-            <!--AND GRADE_NAME LIKE #{gradeName}-->
-        <!--</if>-->
-    <!--</select>-->
+    <select id="findByCondtionForPage" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT <include refid="columns"/> FROM GRADE
+        <where>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(gradeName)">
+                AND GRADE_NAME LIKE #{gradeName}
+            </if>
+        </where>
+    </select>
 </mapper>
