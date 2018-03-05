@@ -8,6 +8,8 @@ package wechat_business.service;
  * @version V1.0
  */
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import wechat_business.dao.Dao;
 import wechat_business.dao.ItemInfoDao;
 import wechat_business.dao.OrderDetailDaoImpl;
@@ -29,8 +31,10 @@ import java.util.Map;
  * @Description 类描述
  * @date 2018/1/22
  */
+@Service("sellerInfoServiceImpl")
 public class SellerInfoServiceImpl implements SellerInfoService {
-    SellerInfoDao sellerInfoDao =  new SellerInfoDao();
+    @Autowired
+    SellerInfoDao sellerInfoDao;
     /**
      * @Title: deleteById
      * @Description: 根据Id删除数据

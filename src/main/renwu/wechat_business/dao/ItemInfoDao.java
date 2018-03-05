@@ -8,6 +8,7 @@ package wechat_business.dao;/***************************************************
  * @version V1.0
  */
 
+import org.springframework.stereotype.Repository;
 import wechat_business.entity.ItemInfo;
 import wechat_business.service.ItemTypeServiceImpl;
 
@@ -20,6 +21,7 @@ import java.util.*;
  * @Description 商品Dao
  * @date 2018/1/25
  */
+@Repository
 public class ItemInfoDao extends Dao<ItemInfo> {
     ItemTypeServiceImpl service = new ItemTypeServiceImpl();
     private String sql = null;

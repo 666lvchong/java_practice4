@@ -18,15 +18,17 @@
         DELETE FROM ACTIVITY_INFO WHERE ID=#{id}
     </delete>
     <!-- 根据多个id删除 -->
-    <delete id="deleteByIds" parameterType="java.util.Arrays">
-        DELETE FROM ACTIVITY_INFO WHERE ID IN
-        <foreach collection="array" item="ids" open="(" separator="," close=")">
-            #{id}
-        </foreach>
+    <delete id="deleteByIds" parameterType="java.util.Map">
+        <if test="@wechat_business.dao.Ognl@isNotEmpty(ids)">
+            DELETE FROM ACTIVITY_INFO WHERE ID IN
+            <foreach collection="ids" item="ids" open="(" separator="," close=")">
+                #{ids}
+            </foreach>
+        </if>
     </delete>
     <!-- 保存 -->
     <insert id="save" parameterType="wechat_business.entity.ActivityInfo">
-        INSERT INTO ACTIVITY_INFO(ID,DISCOUNT,ACTIVITY_NAME,ACTIVITY_START_TIME,ACTIVITY_END_TIME) VALUES (#{id},#{discount},#{activityName},#{activityStartTime},#{activityEndTime})
+        INSERT INTO ACTIVITY_INFO(<include refid="columns"/> ) VALUES (DEFAULT ,#{discount},#{activityName},#{activityStartTime},#{activityEndTime})
     </insert>
     <!-- 修改 -->
     <update id="update" parameterType="wechat_business.entity.ActivityInfo">
@@ -37,17 +39,21 @@
         SELECT <include refid="columns"/> FROM ACTIVITY_INFO WHERE ID=#{id}
     </select>
     <!-- 根据条件查询 -->
-    <select id="findByCondtion" resultMap="activityInfoMap">
-        SELECT <include refid="columns"/> FROM ACTIVITY_INFO WHERE 1=1
-        <if test="@Ognl@isNotEmpty(ACTIVITY_NAME)">
-            AND ACTIVITY_NAME LIKE #{activityName}
-        </if>
+    <select id="findByCondtion" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT <include refid="columns"/> FROM ACTIVITY_INFO
+        <where>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(activityName)">
+                AND ACTIVITY_NAME LIKE #{activityName}
+            </if>
+        </where>
     </select>
     <!-- 根据条件分页查询 -->
-    <select id="findByCondtionForPage" resultMap="activityInfoMap">
-        SELECT <include refid="columns"/> FROM ACTIVITY_INFO WHERE 1=1
-          <if test="@Ognl@isNotEmpty(ACTIVITY_NAME)">
-              AND ACTIVITY_NAME LIKE #{activityName}
-          </if>
+    <select id="findByCondtionForPage" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT <include refid="columns"/> FROM ACTIVITY_INFO
+        <where>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(activityName)">
+                AND ACTIVITY_NAME LIKE #{activityName}
+            </if>
+        </where>
     </select>
 </mapper>

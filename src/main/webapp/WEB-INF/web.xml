@@ -7,6 +7,19 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
   <display-name>Archetype Created Web Application</display-name>
+    <!-- Struts2 XML配置 -->
+    <filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
     <!--lvchong servlet-->
     <servlet>
         <servlet-name>DengLuServlet</servlet-name>
@@ -16,6 +29,7 @@
         <servlet-name>DengLuServlet</servlet-name>
         <url-pattern>/dengLu.do</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>FindByItemInfoServlet</servlet-name>
         <servlet-class>wechat_business.servlet.FindByItemInfoServlet</servlet-class>

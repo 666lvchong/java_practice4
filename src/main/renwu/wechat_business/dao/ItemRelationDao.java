@@ -151,6 +151,8 @@ public class ItemRelationDao extends Dao<ItemRelation> {
      */
     @Override
     public List<ItemRelation> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException {
+        return sqlSessionTemplate.selectList(getMybaitsNameSpace()+"findByCondtion",stringObjectMap);
+     /*
         SellerInfoServiceImpl sellerInfoServiceImpl = new SellerInfoServiceImpl();
         ItemInfoServiceImpl itemInfoServiceImpl= new ItemInfoServiceImpl();
         List<ItemRelation> list = new ArrayList<ItemRelation>();
@@ -181,8 +183,8 @@ public class ItemRelationDao extends Dao<ItemRelation> {
                 itemRelation.setImgAddr(resultSet.getString(6));
                 list.add(itemRelation);
             }
-        }
-        return list;
+        }*/
+
     }
     /**
      * @Title: findByCondtionForPage
@@ -199,6 +201,7 @@ public class ItemRelationDao extends Dao<ItemRelation> {
             sql = " SELECT ID, SELLER_INFO_ID, ITEM_INFO_ID, INVENTORY, PRICE, IMG_ADDR\n" +
                     "FROM\n" +
                     "ITEM_RELATION";
+
             Set<Map.Entry<String, Object>> set = stringObjectMap.entrySet();
             Iterator<Map.Entry<String, Object>> iterator = set.iterator();
             if(iterator.hasNext()){

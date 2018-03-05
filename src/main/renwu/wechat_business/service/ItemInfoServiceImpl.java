@@ -8,6 +8,9 @@ package wechat_business.service;/***********************************************
  * @version V1.0
  */
 
+import org.apache.struts2.convention.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import wechat_business.dao.ItemInfoDao;
 import wechat_business.entity.ItemInfo;
 
@@ -21,9 +24,11 @@ import java.util.Map;
  * @Description 类描述
  * @date 2018/1/26
  */
+@Service("itemInfoServiceImpl")
 public class ItemInfoServiceImpl implements ItemInfoService {
     //定义一个静态对象，方便调用方法
-    private ItemInfoDao dao= new ItemInfoDao();
+    @Autowired
+    private ItemInfoDao itemInfoDao;
     /**
      * @Title: deletePeopleById
      * @Description: 删除指定id 的人员信息
@@ -34,7 +39,7 @@ public class ItemInfoServiceImpl implements ItemInfoService {
      */
     @Override
     public Integer deleteById(Long id) throws SQLException {
-        return dao.deleteById(id);
+        return itemInfoDao.deleteById(id);
     }
 
     /**
@@ -47,7 +52,7 @@ public class ItemInfoServiceImpl implements ItemInfoService {
      */
     @Override
     public Integer deleteByIds(Long[] ids) throws SQLException {
-        return dao.deleteByIds(ids);
+        return itemInfoDao.deleteByIds(ids);
 
     }
     /**
@@ -59,7 +64,7 @@ public class ItemInfoServiceImpl implements ItemInfoService {
     @Override
     public Integer saveOrUpdate(ItemInfo itemInfo) throws SQLException {
         //定义受影响行数
-        Integer rows=dao.saveOrUpdate(itemInfo);
+        Integer rows=itemInfoDao.saveOrUpdate(itemInfo);
         System.out.println("受影响行数"+rows);
         return rows;
 
@@ -72,7 +77,7 @@ public class ItemInfoServiceImpl implements ItemInfoService {
      */
     @Override
     public ItemInfo findById(Long id) throws SQLException {
-        return dao.findById(id);
+        return itemInfoDao.findById(id);
     }
     /**
      * @Title: findByCondtion
@@ -82,7 +87,7 @@ public class ItemInfoServiceImpl implements ItemInfoService {
      */
     @Override
     public List<ItemInfo> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException {
-        return dao.findByCondtion(stringObjectMap);
+        return itemInfoDao.findByCondtion(stringObjectMap);
     }
     /**
      * @Title: findByCondtionForPage
@@ -92,7 +97,7 @@ public class ItemInfoServiceImpl implements ItemInfoService {
      */
     @Override
     public List<ItemInfo> findByCondtionForPage(Map<String, Object> stringObjectMap, Integer startRows, Integer size) throws SQLException {
-        return dao.findByCondtionForPage(stringObjectMap,startRows,size);
+        return itemInfoDao.findByCondtionForPage(stringObjectMap,startRows,size);
     }
     /**
      * @Title: rollback
@@ -103,7 +108,7 @@ public class ItemInfoServiceImpl implements ItemInfoService {
      * @throw YnCorpSysException
      */
     public void rollback() throws SQLException {
-        dao.rollback();
+        itemInfoDao.rollback();
     }
 
     /**
@@ -114,6 +119,6 @@ public class ItemInfoServiceImpl implements ItemInfoService {
      * @throw YnCorpSysException
      */
     public void release(){
-        dao.release();
+        itemInfoDao.release();
     }
 }

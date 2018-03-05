@@ -5,11 +5,126 @@
         <resultMap id="sellerInfoMap" type="wechat_business.entity.SellerInfo">
             <id property="id" column="ID" jdbcType="BIGINT" />
             <result property="shopName" column="SHOP_NAME" jdbcType="VARCHAR"/>
-            <result property="shopNumber" column="SHOP_NAME" jdbcType="VARCHAR"/>
-            <result property="shop" column="SHOP_NAME" jdbcType="VARCHAR"/>
-
-
-
+            <result property="shopNumber" column="SHOP_NUMBER" jdbcType="VARCHAR"/>
+            <result property="shopType" column="SHOP_TYPE" jdbcType="VARCHAR"/>
+            <result property="taobaoAccountId" column="TAOBAO_ACCOUNT_ID" jdbcType="BIGINT"/>
+            <result property="regisistrationTime" column="REGISISTRATIONTIME" jdbcType="DATETIME"/>
+            <result property="address" column="ADDRESS" jdbcType="VARCHAR"/>
+            <result property="email" column="EMAIL" jdbcType="VARCHAR"/>
+            <result property="affiliatedCompany" column="AFFILIATED_COMPANY" jdbcType="VARCHAR"/>
+            <result property="commercialRegistrationNum" column="COMMERCIAL_REGISTRATION_NUM" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="UPDATE_TIME" jdbcType="DATETIME"/>
+            <result property="deposit" column="DEPOSIT" jdbcType="DECIMAL"/>
+            <result property="creditworthiness" column="CREDITWORTHINESS" jdbcType="BIGINT"/>
         </resultMap>
-
+    <!-- 定义sql操作列 -->
+    <sql id="columns">
+        ID、SHOP_NAME、SHOP_NUMBER、SHOP_TYPE、TAOBAO_ACCOUNT_ID、REGISISTRATION、ADDRESS、EMAIL、AFFILIATED_COMPANY、
+        COMMERCIAL_REGISTRATION_NUM、UPDATE_TIME、DEPOSIT、CREDITWORTHINESS
+    </sql>
+    <!-- 根据id删除 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM seller_info WHERE ID=#{id}
+    </delete>
+    <!-- 根据多个id删除 -->
+    <delete id="deleteByIds" parameterType="java.util.Arrays">
+        DELETE FROM seller_info WHERE ID IN
+        <foreach collection="array" item="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <!-- 保存 -->
+    <insert id="save" parameterType="wechat_business.entity.SellerInfo">
+        INSERT INTO seller_info(ID,SHOP_NAME,SHOP_NUMBER,SHOP_TYPE,TAOBAO_ACCOUNT_ID,REGISISTRATIONTIME,ADDRESS,EMAIL,AFFILIATED_COMPANY,COMMERCIAL_REGISTRATION_NUM,UPDATE_TIME,DEPOSIT,CREDITWORTHINESS)
+        VALUES (#{id},#{shopName},#{shopNumber},#{shopType},#{taobaoAccountId},#{regisistrationTime},#{address},#{email},#{affiliatedCompany},#{commercialRegistrationNum},#{updateTime},#{deposit},#{creditworthiness})
+    </insert>
+    <!-- 修改 -->
+    <update id="update" parameterType="wechat_business.entity.SellerInfo">
+        UPDATE seller_info SET SHOP_NAME=#{shopName},SHOP_NUMBER=#{shopNumber},SHOP_TYPE=#{shopType},TAOBAO_ACCOUNT_ID=#{taobaoAccountId},REGISISTRATIONTIME=#{regisistrationTime},ADDRESS=#{address},
+        EMAIL=#{email},AFFILIATED_COMPANY=#{affiliatedCompany},COMMERCIAL_REGISTRATION_NUM=#{commercialRegistrationNum},UPDATE_TIME=#{updateTime},DEPOSIT=#{deposit},CREDITWORTHINESS=#{creditworthiness}
+    </update>
+    <!-- 根据id查询 -->
+    <select id="findById" parameterType="java.lang.Long" resultMap="sellerInfoMap">
+        SELECT <include refid="columns"/> FROM seller_info WHERE ID=#{id}
+    </select>
+    <!-- 根据条件查询 -->
+    <select id="findByCondtion" resultMap="sellerInfoMap">
+        SELECT <include refid="columns"/> FROM seller_info WHERE 1=1
+        <if test="@Ognl@isNotEmpty(`SHOP_NAME`)">
+            AND `SHOP_NAME` LIKE #{shopName}
+        </if>
+        <if test="@Ognl@isNotEmpty(SHOP_NUMBER)">
+            AND SHOP_NUMBER LIKE #{shopNumber}
+        </if>
+        <if test="@Ognl@isNotEmpty(SHOP_TYPE)">
+            AND SHOP_TYPE LIKE #{shopType}
+        </if>
+        <if test="@Ognl@isNotEmpty(TAOBAO_ACCOUNT_ID)">
+            AND TAOBAO_ACCOUNT_ID LIKE #{taobaoAccountId}
+        </if>
+        <if test="@Ognl@isNotEmpty(REGISISTRATIONTIME)">
+            AND REGISISTRATIONTIME LIKE #{regisistrationTime}
+        </if>
+        <if test="@Ognl@isNotEmpty(ADDRESS)">
+            AND ADDRESS LIKE #{address}
+        </if>
+        <if test="@Ognl@isNotEmpty(EMAIL)">
+            AND EMAIL LIKE #{email}
+        </if>
+        <if test="@Ognl@isNotEmpty(AFFILIATED_COMPANY)">
+            AND AFFILIATED_COMPANY LIKE #{affiliatedCompany}
+        </if>
+        <if test="@Ognl@isNotEmpty(COMMERCIAL_REGISTRATION_NUM)">
+            AND COMMERCIAL_REGISTRATION_NUM LIKE #{commercialRegistrationNum}
+        </if>
+        <if test="@Ognl@isNotEmpty(UPDATE_TIME)">
+            AND UPDATE_TIME LIKE #{updateTime}
+        </if>
+        <if test="@Ognl@isNotEmpty(DEPOSIT)">
+            AND DEPOSIT LIKE #{deposit}
+        </if>
+        <if test="@Ognl@isNotEmpty(CREDITWORTHINESS)">
+            AND CREDITWORTHINESS LIKE #{creditworthiness}
+        </if>
+    </select>
+    <!-- 根据条件分页查询 -->
+    <select id="findByCondtionForPage" resultMap="sellerInfoMap">
+        SELECT <include refid="columns"/> FROM seller_info WHERE 1=1
+        <if test="@Ognl@isNotEmpty(`SHOP_NAME`)">
+            AND `SHOP_NAME` LIKE #{shopName}
+        </if>
+        <if test="@Ognl@isNotEmpty(SHOP_NUMBER)">
+            AND SHOP_NUMBER LIKE #{shopNumber}
+        </if>
+        <if test="@Ognl@isNotEmpty(SHOP_TYPE)">
+            AND SHOP_TYPE LIKE #{shopType}
+        </if>
+        <if test="@Ognl@isNotEmpty(TAOBAO_ACCOUNT_ID)">
+            AND TAOBAO_ACCOUNT_ID LIKE #{taobaoAccountId}
+        </if>
+        <if test="@Ognl@isNotEmpty(REGISISTRATIONTIME)">
+            AND REGISISTRATIONTIME LIKE #{regisistrationTime}
+        </if>
+        <if test="@Ognl@isNotEmpty(ADDRESS)">
+            AND ADDRESS LIKE #{address}
+        </if>
+        <if test="@Ognl@isNotEmpty(EMAIL)">
+            AND EMAIL LIKE #{email}
+        </if>
+        <if test="@Ognl@isNotEmpty(AFFILIATED_COMPANY)">
+            AND AFFILIATED_COMPANY LIKE #{affiliatedCompany}
+        </if>
+        <if test="@Ognl@isNotEmpty(COMMERCIAL_REGISTRATION_NUM)">
+            AND COMMERCIAL_REGISTRATION_NUM LIKE #{commercialRegistrationNum}
+        </if>
+        <if test="@Ognl@isNotEmpty(UPDATE_TIME)">
+            AND UPDATE_TIME LIKE #{updateTime}
+        </if>
+        <if test="@Ognl@isNotEmpty(DEPOSIT)">
+            AND DEPOSIT LIKE #{deposit}
+        </if>
+        <if test="@Ognl@isNotEmpty(CREDITWORTHINESS)">
+            AND CREDITWORTHINESS LIKE #{creditworthiness}
+        </if>
+    </select>
 </mapper>
