@@ -24,15 +24,16 @@ import java.util.*;
  */
 @Repository
 public class ItemRelationDao extends Dao<ItemRelation> {
+    /*
     private String sql = null;
     private Integer result;
     @Override
-    /**
+    *//**
      * @Title: deleteById
      * @Description: 根据Id删除数据
      * @author lvchong
      * @date 2018-01-19
-     */
+     *//*
     public Integer deleteById(Long id) throws SQLException {
         sql ="DELETE FROM ITEM_RELATION WHERE ID = ?";
         preparedStatement = getPreparedStatement(sql);
@@ -41,12 +42,12 @@ public class ItemRelationDao extends Dao<ItemRelation> {
         commit();
         return result;
     }
-    /**
+    *//**
      * @Title: deleteByIds
      * @Description: 根据Id删除多个
      * @author lvchong
      * @date 2018-01-19
-     */
+     *//*
     @Override
     public Integer deleteByIds(Long[] ids) throws SQLException {
         int results = 0;
@@ -57,12 +58,12 @@ public class ItemRelationDao extends Dao<ItemRelation> {
         }
         return results;
     }
-    /**
+    *//**
      * @Title: saveOrUpdate
      * @Description: 添加或者修改
      * @author lvchong
      * @date 2018-01-19
-     */
+     *//*
     @Override
     public Integer saveOrUpdate(ItemRelation test) throws SQLException {
         if (test.getId() != null){
@@ -114,12 +115,12 @@ public class ItemRelationDao extends Dao<ItemRelation> {
         }
         return result;
     }
-    /**
+    *//**
      * @Title: findById
      * @Description: 更具Id查询数据
      * @author lvchong
      * @date 2018-01-19
-     */
+     *//*
     @Override
     public ItemRelation findById(Long id) throws SQLException {
         SellerInfoServiceImpl sellerInfoServiceImpl = new SellerInfoServiceImpl();
@@ -142,17 +143,17 @@ public class ItemRelationDao extends Dao<ItemRelation> {
         }
         return itemRelation;
     }
-    /**
+    *//**
      * @Title: findByCondtion
      * @Description: 条件查询数据
      * @author lvchong
      * @date 2018-01-19
      * @param stringObjectMap
-     */
+     *//*
     @Override
     public List<ItemRelation> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException {
         return sqlSessionTemplate.selectList(getMybaitsNameSpace()+"findByCondtion",stringObjectMap);
-     /*
+     *//*
         SellerInfoServiceImpl sellerInfoServiceImpl = new SellerInfoServiceImpl();
         ItemInfoServiceImpl itemInfoServiceImpl= new ItemInfoServiceImpl();
         List<ItemRelation> list = new ArrayList<ItemRelation>();
@@ -183,15 +184,15 @@ public class ItemRelationDao extends Dao<ItemRelation> {
                 itemRelation.setImgAddr(resultSet.getString(6));
                 list.add(itemRelation);
             }
-        }*/
+        }*//*
 
     }
-    /**
+    *//**
      * @Title: findByCondtionForPage
      * @Description: 根据条件分页查询数据
      * @author lvchong
      * @date 2018-01-19
-     */
+     *//*
     @Override
     public List<ItemRelation> findByCondtionForPage(Map<String, Object> stringObjectMap, Integer startRows, Integer size) throws SQLException {
         SellerInfoServiceImpl sellerInfoServiceImpl = new SellerInfoServiceImpl();
@@ -229,6 +230,5 @@ public class ItemRelationDao extends Dao<ItemRelation> {
         }
         return list;
     }
-
-
+    */
 }

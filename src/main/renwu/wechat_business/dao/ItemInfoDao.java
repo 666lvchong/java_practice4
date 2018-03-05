@@ -23,16 +23,17 @@ import java.util.*;
  */
 @Repository
 public class ItemInfoDao extends Dao<ItemInfo> {
-    ItemTypeServiceImpl service = new ItemTypeServiceImpl();
+  /*
+   ItemTypeServiceImpl service = new ItemTypeServiceImpl();
     private String sql = null;
     private Integer result;
     @Override
-    /**
+    *//**
      * @Title: deleteById
      * @Description: 根据Id删除数据
      * @author lvchong
      * @date 2018-01-19
-     */
+     *//*
     public Integer deleteById(Long id) throws SQLException {
         sql ="DELETE FROM ITEM_INFO WHERE ID = ?";
         preparedStatement = getPreparedStatement(sql);
@@ -41,12 +42,12 @@ public class ItemInfoDao extends Dao<ItemInfo> {
         commit();
         return result;
     }
-    /**
+    *//**
      * @Title: deleteByIds
      * @Description: 根据Id删除多个
      * @author lvchong
      * @date 2018-01-19
-     */
+     *//*
     @Override
     public Integer deleteByIds(Long[] ids) throws SQLException {
         int results = 0;
@@ -57,12 +58,12 @@ public class ItemInfoDao extends Dao<ItemInfo> {
         }
         return results;
     }
-    /**
+    *//**
      * @Title: saveOrUpdate
      * @Description: 添加或者修改
      * @author lvchong
      * @date 2018-01-19
-     */
+     *//*
     @Override
     public Integer saveOrUpdate(ItemInfo test) throws SQLException {
         if (test.getId() != null){
@@ -120,12 +121,12 @@ public class ItemInfoDao extends Dao<ItemInfo> {
         }
         return result;
     }
-    /**
+    *//**
      * @Title: findById
      * @Description: 更具Id查询数据
      * @author lvchong
      * @date 2018-01-19
-     */
+     *//*
     @Override
     public ItemInfo findById(Long id) throws SQLException {
         sql = "SELECT\n" +
@@ -166,13 +167,13 @@ public class ItemInfoDao extends Dao<ItemInfo> {
         }
         return itemInfo;
     }
-    /**
+    *//**
      * @Title: findByCondtion
      * @Description: 条件查询数据
      * @author lvchong
      * @date 2018-01-19
      * @param stringObjectMap
-     */
+     *//*
     @Override
     public List<ItemInfo> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException {
         List<ItemInfo> list = new ArrayList<ItemInfo>();
@@ -226,12 +227,12 @@ public class ItemInfoDao extends Dao<ItemInfo> {
         }
         return list;
     }
-    /**
+    *//**
      * @Title: findByCondtionForPage
      * @Description: 根据条件分页查询数据
      * @author lvchong
      * @date 2018-01-19
-     */
+     *//*
     @Override
     public List<ItemInfo> findByCondtionForPage(Map<String, Object> stringObjectMap, Integer startRows, Integer size) throws SQLException {
         List<ItemInfo> list = new ArrayList<ItemInfo>();
@@ -285,5 +286,5 @@ public class ItemInfoDao extends Dao<ItemInfo> {
             }
         }
         return list;
-    }
+    }*/
 }

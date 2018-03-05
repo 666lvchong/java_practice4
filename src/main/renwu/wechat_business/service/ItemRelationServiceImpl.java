@@ -24,32 +24,33 @@ import java.util.Map;
  * @date 2018/1/22
  */
 @Service("itemRelationServiceImpl")
-public class ItemRelationServiceImpl implements ItemRelationService {
+public class ItemRelationServiceImpl extends ServiceUtil<ItemRelationDao,ItemRelation>{
+    /*
     @Autowired
     private ItemRelationDao dao;
-    @Override
-    /**
+  @Override
+    *//**
      * @Title: deleteById
      * @Description: 删除一个交易流水
      * @author lvchong
      * @params  * @param id
      * @date 2018-01-29
      * @throw YnCorpSysException
-     */
+     *//*
     public Integer deleteById(Long id) throws SQLException {
         return dao.deleteById(id);
 
     }
 
     @Override
-    /**
+    *//**
      * @Title: deleteByIds
      * @Description: 删除多个交易流水
      * @author lvchong
      * @params  * @param ids
      * @date 2018-01-29
      * @throw YnCorpSysException
-     */
+     *//*
 
     public Integer deleteByIds(Long[] ids) throws SQLException {
         return dao.deleteByIds(ids);
@@ -57,14 +58,14 @@ public class ItemRelationServiceImpl implements ItemRelationService {
     }
 
     @Override
-    /**
+    *//**
      * @Title: saveOrUpdate
      * @Description: 修改或者删除交易流水
      * @author lvchong
      * @params  * @param test
      * @date 2018-01-29
      * @throw YnCorpSysException
-     */
+     *//*
 
     public Integer saveOrUpdate(ItemRelation test) throws SQLException {
         return dao.saveOrUpdate(test);
@@ -72,14 +73,14 @@ public class ItemRelationServiceImpl implements ItemRelationService {
     }
 
     @Override
-    /**
+    *//**
      * @Title: findById
      * @Description: 根据ID查询
      * @author lvchong
      * @params  * @param id
      * @date 2018-01-29
      * @throw YnCorpSysException
-     */
+     *//*
 
     public ItemRelation findById(Long id) throws SQLException {
         dao.getConnection();
@@ -88,14 +89,14 @@ public class ItemRelationServiceImpl implements ItemRelationService {
     }
 
     @Override
-    /**
+    *//**
      * @Title: findByCondtion
      * @Description: 条件查询
      * @author lvchong
      * @params  * @param stringObjectMap
      * @date 2018-01-29
      * @throw YnCorpSysException
-     */
+     *//*
 
     public List<ItemRelation> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException {
         return dao.findByCondtion(stringObjectMap);
@@ -103,7 +104,7 @@ public class ItemRelationServiceImpl implements ItemRelationService {
     }
 
     @Override
-    /**
+    *//**
      * @Title: findByCondtionForPage
      * @Description: 分页条件查询
      * @author lvchong
@@ -112,33 +113,33 @@ public class ItemRelationServiceImpl implements ItemRelationService {
      * @param size
      * @date 2018-01-29
      * @throw YnCorpSysException
-     */
+     *//*
 
     public List<ItemRelation> findByCondtionForPage(Map<String, Object> stringObjectMap, Integer startRows, Integer size) throws SQLException {
         return dao.findByCondtionForPage(stringObjectMap, startRows, size);
 
     }
 
-    /**
+    *//**
      * @Title: rollback
      * @Description: 回滚
      * @author lvchong
      * @params * @param null
      * @date 2018-01-29
      * @throw YnCorpSysException
-     */
+     *//*
 
     public void rollback() throws SQLException {
         dao.rollback();
     }
-    /**
+    *//**
      * @Title: release
      * @Description: 释放资源
      * @author lvchong
      * @date 2018-02-01
      * @throw YnCorpSysException
-     */
+     *//*
     public void release(){
         dao.release();
-    }
+    }*/
 }
