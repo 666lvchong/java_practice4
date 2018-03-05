@@ -7,7 +7,6 @@
         <!-- 打印查询语句 -->
         <setting name="logImpl" value="LOG4J2" />
     </settings>
-
     <!-- mapper已经在spring-mybatis.xml中的sqlSessionFactory配置，这里不再需要配置 -->
     <!--     <mappers> -->
     <!--         <mapper resource="com/a/b/c/dao/BusinessInfoDaoMapper.xml" /> -->

@@ -55,6 +55,7 @@
           <version>2.8.1</version>
       </dependency>
       <!--struts2注解 -->
+
       <!-- convention-plugin插件，使用了这个插件之后，就可以采用注解的方式配置Action -->
       <dependency>
           <groupId>org.apache.struts</groupId>
@@ -230,7 +231,4 @@
           <version>2.5.10</version>
       </dependency>
       </dependencies>
-  <build>
-    <finalName>Team4</finalName>
-  </build>
 </project>
