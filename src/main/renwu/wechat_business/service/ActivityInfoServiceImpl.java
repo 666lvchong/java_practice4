@@ -8,6 +8,8 @@ package wechat_business.service;/***********************************************
  * @version V1.0
  */
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import wechat_business.dao.ActivityInfoDao;
 import wechat_business.entity.ActivityInfo;
 
@@ -21,9 +23,11 @@ import java.util.Map;
  * @Description 活动信息表实现类
  * @date 2018/2/12
  */
+@Service("activityInfoService")
 public class ActivityInfoServiceImpl implements ActivityInfoService {
     //定义静态对象
-    public static ActivityInfoDao activityInfoDao=new ActivityInfoDao();
+    @Autowired
+    public static ActivityInfoDao activityInfoDao;
     //定义受影响行数
     static Integer rows=null;
     /**
@@ -36,7 +40,7 @@ public class ActivityInfoServiceImpl implements ActivityInfoService {
     @Override
     public Integer deleteById(Long id) throws SQLException {
         //连接数据库
-        activityInfoDao.getConnection();
+//        activityInfoDao.getConnection();
         //执行数据库操作
         rows=activityInfoDao.deleteById(id);
         return rows;
@@ -52,7 +56,7 @@ public class ActivityInfoServiceImpl implements ActivityInfoService {
     @Override
     public Integer deleteByIds(Long[] ids) throws SQLException {
         //连接数据库
-        activityInfoDao.getConnection();
+//        activityInfoDao.getConnection();
         //执行数据库操作
         rows=activityInfoDao.deleteByIds(ids);
         return rows;
@@ -69,9 +73,13 @@ public class ActivityInfoServiceImpl implements ActivityInfoService {
     @Override
     public Integer saveOrUpdate(ActivityInfo activityInfo) throws SQLException {
         //连接数据库
-        activityInfoDao.getConnection();
+//        activityInfoDao.getConnection();
         //执行数据库操作
-        rows=activityInfoDao.saveOrUpdate(activityInfo);
+        if(activityInfo.getId()!=null){
+            rows=activityInfoDao.update(activityInfo);
+        }else{
+            rows=activityInfoDao.save(activityInfo);
+        }
         return rows;
     }
 
@@ -86,7 +94,7 @@ public class ActivityInfoServiceImpl implements ActivityInfoService {
     @Override
     public ActivityInfo findById(Long id) throws SQLException {
         //连接数据库
-        activityInfoDao.getConnection();
+//        activityInfoDao.getConnection();
         //执行数据库操作
         return activityInfoDao.findById(id);
     }
@@ -102,7 +110,7 @@ public class ActivityInfoServiceImpl implements ActivityInfoService {
     @Override
     public List<ActivityInfo> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException {
         //连接数据库
-        activityInfoDao.getConnection();
+//        activityInfoDao.getConnection();
         //执行数据库操作
         return activityInfoDao.findByCondtion(stringObjectMap);
     }
@@ -120,7 +128,7 @@ public class ActivityInfoServiceImpl implements ActivityInfoService {
     @Override
     public List<ActivityInfo> findByCondtionForPage(Map<String, Object> stringObjectMap, Integer startRows, Integer size) throws SQLException {
         //连接数据库
-        activityInfoDao.getConnection();
+//        activityInfoDao.getConnection();
         //执行数据库操作
         return activityInfoDao.findByCondtionForPage(stringObjectMap,startRows,size);
     }

@@ -8,6 +8,8 @@ package wechat_business.service;/***********************************************
  * @version V1.0
  */
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import wechat_business.dao.GradeDao;
 import wechat_business.entity.Grade;
 
@@ -21,9 +23,11 @@ import java.util.Map;
  * @Description 类描述
  * @date 2018/1/29
  */
+@Service("gradeService")
 public class GradeServiceImpl implements GradeService {
     //定义一个静态对象，方便调用方法
-    public static GradeDao gradeDao= new GradeDao();
+    @Autowired
+    public static GradeDao gradeDao;
     //定义受影响行数
     static Integer rows=null;
 
@@ -38,10 +42,9 @@ public class GradeServiceImpl implements GradeService {
     @Override
     public Integer deleteById(Long id) throws SQLException {
         //获取连接
-        gradeDao.getConnection();
+//        gradeDao.getConnection();
         //删除指定id的等级权限
         rows=gradeDao.deleteById(id);
-        System.out.println("受影响行数："+rows);
         return rows;
     }
 
@@ -56,10 +59,9 @@ public class GradeServiceImpl implements GradeService {
     @Override
     public Integer deleteByIds(Long[] ids) throws SQLException {
         //获取连接
-        gradeDao.getConnection();
+//        gradeDao.getConnection();
         //根据多个id删除多个等级权限
         rows=gradeDao.deleteByIds(ids);
-        System.out.println("受影响行数："+rows);
         return rows;
     }
 
@@ -73,11 +75,14 @@ public class GradeServiceImpl implements GradeService {
      */
     @Override
     public Integer saveOrUpdate(Grade grade) throws SQLException {
-        //获取连接
+       /* //获取连接
         gradeDao.getConnection();
-        //添加或者修改
-        rows=gradeDao.saveOrUpdate(grade);
-        System.out.println("受影响行数："+rows);
+        //添加或者修改*/
+        if(grade.getId()!=null){
+            rows=gradeDao.update(grade);
+        }else{
+            rows=gradeDao.save(grade);
+        }
         return rows;
     }
 
@@ -91,15 +96,15 @@ public class GradeServiceImpl implements GradeService {
      */
     @Override
     public Grade findById(Long id) throws SQLException {
-        //获取连接
-        gradeDao.getConnection();
-        //定义一个人员对象用来接收查询到的人员信息
-        Grade grade=new Grade();
+//        //获取连接
+//        gradeDao.getConnection();
+//        //定义一个人员对象用来接收查询到的人员信息
+//        Grade grade=new Grade();
         //根据id查询人员信息
-        grade=gradeDao.findById(id);
-        //输出人员姓名
-        System.out.println("该人员等级权限："+grade.getGradeName());
-        return grade;
+        return gradeDao.findById(id);
+//        //输出人员姓名
+//        System.out.println("该人员等级权限："+grade.getGradeName());
+//        return grade;
     }
 
     /**
@@ -113,7 +118,7 @@ public class GradeServiceImpl implements GradeService {
     @Override
     public List<Grade> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException {
         //获取连接
-        gradeDao.getConnection();
+//        gradeDao.getConnection();
         return gradeDao.findByCondtion(stringObjectMap);
     }
 
@@ -130,7 +135,7 @@ public class GradeServiceImpl implements GradeService {
     @Override
     public List<Grade> findByCondtionForPage(Map<String, Object> stringObjectMap, Integer startRows, Integer size) throws SQLException {
         //获取连接
-        gradeDao.getConnection();
+//        gradeDao.getConnection();
         return gradeDao.findByCondtionForPage(stringObjectMap,startRows,size);
     }
 }
