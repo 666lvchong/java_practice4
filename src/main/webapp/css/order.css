@@ -15,6 +15,13 @@ tr{
     background-color: orangered;
     color: white;
 }
+.save{
+    text-align: center;
+    font-size: 18pt;
+    border: 6px solid orangered;
+    background-color: orangered;
+    color: white;
+}
 .maninlogo{
     margin: auto;
     width: 1080px;
@@ -42,6 +49,9 @@ hr{
 }
 td span{
     color: orange;
+}
+.tdleft{
+    text-align: left;
 }
 .moneySum{
     margin-left: 400px;
