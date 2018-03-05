@@ -122,7 +122,7 @@ public class Dao<E> extends BaseDaoImpl<E> {
      * @date 2018-01-19
      */
     public E findById(Long id) throws SQLException{
-        return super.sqlSessionTemplate.selectOne(getMybaitsNameSpace() + "findById", id);
+        return (E)super.sqlSessionTemplate.selectOne(getMybaitsNameSpace()+ "findById", id);
     };
     /**
      * @Title: findByCondtion
