@@ -40,6 +40,22 @@
     <c:if test="${money==0}">
         <div class="shoppingCartNull">你的购物车空空如也，快去<a>购物</a>！</div>
     </c:if>
+    <c:if test="${money!=0}">
+        <div ><form>
+            <span class="moneySum orangered">
+                <select >
+                    <c:if test="${index==0}"><option value="0">未设置收货地址</option></c:if>
+                    <c:if test="${index!=0}">
+                        <c:forEach items="${listAddress}" var="address" varStatus="i">
+                            <option value="${address.address}" <c:if test="${address.isDefault==true}">SELECTED="selected" </c:if> >${address.address}</option>
+                        </c:forEach>
+                    </c:if>
+                </select>
+                <a href="AddressServlet.do">收货地址详情</a>
+            </span>
+        </form></div>
+    </c:if>
+    <hr>
     <div>
         <c:forEach items="${list}" var="list" varStatus="i">
             <table class="orderInfoTable">

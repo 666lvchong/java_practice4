@@ -3,8 +3,10 @@ package wechat_business.servlet;
 
 import wechat_business.dao.ItemInfoDao;
 import wechat_business.dao.OrderDetailDaoImpl;
+import wechat_business.entity.Address;
 import wechat_business.entity.ItemInfo;
 import wechat_business.entity.TaobaoAccount;
+import wechat_business.service.AddressServiceImpl;
 import wechat_business.service.OrderDetailServiceImpl;
 
 import javax.servlet.ServletException;
@@ -46,6 +48,20 @@ public class ShoppingCartServlet extends HttpServlet {
         List<OrderDetailServiceImpl> orderDetailServiceList=new ArrayList<OrderDetailServiceImpl>();
         OrderDetailDaoImpl orderDetailDao = new OrderDetailDaoImpl();
 
+        Map<String,Object> stringObjectMapAddress=new HashMap<String, Object>();
+        stringObjectMapAddress.put("ADDRESS_TYPE",(byte)1);
+        stringObjectMapAddress.put("TAOBAO_ACCOUNT_ID",taobaoAccount.getId());
+
+        AddressServiceImpl addressServices=new AddressServiceImpl();
+        List<Address> addressList=new ArrayList<Address>();
+        int index=0;
+        try {
+            addressList=addressServices.findByCondtion(stringObjectMapAddress);
+            index=addressList.size();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         ItemInfo itemInfo=new ItemInfo();
         ItemInfoDao itemInfoDao=new ItemInfoDao();
         List itemInfos=new ArrayList<String>();
@@ -68,6 +84,8 @@ public class ShoppingCartServlet extends HttpServlet {
         request.setAttribute("list",orderDetailServiceList);
         request.setAttribute("listName", itemInfos);
         request.setAttribute("money",money);
+        request.setAttribute("listAddress",addressList);
+        request.setAttribute("index",index);
         request.getRequestDispatcher("jsp/shopping_cart.jsp").forward(request, response);
         System.out.println(orderDetailServiceList.size());
     }

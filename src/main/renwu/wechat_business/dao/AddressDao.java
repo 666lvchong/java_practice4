@@ -61,8 +61,10 @@ public  class AddressDao extends Dao<Address> {
     */
     public Integer saveOrUpdate(Address test) throws SQLException {
         if (test.getId() != null){
-            sql="SELECT ID,TAOBAO_ACCOUNT_ID,ADDRESS_TYPE,ADDRESS,LINKMAN_CONTACTS,TELEPHONE,CREATE_TIME,UPDATE_TIME,IS_DEFAULT  FROM ADDRESS WHERE ID="+test.getId();
-            resultSet=connection.prepareStatement(sql).executeQuery();
+            sql="SELECT ID,TAOBAO_ACCOUNT_ID,ADDRESS_TYPE,ADDRESS,LINKMAN_CONTACTS,TELEPHONE,CREATE_TIME,UPDATE_TIME,IS_DEFAULT FROM ADDRESS WHERE ID=?";
+            preparedStatement=getPreparedStatement(sql);
+            preparedStatement.setLong(1,test.getId());
+            resultSet=preparedStatement.executeQuery();
             //判定id是否存在
             if(resultSet.first()){
                 //判定不更新的值
@@ -93,7 +95,7 @@ public  class AddressDao extends Dao<Address> {
                 //根据ID更新地址信息
                 sql="UPDATE ADDRESS SET TAOBAO_ACCOUNT_ID=?,ADDRESS_TYPE=?,ADDRESS=?,LINKMAN_CONTACTS=?,TELEPHONE=?,CREATE_TIME=?,UPDATE_TIME=?,IS_DEFAULT=?"+
                         " WHERE ID = ?";
-                preparedStatement=connection.prepareStatement(sql);
+                preparedStatement=getPreparedStatement(sql);
                 preparedStatement.setLong(1,test.getTaobaoAccountID());
                 preparedStatement.setByte(2,test.getAddressType());
                 preparedStatement.setString(3,test.getAddress());
@@ -109,7 +111,7 @@ public  class AddressDao extends Dao<Address> {
                 //根据ID插入地址信息
                 sql="INSERT INTO ADDRESS( ID,TAOBAO_ACCOUNT_ID,ADDRESS_TYPE,ADDRESS,LINKMAN_CONTACTS,TELEPHONE,CREATE_TIME,UPDATE_TIME,IS_DEFAULT) " +
                         "VALUES (?,?,?,?,?,?,?,?,?)";
-                preparedStatement=connection.prepareStatement(sql);
+                preparedStatement=getPreparedStatement(sql);
                 preparedStatement.setLong(1,test.getId());
                 preparedStatement.setLong(2,test.getTaobaoAccountID());
                 preparedStatement.setByte(3, test.getAddressType());
@@ -126,7 +128,7 @@ public  class AddressDao extends Dao<Address> {
             //默认自增主键ID插入地址信息
             sql="INSERT INTO ADDRESS( ID,TAOBAO_ACCOUNT_ID,ADDRESS_TYPE,ADDRESS,LINKMAN_CONTACTS,TELEPHONE,CREATE_TIME,UPDATE_TIME,IS_DEFAULT) " +
                     "VALUES (DEFAULT,?,?,?,?,?,?,?,?)";
-            preparedStatement=connection.prepareStatement(sql);
+            preparedStatement=getPreparedStatement(sql);
             preparedStatement.setLong(1,test.getTaobaoAccountID());
             preparedStatement.setByte(2,test.getAddressType());
             preparedStatement.setString(3,test.getAddress());
@@ -152,7 +154,7 @@ public  class AddressDao extends Dao<Address> {
     public Address findById(Long id) throws SQLException {
         sql="SELECT ID,TAOBAO_ACCOUNT_ID,ADDRESS_TYPE,ADDRESS,LINKMAN_CONTACTS,TELEPHONE,CREATE_TIME,UPDATE_TIME,IS_DEFAULT FROM ADDRESS WHERE ID=?";
         preparedStatement=getPreparedStatement(sql);
-//        preparedStatement.setLong(1,id);
+        preparedStatement.setLong(1,id);
         resultSet=preparedStatement.executeQuery();
         Address address=new Address();
         while (resultSet.next()){
@@ -181,12 +183,12 @@ public  class AddressDao extends Dao<Address> {
     public List<Address> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException {
         List<Address> list= new ArrayList<Address>();
         if (stringObjectMap !=null){
-            sql="SELECT  ID,TAOBAO_ACCOUNT_ID,ADDRESS_TYPE,ADDRESS,LINKMAN_CONTACTS,TELEPHONE,CREATE_TIME,UPDATE_TIME,IS_DEFAULT FROM ADDRESS FROM ADDRESS WHERE 1=1";
+            sql="SELECT  ID,TAOBAO_ACCOUNT_ID,ADDRESS_TYPE,ADDRESS,LINKMAN_CONTACTS,TELEPHONE,CREATE_TIME,UPDATE_TIME,IS_DEFAULT  FROM ADDRESS WHERE 1=1";
             Set<Map.Entry<String,Object>>set=stringObjectMap.entrySet();
             Iterator<Map.Entry<String, Object>> iterator = set.iterator();
             while (iterator.hasNext()){
                 Map.Entry<String, Object> map = iterator.next();
-                sql += " OR "+map.getKey()+" = '"+map.getValue()+"'";
+                sql += " AND "+map.getKey()+" = '"+map.getValue()+"'";
             }
             preparedStatement=getPreparedStatement(sql);
             resultSet=preparedStatement.executeQuery();
