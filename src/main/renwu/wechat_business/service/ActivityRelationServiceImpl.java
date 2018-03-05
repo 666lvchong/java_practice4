@@ -8,6 +8,8 @@ package wechat_business.service;/***********************************************
  * @version V1.0
  */
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import wechat_business.dao.ActivityRelationDao;
 import wechat_business.entity.ActivityRelation;
 
@@ -21,9 +23,11 @@ import java.util.Map;
  * @Description 类描述
  * @date 2018/2/12
  */
+@Service("activityRelationService")
 public class ActivityRelationServiceImpl implements ActivityRelationService {
     //定义静态对象
-    public static ActivityRelationDao activityRelationDao=new ActivityRelationDao();
+    @Autowired
+    public static ActivityRelationDao activityRelationDao;
     //定义受影响行数
     static Integer rows=null;
 
@@ -37,7 +41,7 @@ public class ActivityRelationServiceImpl implements ActivityRelationService {
     @Override
     public Integer deleteById(Long id) throws SQLException {
         //连接数据库
-        activityRelationDao.getConnection();
+//        activityRelationDao.getConnection();
         //执行数据库操作
         rows=activityRelationDao.deleteById(id);
         return rows;
@@ -53,7 +57,7 @@ public class ActivityRelationServiceImpl implements ActivityRelationService {
     @Override
     public Integer deleteByIds(Long[] ids) throws SQLException {
         //连接数据库
-        activityRelationDao.getConnection();
+//        activityRelationDao.getConnection();
         //执行数据库操作
         rows=activityRelationDao.deleteByIds(ids);
         return rows;
@@ -69,10 +73,11 @@ public class ActivityRelationServiceImpl implements ActivityRelationService {
      */
     @Override
     public Integer saveOrUpdate(ActivityRelation activityRelation) throws SQLException {
-        //连接数据库
-        activityRelationDao.getConnection();
-        //执行数据库操作
-        rows=activityRelationDao.saveOrUpdate(activityRelation);
+        if(activityRelation.getId()!=null){
+            rows=activityRelationDao.update(activityRelation);
+        }else{
+            rows=activityRelationDao.save(activityRelation);
+        }
         return rows;
     }
 
@@ -87,7 +92,7 @@ public class ActivityRelationServiceImpl implements ActivityRelationService {
     @Override
     public ActivityRelation findById(Long id) throws SQLException {
         //连接数据库
-        activityRelationDao.getConnection();
+//        activityRelationDao.getConnection();
         //执行数据库操作
         return activityRelationDao.findById(id);
     }
@@ -103,7 +108,7 @@ public class ActivityRelationServiceImpl implements ActivityRelationService {
     @Override
     public List<ActivityRelation> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException {
         //连接数据库
-        activityRelationDao.getConnection();
+//        activityRelationDao.getConnection();
         //执行数据库操作
         return activityRelationDao.findByCondtion(stringObjectMap);
     }
@@ -121,7 +126,7 @@ public class ActivityRelationServiceImpl implements ActivityRelationService {
     @Override
     public List<ActivityRelation> findByCondtionForPage(Map<String, Object> stringObjectMap, Integer startRows, Integer size) throws SQLException {
         //连接数据库
-        activityRelationDao.getConnection();
+//        activityRelationDao.getConnection();
         //执行数据库操作
         return activityRelationDao.findByCondtionForPage(stringObjectMap,startRows,size);
     }

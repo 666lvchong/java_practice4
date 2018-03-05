@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wechat_business.entity.PeopleInfo">
+
+    <!-- 定义结果集-->
+    <resultMap id="peopleInfoMap" type="wechat_business.entity.PeopleInfo">
+        <id property="id" column="ID"/>
+        <result property="name" column="NAME"/>
+        <result property="sex" column="SEX"/>
+        <result property="age" column="AGE"/>
+        <result property="nation" column="NATION"/>
+        <result property="birthdate" column="BIRTHDATE"/>
+        <result property="idNumber" column="ID_NUMBER"/>
+        <result property="mobilePhone" column="MOBILE_PHONE"/>
+        <result property="nativePlace" column="NATIVE_PLACE"/>
+        <result property="mailBox" column="MAILBOX"/>
+        <result property="permanentAdress" column="PERMANENT_ADDRESS"/>
+        <result property="profession" column="PROFESSION"/>
+        <result property="workUnit" column="WORK_UNIT"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+    </resultMap>
+    <!-- 定义sql操作列 -->
+    <sql id="columns">
+      ID,`NAME`,SEX,AGE,NATION,BIRTHDATE,ID_NUMBER,MOBILE_PHONE,NATIVE_PLACE,MAILBOX,PERMANENT_ADDRESS,PROFESSION,WORK_UNIT,CREATE_TIME,UPDATE_TIME
+    </sql>
+    <!-- 根据id删除 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM PEOPLE_INFO WHERE ID=#{id}
+    </delete>
+    <!-- 根据多个id删除 -->
+    <delete id="deleteByIds" parameterType="java.util.Map">
+        DELETE FROM PEOPLE_INFO WHERE ID IN
+        <if test="@wechat_business.dao.Ognl@isNotEmpty(ids)">
+            <foreach collection="ids" item="ids" open="(" separator="," close=")">
+                #{ids}
+            </foreach>
+        </if>
+    </delete>
+    <!-- 保存 -->
+    <insert id="save" parameterType="wechat_business.entity.PeopleInfo">
+        <if test="@wechat_business.dao.Ognl@isNotEmpty(people)">
+        INSERT INTO PEOPLE_INFO(ID,`NAME`,SEX,AGE,NATION,BIRTHDATE,ID_NUMBER,MOBILE_PHONE,NATIVE_PLACE,MAILBOX,PERMANENT_ADDRESS,PROFESSION,WORK_UNIT,CREATE_TIME,UPDATE_TIME)
+        VALUES (DEFAULT ,#{name},#{sex},#{age},#{nation},#{birthdate},#{idNumber},#{mobilePhone},#{nativePlace},#{mailBox},#{permanentAdress},#{profession},#{workUnit},#{createTime},#{updateTime})
+        </if>
+    </insert>
+    <!-- 修改 -->
+    <update id="update" parameterType="wechat_business.entity.PeopleInfo">
+        <if test="@wechat_business.dao.Ognl@isNotEmpty(people)">
+            UPDATE PEOPLE_INFO SET `NAME`=#{name},SEX=#{sex},AGE=#{age},NATION=#{nation},BIRTHDATE=#{birthdate},ID_NUMBER=#{idNumber},MOBILE_PHONE=#{mobilePhone},NATIVE_PLACE=#{nativePlace},
+            MAILBOX=#{mailBox},PERMANENT_ADDRESS=#{permanentAdress},PROFESSION=#{profession},WORK_UNIT=#{workUnit},CREATE_TIME=#{createTime},UPDATE_TIME=#{updateTime}
+            WHERE ID=#{id}
+        </if>
+    </update>
+    <!-- 根据id查询 -->
+    <select id="findById" parameterType="java.lang.Long" resultType="wechat_business.entity.PeopleInfo">
+        SELECT <include refid="columns"/> FROM PEOPLE_INFO WHERE ID=#{id}
+    </select>
+    <!-- 根据条件查询 -->
+    <select id="findByCondtion" parameterType="java.util.Map" resultMap="java.util.Map">
+        SELECT <include refid="columns"/> FROM PEOPLE_INFO
+        <where>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(name)">
+                AND `NAME` LIKE #{name}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(sex)">
+                AND SEX LIKE #{sex}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(age)">
+                AND AGE LIKE #{age}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(idNumber)">
+                AND ID_NUMBER LIKE #{idNumber}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(mobliePhone)">
+                AND MOBILE_PHONE LIKE #{mobilePhone}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(profession)">
+                AND PROFESSION LIKE #{profession}
+            </if>
+        </where>
+    </select>
+    <!-- 根据条件分页查询 -->
+    <select id="findByCondtionForPage" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT <include refid="columns"/> FROM PEOPLE_INFO
+        <where>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(name)">
+                AND `NAME` LIKE #{name}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(sex)">
+                AND SEX LIKE #{sex}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(age)">
+                AND AGE LIKE #{age}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(idNumber)">
+                AND ID_NUMBER LIKE #{idNumber}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(mobliePhone)">
+                AND MOBILE_PHONE LIKE #{mobilePhone}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(profession)">
+                AND PROFESSION LIKE #{profession}
+            </if>
+        </where>
+    </select>
+</mapper>

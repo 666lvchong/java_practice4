@@ -10,9 +10,6 @@ package wechat_business.dao;/***************************************************
 
 import wechat_business.entity.Grade;
 
-import java.sql.SQLException;
-import java.util.*;
-
 /**
  * @author dengchao
  * @ClassName AdministratorDao
@@ -20,19 +17,19 @@ import java.util.*;
  * @date 2018/1/29
  */
 public class GradeDao extends Dao<Grade> {
-    //定义sql语句
+  /*  //定义sql语句
     public String sqlStr=null;
     //定义受影响行数
     public Integer rows=null;
 
-    /**
+    *//**
      * @Title: deleteById
      * @Description: 根据指定id删除
      * @author dengchao
      * @date 2018/1/29
      * @param id 指定id
      * @return 返回受影响行数
-     */
+     *//*
     @Override
     public Integer deleteById(Long id) throws SQLException {
         //定义sql删除语句
@@ -49,7 +46,7 @@ public class GradeDao extends Dao<Grade> {
         return rows;
     }
 
-    /**
+    *//**
      * @Title: deleteByIds
      * @Description: 根据多个id删除
      * @author dengchao
@@ -57,7 +54,7 @@ public class GradeDao extends Dao<Grade> {
      * @param ids 要删除的等级权限id
      * @throws java.sql.SQLException
      * @return 返回受影响行数
-     */
+     *//*
     @Override
     public Integer deleteByIds(Long[] ids) throws SQLException {
         if (ids.length > 0){
@@ -77,8 +74,8 @@ public class GradeDao extends Dao<Grade> {
         //返回受影响行数
         return rows;
     }
-
-    /**
+*/
+   /* *//**
      * @Title: saveOrUpdate
      * @Description: 保存或修改信息
      * @author dengchao
@@ -86,7 +83,7 @@ public class GradeDao extends Dao<Grade> {
      * @param grade 等级权限对象
      * @throws java.sql.SQLException
      * @return 返回受影响行数
-     */
+     *//*
     @Override
     public Integer saveOrUpdate(Grade grade) throws SQLException {
         //判断人员id是否为null，若是则修改,否则保存
@@ -125,7 +122,7 @@ public class GradeDao extends Dao<Grade> {
     }
 
 
-    /**
+    *//**
      * @Title: findById
      * @Description: 通过指定id查找等级权限
      * @author dengchao
@@ -134,7 +131,7 @@ public class GradeDao extends Dao<Grade> {
      * @param: id 要查询的指定等级权限id
      * @throws java.sql.SQLException
      * @return: 等级权限对象
-     */
+     *//*
     @Override
     public Grade findById(Long id) throws SQLException {
         //定义sql语句
@@ -158,7 +155,7 @@ public class GradeDao extends Dao<Grade> {
         return grade;
     }
 
-    /**
+    *//**
      * @Title: findByCondtion
      * @Description: 根据条件查询
      * @author dengchao
@@ -166,7 +163,7 @@ public class GradeDao extends Dao<Grade> {
      * @param stringObjectMap map对象，查询条件
      * @throws java.sql.SQLException
      * @return 返回查询等级对象集合
-     */
+     *//*
     @Override
     public List<Grade> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException {
         //定义人员集合
@@ -204,7 +201,7 @@ public class GradeDao extends Dao<Grade> {
         return list;
     }
 
-    /**
+    *//**
      * @Title: findByCondtionForPage
      * @Description: 根据条件分页查询
      * @author dengchao
@@ -214,7 +211,7 @@ public class GradeDao extends Dao<Grade> {
      * @param size 分页页数
      * @throws java.sql.SQLException
      * @return 返回查询到的等级集合
-     */
+     *//*
     @Override
     public List<Grade> findByCondtionForPage(Map<String, Object> stringObjectMap, Integer startRows, Integer size) throws SQLException {
         //定义人员集合
@@ -250,5 +247,5 @@ public class GradeDao extends Dao<Grade> {
             }
         }
         return list;
-    }
+    }*/
 }

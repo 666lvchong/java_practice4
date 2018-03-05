@@ -11,9 +11,6 @@ package wechat_business.dao;/***************************************************
 import org.springframework.stereotype.Repository;
 import wechat_business.entity.PeopleInfo;
 
-import java.sql.SQLException;
-import java.util.*;
-
 /**
  * @author dengchao
  * @ClassName PeopleInfoDao
@@ -22,12 +19,12 @@ import java.util.*;
  */
 @Repository
 public class PeopleInfoDao extends Dao<PeopleInfo> {
-    //定义sql语句
+   /* //定义sql语句
     public String sqlStr=null;
     //定义受影响行数
     public Integer rows=null;
 
-    /**
+    *//**
      * @Title: deletePeopleById
      * @Description: 删除指定id的人员信息
      * @author dengchao
@@ -35,7 +32,7 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
      * @param: id 指定id
      * @throws java.sql.SQLException
      * @return: 受影响行数
-     */
+     *//*
     @Override
     public Integer deleteById(Long id) throws SQLException {
         return sqlSessionTemplate.delete(getMybaitsNameSpace()+"deleteById",id);
@@ -53,7 +50,7 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
 //        return rows;
     }
 
-    /**
+    *//**
      * @Title: deleteByIds
      * @Description: 根据多个id删除人员信息
      * @author dengchao
@@ -61,7 +58,7 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
      * @param ids 要删除的多个人员id
      * @throws java.sql.SQLException
      * @return 返回受影响行数
-     */
+     *//*
     @Override
     public Integer deleteByIds(Long[] ids) throws SQLException {
         return sqlSessionTemplate.delete(getMybaitsNameSpace()+"deleteByIds",ids);
@@ -83,7 +80,7 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
 //        return rows;
     }
 
-    /**
+    *//**
      * @Title: saveOrUpdate
      * @Description: 保存或修改信息
      * @author dengchao
@@ -91,7 +88,7 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
      * @param people 人员对象
      * @throws java.sql.SQLException
      * @return 返回受影响行数
-     */
+     *//*
     @Override
     public Integer saveOrUpdate(PeopleInfo people) throws SQLException {
         //判断人员id是否为null，若是则修改,否则保存
@@ -167,7 +164,7 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
 //        return rows;
     }
 
-    /**
+    *//**
      * @Title: findById
      * @Description: 通过指定id查找人员
      * @author dengchao
@@ -176,7 +173,7 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
      * @param: id 要查询的指定人员id
      * @throws java.sql.SQLException
      * @return: 人员对象
-     */
+     *//*
     @Override
     public PeopleInfo findById(Long id) throws SQLException {
         return sqlSessionTemplate.selectOne(getMybaitsNameSpace()+"findById",id);
@@ -203,7 +200,7 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
 //        return peopleInfo;
     }
 
-    /**
+    *//**
      * @Title: findByCondtion
      * @Description: 根据条件查询
      * @author dengchao
@@ -211,7 +208,7 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
      * @param stringObjectMap map对象，查询条件
      * @throws java.sql.SQLException
      * @return 返回查询人员对象集合
-     */
+     *//*
     @Override
     public List<PeopleInfo> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException {
         return sqlSessionTemplate.selectList(getMybaitsNameSpace()+"findByCondtion",stringObjectMap);
@@ -254,7 +251,7 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
 //        return list;
     }
 
-    /**
+    *//**
      * @Title: findByCondtionForPage
      * @Description: 根据条件分页查询
      * @author dengchao
@@ -264,7 +261,7 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
      * @param size 分页页数
      * @throws java.sql.SQLException
      * @return 返回查询到的人员集合
-     */
+     *//*
     @Override
     public List<PeopleInfo> findByCondtionForPage(Map<String, Object> stringObjectMap, Integer startRows, Integer size) throws SQLException {
 
@@ -305,5 +302,5 @@ public class PeopleInfoDao extends Dao<PeopleInfo> {
             }
         }
         return list;
-    }
+    }*/
 }

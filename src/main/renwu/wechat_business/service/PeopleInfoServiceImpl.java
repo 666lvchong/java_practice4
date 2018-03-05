@@ -8,6 +8,8 @@ package wechat_business.service;/***********************************************
  * @version V1.0
  */
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import wechat_business.dao.PeopleInfoDao;
 import wechat_business.entity.PeopleInfo;
 import java.sql.SQLException;
@@ -20,27 +22,13 @@ import java.util.Map;
  * @Description 类描述
  * @date 2018/1/21
  */
+@Service("peopleInfoService")
 public class PeopleInfoServiceImpl implements PeopleInfoService {
     //定义一个静态对象，方便调用方法
-   public static PeopleInfoDao peopleInfoDao= new PeopleInfoDao();
+    @Autowired
+   public static PeopleInfoDao peopleInfoDao;
     //定义受影响行数
     static Integer rows=null;
-
-        /**
-         * @Title: showPeople
-         * @Description: 查看人员信息
-         * @author dengchao
-         * @date 2018/1/21
-         * @param: peopleInfo 人员对象
-         */
-        public void showPeople(PeopleInfo peopleInfo){
-            System.out.println("ID："+peopleInfo.getId());
-            System.out.println("姓名："+peopleInfo.getName());
-            System.out.println("性别："+peopleInfo.getSex());
-            System.out.println("年龄："+peopleInfo.getAge());
-            System.out.println("身份证号："+peopleInfo.getIdNumber());
-            System.out.println("手机："+peopleInfo.getMobilePhone());
-        }
 
     /**
      * @Title: deletePeopleById
@@ -53,10 +41,9 @@ public class PeopleInfoServiceImpl implements PeopleInfoService {
     @Override
     public Integer deleteById(Long id) throws SQLException {
         //连接数据库
-        peopleInfoDao.getConnection();
+//        peopleInfoDao.getConnection();
         //删除指定id的人员信息
         rows=peopleInfoDao.deleteById(id);
-        System.out.println("受影响行数："+rows);
         return rows;
     }
 
@@ -71,10 +58,9 @@ public class PeopleInfoServiceImpl implements PeopleInfoService {
     @Override
     public Integer deleteByIds(Long[] ids) throws SQLException {
         //连接数据库
-        peopleInfoDao.getConnection();
+//        peopleInfoDao.getConnection();
         //根据多个id删除多个人员信息
         rows=peopleInfoDao.deleteByIds(ids);
-        System.out.println("受影响行数："+rows);
         return rows;
     }
 
@@ -88,11 +74,15 @@ public class PeopleInfoServiceImpl implements PeopleInfoService {
      */
     @Override
     public Integer saveOrUpdate(PeopleInfo people) throws SQLException {
-        //连接数据库
+    /*    //连接数据库
         peopleInfoDao.getConnection();
         //添加或者修改
-        rows=peopleInfoDao.saveOrUpdate(people);
-        System.out.println("受影响行数："+rows);
+        rows=peopleInfoDao.saveOrUpdate(people);*/
+        if(people.getId()!=null){
+            rows=peopleInfoDao.update(people);
+        }else{
+            rows=peopleInfoDao.save(people);
+        }
         return rows;
     }
 
@@ -107,14 +97,14 @@ public class PeopleInfoServiceImpl implements PeopleInfoService {
     @Override
     public PeopleInfo findById(Long id) throws SQLException {
         //连接数据库
-        peopleInfoDao.getConnection();
-        //定义一个人员对象用来接收查询到的人员信息
-        PeopleInfo peopleInfo=new PeopleInfo();
+//        peopleInfoDao.getConnection();
+//        //定义一个人员对象用来接收查询到的人员信息
+//        PeopleInfo peopleInfo=new PeopleInfo();
         //根据id查询人员信息
-        peopleInfo=peopleInfoDao.findById(id);
+        return peopleInfoDao.findById(id);
         //输出人员姓名
-        System.out.println("该人员姓名："+peopleInfo.getName());
-        return peopleInfo;
+//        System.out.println("该人员姓名："+peopleInfo.getName());
+//        return peopleInfo;
     }
 
     /**
@@ -128,7 +118,7 @@ public class PeopleInfoServiceImpl implements PeopleInfoService {
     @Override
     public List<PeopleInfo> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException {
         //连接数据库
-        peopleInfoDao.getConnection();
+//        peopleInfoDao.getConnection();
         return peopleInfoDao.findByCondtion(stringObjectMap);
     }
 
@@ -145,7 +135,7 @@ public class PeopleInfoServiceImpl implements PeopleInfoService {
     @Override
     public List<PeopleInfo> findByCondtionForPage(Map<String, Object> stringObjectMap, Integer startRows, Integer size) throws SQLException {
         //连接数据库
-        peopleInfoDao.getConnection();
+//        peopleInfoDao.getConnection();
         return peopleInfoDao.findByCondtionForPage(stringObjectMap,startRows,size);
     }
 }
