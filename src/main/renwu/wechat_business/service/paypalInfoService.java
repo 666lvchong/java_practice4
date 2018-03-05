@@ -16,7 +16,7 @@ import wechat_business.entity.PaypalInfo;
  * @Description 类描述 支付宝业务
  * @date 2018/1/29
  */
-public interface paypalInfoService {
+public interface PaypalInfoService {
     /**
      * @Title: pay
      * @Description: 方法描述 支付

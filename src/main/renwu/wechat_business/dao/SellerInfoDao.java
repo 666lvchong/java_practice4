@@ -8,6 +8,7 @@ package wechat_business.dao;
  * @version V1.0
  */
 
+import org.springframework.stereotype.Repository;
 import wechat_business.entity.SellerInfo;
 
 
@@ -21,6 +22,7 @@ import java.util.*;
  * @Description 卖家信息连接数据库
  * @date 2018/1/21
  */
+@Repository
 public class SellerInfoDao extends Dao<SellerInfo> {
     private String sql = null;
     private Integer result;

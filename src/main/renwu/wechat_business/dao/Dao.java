@@ -9,6 +9,7 @@ package wechat_business.dao;
  * @version V1.0
  */
 
+import org.apache.ibatis.session.RowBounds;
 import  wechat_business.common.util.JdbcUtils;
 import wechat_business.entity.SellerInfo;
 
@@ -22,7 +23,7 @@ import java.util.Map;
  * @Description dao工具类
  * @date 2018/1/19
  */
-public abstract class Dao<E> {
+public class Dao<E> extends BaseDaoImpl<E> {
     protected Connection connection = null;
     protected PreparedStatement preparedStatement = null;
     protected ResultSet resultSet = null;
@@ -82,7 +83,9 @@ public abstract class Dao<E> {
      * @author lvchong
      * @date 2018-01-19
      */
-    public abstract Integer deleteById(Long id) throws SQLException;
+    public Integer deleteById(Long id) throws SQLException{
+        return super.sqlSessionTemplate.delete(getMybaitsNameSpace()+"deleteById",id);
+    };
 
     /**
      * @Title: deleteByIds
@@ -90,21 +93,37 @@ public abstract class Dao<E> {
      * @author lvchong
      * @date 2018-01-19
      */
-    public abstract Integer deleteByIds(Long[] ids) throws SQLException;
+    public Integer deleteByIds(Long[] ids) throws SQLException{
+        return super.sqlSessionTemplate.delete(getMybaitsNameSpace()+"deleteByIds",ids);
+    };
     /**
-     * @Title: saveOrUpdate
-     * @Description: 添加或者修改
+     * @Title: save
+     * @Description: 添加
      * @author lvchong
      * @date 2018-01-19
      */
-    public abstract Integer saveOrUpdate(E test) throws SQLException;
+    public  Integer save(E test) throws SQLException{
+        return super.sqlSessionTemplate.update(getMybaitsNameSpace() + "save", test);
+    };
+
+    /**
+     * @Title: update
+     * @Description: 修改
+     * @author lvchong
+     * @date 2018-01-19
+     */
+    public  Integer update(E test) throws SQLException{
+        return super.sqlSessionTemplate.update(getMybaitsNameSpace() + "update", test);
+    };
     /**
      * @Title: findById
      * @Description: 更具Id查询数据
      * @author lvchong
      * @date 2018-01-19
      */
-    public abstract E findById(Long id) throws SQLException;
+    public E findById(Long id) throws SQLException{
+        return (E)super.sqlSessionTemplate.selectOne(getMybaitsNameSpace()+ "findById", id);
+    };
     /**
      * @Title: findByCondtion
      * @Description: 条件查询数据
@@ -112,14 +131,19 @@ public abstract class Dao<E> {
      * @date 2018-01-19
      * @param stringObjectMap
      */
-    public abstract List<E> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException;
+    public List<E> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException{
+        return super.sqlSessionTemplate.selectList(getMybaitsNameSpace() + "findByCondtion", stringObjectMap);
+    };
     /**
      * @Title: findByCondtionForPage
      * @Description: 根据条件分页查询数据
      * @author lvchong
      * @date 2018-01-19
      */
-    public abstract List<E> findByCondtionForPage(Map<String, Object> stringObjectMap, Integer startRows, Integer size) throws SQLException;
+    public List<E> findByCondtionForPage(Map<String, Object> stringObjectMap, Integer startRows, Integer size) throws SQLException{
+        RowBounds rowBounds = new RowBounds(startRows,size);
+        return super.sqlSessionTemplate.selectList(getMybaitsNameSpace() + "findByCondtionForPage", stringObjectMap, rowBounds);
+    };
 
 
 }

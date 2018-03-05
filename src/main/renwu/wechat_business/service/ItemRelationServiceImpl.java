@@ -8,6 +8,8 @@ package wechat_business.service;
  * @version V1.0
  */
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import wechat_business.dao.ItemRelationDao;
 import wechat_business.entity.ItemRelation;
 
@@ -21,8 +23,10 @@ import java.util.Map;
  * @Description 交易流水操作类
  * @date 2018/1/22
  */
+@Service("itemRelationServiceImpl")
 public class ItemRelationServiceImpl implements ItemRelationService {
-    private ItemRelationDao dao =  new ItemRelationDao();
+    @Autowired
+    private ItemRelationDao dao;
     @Override
     /**
      * @Title: deleteById

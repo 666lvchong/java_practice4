@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wechat_business.entity.ItemRelation">
+    <resultMap id="ItemRelation" type="wechat_business.entity.ItemRelation">
+        <id column="ID" property="id"></id>
+        <result column="INVENTORY" property="inventory"></result>
+        <result column="PRICE" property="price"></result>
+        <result column="IMG_ADDR" property="imgAddr"></result>
+        <association property="sellerInfo" column="SELLER_INFO_ID" select="getSellerInfo" javaType="wechat_business.entity.SellerInfo">
+            <id column="ID" property="id"></id>
+            <result column="SHOP_NAME" property="shopName"></result>
+            <result column="SHOP_NUMBER" property="shopNumber"></result>
+            <result column="SHOP_TYPE" property="shopType"></result>
+            <result column="TAOBAO_ACCOUNT_ID" property="taobaoAccountId"></result>
+            <result column="REGISTRATION_TIME" property="registrationTime"></result>
+            <result column="ADDRESS" property="address"></result>
+            <result column="EMAIL" property="email"></result>
+            <result column="AFFILIATED_COMPANY" property="affiltaedCompany"></result>
+            <result column="COMMERCIAL_REGISTRATION_NUM" property="commercialRegistrationNum"></result>
+            <result column="UPDATE_TIME" property="updateTime"></result>
+            <result column="DEPOSIT" property="deposit"></result>
+            <result column="CREDITWORTHINESS" property="creditworthiness"></result>
+        </association>
+        <association property="itemInfo" column="ITEM_INFO_ID" select="getItemInfo" javaType="wechat_business.entity.ItemInfo">
+            <id column="ID" property="id"></id>
+            <result column="NAME" property="name"></result>
+            <result column="NUMBER" property="number"></result>
+            <result column="IN_TIME" property="inTime"></result>
+            <result column="UPDATE_TIME" property="updateTimel"></result>
+            <result column="MAKER" property="maker"></result>
+            <result column="ADDR" property="addr"></result>
+            <result column="MAKE_TIME" property="makeTime"></result>
+            <result column="EXPIRATION" property="expiration"></result>
+            <result column="ORIGIN" property="origin"></result>
+            <result column="DESCRIPTION" property="description"></result>
+            <result column="DISCOUNT" property="discount"></result>
+        </association>
+   </resultMap>
+    <select id="getSellerInfo" parameterType="java.lang.Long" resultType="wechat_business.entity.SellerInfo">
+        SELECT ID,SHOP_NAME, SHOP_NUMBER, SHOP_TYPE, TAOBAO_ACCOUNT_ID, REGISTRATION_TIME, ADDRESS,
+        EMAIL, AFFILIATED_COMPANY, COMMERCIAL_REGISTRATION_NUM, UPDATE_TIME,  DEPOSIT,  CREDITWORTHINESS
+        FROM
+            seller_info
+        WHERE
+	      ID = #{id}
+    </select>
+    <select id="getItemInfo" parameterType="java.lang.Long" resultType="wechat_business.entity.ItemInfo">
+        SELECT ID, `NAME`, NUMBER,  IN_TIME, UPDATE_TIME,MAKER, ADDR, MAKE_TIME,
+        EXPIRATION, ORIGIN, DESCRIPTION, DISCOUNT
+        FROM
+          item_info
+        WHERE
+          ID = #{id}
+    </select>
+    <!-- SELLER_INFO_ID, ITEM_INFO_ID, -->
+    <select id="findByCondtion" parameterType="java.util.HashMap" resultMap="ItemRelation">
+        SELECT ID,ITEM_INFO_ID,SELLER_INFO_ID,INVENTORY, PRICE,IMG_ADDR
+        FROM
+              item_relation
+        <where>
+   <!--     <if test="map!=null">-->
+            ITEM_INFO_ID = ${ITEM_INFO_ID}
+  <!--      </if>-->
+        </where>
+    </select>
+</mapper>

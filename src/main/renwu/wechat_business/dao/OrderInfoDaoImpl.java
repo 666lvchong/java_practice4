@@ -152,7 +152,7 @@ public class OrderInfoDaoImpl extends wechat_business.service.OrderInfoServiceIm
     /**
      * @Title: findById
      * @Description: 更具Id查询数据
-     * @author lhehongju
+     * @author hehongju
      * @date 2018-01-22
      * @throws java.sql.SQLException
      * @param id 主键ID

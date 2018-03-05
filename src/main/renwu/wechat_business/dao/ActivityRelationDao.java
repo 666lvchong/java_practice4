@@ -9,13 +9,6 @@ package wechat_business.dao;/***************************************************
  */
 
 import wechat_business.entity.ActivityRelation;
-import wechat_business.service.ActivityInfoService;
-import wechat_business.service.ActivityInfoServiceImpl;
-import wechat_business.service.ItemRelationService;
-import wechat_business.service.ItemRelationServiceImpl;
-
-import java.sql.SQLException;
-import java.util.*;
 
 /**
  * @author dengchao
@@ -24,18 +17,18 @@ import java.util.*;
  * @date 2018/2/12
  */
 public class ActivityRelationDao extends Dao<ActivityRelation> {
-    //定义sql语句
+    /*//定义sql语句
     public String sqlStr;
     //定义受影响行数
     public Integer rows;
-    /**
+    *//**
      * @Title: deleteById
      * @Description: 根据id删除
      * @author dengchao
      * @date 2018/2/12
      * @param id 删除id
      * @return 返回受影响行数
-     */
+     *//*
     @Override
     public Integer deleteById(Long id) throws SQLException {
         //获取sql删除语句
@@ -52,14 +45,14 @@ public class ActivityRelationDao extends Dao<ActivityRelation> {
         return rows;
     }
 
-    /**
+    *//**
      * @Title: deleteByIds
      * @Description: 根据id删除多个
      * @author dengchao
      * @date 2018/2/12
      * @param ids 删除id数组
      * @return 返回受影响行数
-     */
+     *//*
     @Override
     public Integer deleteByIds(Long[] ids) throws SQLException {
         if (ids.length > 0){
@@ -79,14 +72,14 @@ public class ActivityRelationDao extends Dao<ActivityRelation> {
         return rows;
     }
 
-    /**
+    *//**
      * @Title: saveOrUpdate
      * @Description: 保存或修改
      * @author dengchao
      * @date 2018/2/12
      * @param activityRelation 活动关系对象
      * @return 返回受影响行数
-     */
+     *//*
     @Override
     public Integer saveOrUpdate(ActivityRelation activityRelation) throws SQLException {
         //判断id是否为null,是则保存，否则修改
@@ -124,14 +117,14 @@ public class ActivityRelationDao extends Dao<ActivityRelation> {
         return rows;
     }
 
-    /**
+    *//**
      * @Title: findById
      * @Description: 根据id查询
      * @author dengchao
      * @date 2018/2/12
      * @param id 查询id
      * @return 返回查询对象
-     */
+     *//*
     @Override
     public ActivityRelation findById(Long id) throws SQLException {
         ItemRelationService itemRelationService=new ItemRelationServiceImpl();
@@ -158,14 +151,14 @@ public class ActivityRelationDao extends Dao<ActivityRelation> {
         return activityRelation;
     }
 
-    /**
+    *//**
      * @Title: findByCondtion
      * @Description: 按条件查询
      * @author dengchao
      * @date 2018/2/12
      * @param stringObjectMap 查询条件
      * @return 返回查询结果集合
-     */
+     *//*
     @Override
     public List<ActivityRelation> findByCondtion(Map<String, Object> stringObjectMap) throws SQLException {
         //定义活动信息集合
@@ -206,7 +199,7 @@ public class ActivityRelationDao extends Dao<ActivityRelation> {
         return list;
     }
 
-    /**
+    *//**
      * @Title: findByCondtionForPage
      * @Description: 按条件分页查询
      * @author dengchao
@@ -215,7 +208,7 @@ public class ActivityRelationDao extends Dao<ActivityRelation> {
      * @param startRows 分页开始页数
      * @param size 分页页数
      * @return 返回查询结果集
-     */
+     *//*
     @Override
     public List<ActivityRelation> findByCondtionForPage(Map<String, Object> stringObjectMap, Integer startRows, Integer size) throws SQLException {
         //定义活动信息集合
@@ -253,5 +246,5 @@ public class ActivityRelationDao extends Dao<ActivityRelation> {
             }
         }
         return list;
-    }
+    }*/
 }

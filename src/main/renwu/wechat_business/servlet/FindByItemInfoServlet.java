@@ -55,19 +55,18 @@ public class FindByItemInfoServlet extends HttpServlet {
      */
     public void doPost(HttpServletRequest httpServletRequest , HttpServletResponse httpServletResponse) throws ServletException, IOException{
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        //通过spring上下文获得商品关系的service
         ItemRelationServiceImpl itemRelationService = (ItemRelationServiceImpl) applicationContext.getBean("itemRelationServiceImpl");
-/*        //创建一个商品关系的service
-        ItemRelationServiceImpl itemRelationService = new ItemRelationServiceImpl();*/
-        //创建一个商品信息的service
-        ItemInfoServiceImpl itemInfoService = new ItemInfoServiceImpl();
+        ItemInfoServiceImpl itemInfoService = (ItemInfoServiceImpl) applicationContext.getBean("itemInfoServiceImpl");
         //创建一个条件的map key值条件字段名  value值 条件的值.
-        Map<String,Object> map = new HashMap<String, Object>();
+        Map<String,Object> map=null;
         List<ItemInfo> itemInfoList =null;
         //判断传过来的条件是否存在 如果存在则添加到map中
-        if (httpServletRequest.getParameter("name")!=null){
-            map.put("name",httpServletRequest.getParameter("name"));
-        }
         try {
+            map = new HashMap<String, Object>();
+            if (httpServletRequest.getParameter("name")!=null){
+                map.put("name",httpServletRequest.getParameter("name"));
+            }
             itemInfoList = itemInfoService.findByCondtion(map);
         } catch (SQLException e) {
             e.printStackTrace();
