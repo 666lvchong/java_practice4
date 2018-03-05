@@ -140,14 +140,23 @@
         <url-pattern>/CreateOrderServlet</url-pattern>
     </servlet-mapping>
 
-    <!--<servlet>-->
-        <!--<servlet-name>PayServlet</servlet-name>-->
-        <!--<servlet-class>wechat_business.servlet.PayServlet</servlet-class>-->
-    <!--</servlet>-->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>PayServlet</servlet-name>-->
-        <!--<url-pattern>/PayServlet</url-pattern>-->
-    <!--</servlet-mapping>-->
+    <servlet>
+        <servlet-name>PayServlet</servlet-name>
+        <servlet-class>wechat_business.servlet.PayServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PayServlet</servlet-name>
+        <url-pattern>/PayServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddressServlet</servlet-name>
+        <servlet-class>wechat_business.servlet.AddressServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddressServlet</servlet-name>
+        <url-pattern>/AddressServlet.do</url-pattern>
+    </servlet-mapping>
 
     <!--dengchao servlet-->
     <servlet>
