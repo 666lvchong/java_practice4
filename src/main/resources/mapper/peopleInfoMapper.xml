@@ -48,7 +48,7 @@
     </insert>
     <!-- 修改 -->
     <update id="update" parameterType="wechat_business.entity.PeopleInfo">
-        <if test="@wechat_business.dao.Ognl@isNotEmpty(people)">
+        <if test="@Ognl@isNotEmpty(people)">
             UPDATE PEOPLE_INFO
             SET `NAME`=#{name},SEX=#{sex},AGE=#{age},NATION=#{nation},BIRTHDATE=#{birthdate},ID_NUMBER=#{idNumber},MOBILE_PHONE=#{mobilePhone},NATIVE_PLACE=#{nativePlace},
             MAILBOX=#{mailBox},PERMANENT_ADDRESS=#{permanentAdress},PROFESSION=#{profession},WORK_UNIT=#{workUnit},CREATE_TIME=#{createTime},UPDATE_TIME=#{updateTime}
@@ -62,7 +62,7 @@
         WHERE ID=#{id}
     </select>
     <!-- 根据条件查询 -->
-    <select id="findByCondtion" parameterType="java.util.HashMap" resultMap="peopleInfoMap">
+    <select id="findByCondtion" parameterType="java.util.Map" resultMap="peopleInfoMap">
         SELECT <include refid="columns"/>
         FROM PEOPLE_INFO
         <where>
@@ -87,7 +87,7 @@
         </where>
     </select>
     <!-- 根据条件分页查询 -->
-    <select id="findByCondtionForPage" parameterType="java.util.HashMap" resultMap="peopleInfoMap">
+    <select id="findByCondtionForPage" parameterType="java.util.Map" resultMap="peopleInfoMap">
         SELECT <include refid="columns"/>
         FROM PEOPLE_INFO
         <where>

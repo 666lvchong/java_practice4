@@ -47,7 +47,7 @@
         </if>
     </select>
     <!-- 根据条件查询 -->
-    <select id="findByCondtion" parameterType="java.util.HashMap" resultMap="gradeMap">
+    <select id="findByCondtion" parameterType="java.util.Map" resultMap="gradeMap">
         SELECT <include refid="columns"/>
         FROM GRADE
         <where>
@@ -57,7 +57,7 @@
         </where>
     </select>
     <!-- 根据条件分页查询 -->
-    <select id="findByCondtionForPage" parameterType="java.util.HashMap" resultMap="gradeMap">
+    <select id="findByCondtionForPage" parameterType="java.util.Map" resultMap="gradeMap">
         SELECT <include refid="columns"/>
         FROM GRADE
         <where>

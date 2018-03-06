@@ -4,14 +4,14 @@
     <!-- 定义结果集 -->
     <resultMap id="activityRelationMap" type="wechat_business.entity.ActivityRelation">
         <id property="id" column="ID"/>
-        <association property="activityInfoId" column="ACTIVITY_INFO_ID" select="getActivityInfo" javaType="wechat_business.entity.ActivityInfo">
+        <association property="activityInfoId" column="ACTIVITY_INFO_ID" javaType="wechat_business.entity.ActivityInfo">
             <id property="id" column="ID"/>
             <result property="discount" column="DISCOUNT"/>
             <result property="activityName" column="ACTIVITY_NAME"/>
             <result property="activityStartTime" column="ACTIVITY_START_TIME"/>
             <result property="activityEndTime" column="ACTIVITY_END_TIME"/>
         </association>
-        <association property="itemRelationId" column= "ITEM_RELATION_ID" select="getItemRelation" javaType="wechat_business.entity.ItemRelation">
+        <association property="itemRelationId" column= "ITEM_RELATION_ID" javaType="wechat_business.entity.ItemRelation">
             <id property="id" column="ID"/>
             <result column="INVENTORY" property="inventory"></result>
             <result column="PRICE" property="price"></result>
@@ -20,16 +20,6 @@
             <result column="ITEM_INFO_ID" property="itemInfo"></result>
         </association>
     </resultMap>
-    <select id="getActivityInfo" parameterType="java.lang.Long" resultType="wechat_business.entity.ActivityInfo">
-        SELECT ID,DISCOUNT,ACTIVITY_NAME,ACTIVITY_START_TIME,ACTIVITY_END_TIME
-        FROM ACTIVITY_INFO
-        WHERE ID=#{id}
-    </select>
-    <select id="getItemRelation" parameterType="java.lang.Long" resultType="wechat_business.entity.ItemRelation">
-        SELECT ID,ITEM_INFO_ID,SELLER_INFO_ID,INVENTORY, PRICE,IMG_ADDR
-        FROM item_relation
-        WHERE ID=#{id}
-    </select>
     <!-- 定义sql -->
     <sql id="columns">
         ID,ITEM_RELATION_ID,ACTIVITY_INFO_ID
@@ -67,7 +57,7 @@
         WHERE ID=#{id}
     </select>
     <!-- 根据条件查询 -->
-    <select id="findByCondtion" parameterType="java.util.HashMap" resultMap="activityRelationMap">
+    <select id="findByCondtion" parameterType="java.util.Map" resultMap="activityRelationMap">
         SELECT <include refid="columns"/>
         FROM ACTIVITY_RELATION
         <where>
@@ -80,7 +70,7 @@
         </where>
     </select>
     <!--&lt;!&ndash; 根据条件分页查询 &ndash;&gt;-->
-    <select id="findByCondtionForPage" parameterType="java.util.HashMap" resultMap="activityRelationMap">
+    <select id="findByCondtionForPage" parameterType="java.util.Map" resultMap="activityRelationMap">
         SELECT <include refid="columns"/>
         FROM ACTIVITY_RELATION
         <where>
