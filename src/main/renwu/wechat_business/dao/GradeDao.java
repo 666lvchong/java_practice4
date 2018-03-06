@@ -8,6 +8,7 @@ package wechat_business.dao;/***************************************************
  * @version V1.0
  */
 
+import org.springframework.stereotype.Repository;
 import wechat_business.entity.Grade;
 
 /**
@@ -16,6 +17,7 @@ import wechat_business.entity.Grade;
  * @Description 管理者dao类
  * @date 2018/1/29
  */
+@Repository
 public class GradeDao extends Dao<Grade> {
   /*  //定义sql语句
     public String sqlStr=null;

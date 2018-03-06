@@ -8,6 +8,7 @@ package wechat_business.dao;/***************************************************
  * @version V1.0
  */
 
+import org.springframework.stereotype.Repository;
 import wechat_business.entity.ActivityRelation;
 
 /**
@@ -16,6 +17,7 @@ import wechat_business.entity.ActivityRelation;
  * @Description 活动关系表dao
  * @date 2018/2/12
  */
+@Repository
 public class ActivityRelationDao extends Dao<ActivityRelation> {
     /*//定义sql语句
     public String sqlStr;
