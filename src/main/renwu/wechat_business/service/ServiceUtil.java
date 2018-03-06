@@ -8,7 +8,6 @@ package wechat_business.service;
  * @version V1.0
  */
 
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import wechat_business.dao.Dao;
 
