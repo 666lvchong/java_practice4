@@ -8,6 +8,8 @@ package wechat_business.service;/***********************************************
  * @version V1.0
  */
 
+import wechat_business.entity.OrderDetail;
+
 /**
  * @author hehongju
  * @InterfaceName OrderDetailService
@@ -25,5 +27,5 @@ public interface OrderDetailService {
      * @param itemNumber 购买商品数量
      * @param amout 商品价格
      */
-    public OrderDetailServiceImpl crateOrderDetail(Long taobaoAccountId, Long itemInfoId, Double itemNumber, Double amout);
+    public OrderDetail crateOrderDetail(Long taobaoAccountId, Long itemInfoId, Double itemNumber, Double amout);
 }

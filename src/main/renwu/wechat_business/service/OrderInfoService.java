@@ -8,6 +8,8 @@ package wechat_business.service;/***********************************************
  * @version V1.0
  */
 
+import wechat_business.entity.OrderInfo;
+
 /**
  * @author hehongju
  * @InterfaceName OrderInfoService
@@ -24,5 +26,5 @@ public interface OrderInfoService {
      * @param taobaoAccountId 淘宝账户编号
      * @param orderTotalAmount 订单总金额
      */
-    public OrderInfoServiceImpl crateOrderInfo(String orderNumber, Long taobaoAccountId, Double orderTotalAmount);
+    public OrderInfo crateOrderInfo(String orderNumber, Long taobaoAccountId, Double orderTotalAmount);
 }

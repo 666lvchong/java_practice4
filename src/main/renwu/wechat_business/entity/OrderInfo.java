@@ -45,6 +45,18 @@ public class OrderInfo {
      * isSuccess 是否交易成功 true-成功 false-不成功
      */
     private Boolean isSuccess;
+    /**
+     * addressId 发货地址
+     */
+    private Long addressId;
+
+    public Long getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
+    }
 
     public Long getId() {
         return id;

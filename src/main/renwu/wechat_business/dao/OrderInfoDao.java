@@ -1,18 +1,22 @@
 package wechat_business.dao;/********************************************************************
  /**
- * @Project: java_practice
- * @Package com.wechat_business.dao
+ * @Project: Team4
+ * @Package wechat_business.dao
  * @author hehongju
- * @date 2018/1/22 5:46
+ * @date 2018/3/7 16:19
  * @Copyright: 2018 www.zyht.com Inc. All rights reserved.
  * @version V1.0
  */
 
+import org.springframework.stereotype.Repository;
+import wechat_business.entity.OrderInfo;
+
 /**
  * @author hehongju
- * @InterfaceName OrderInfoDao
- * @Description 订单信息数据库业务接口
- * @date 2018/1/22
+ * @ClassName OrderInfoDao
+ * @Description 类描述
+ * @date 2018/3/7
  */
-public interface OrderInfoDao extends wechat_business.util.DaoUtil<wechat_business.service.OrderInfoServiceImpl> {
+@Repository
+public class OrderInfoDao extends Dao<OrderInfo> {
 }

@@ -71,6 +71,18 @@ public class OrderDetail {
      * returnedTime 退货时间 yyyy-MM-dd HH：mm：ss
      */
     private Date returnedTime;
+    /**
+     * addressId 发货地址
+     */
+    private Long addressId;
+
+    public Long getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
+    }
 
     public Long getId() {
         return id;

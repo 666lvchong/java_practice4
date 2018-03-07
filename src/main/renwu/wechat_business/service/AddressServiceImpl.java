@@ -1,5 +1,6 @@
 package wechat_business.service;
 
+import org.springframework.stereotype.Service;
 import wechat_business.dao.AddressDao;
 import wechat_business.entity.Address;
 
@@ -10,6 +11,7 @@ import java.util.Map;
 /**
  * Created by Lenovo on 2018/2/17.
  */
+@Service("addressService")
 public class AddressServiceImpl extends ServiceUtil<AddressDao,Address>{
 //AddressDao addressDao=new AddressDao();
 //

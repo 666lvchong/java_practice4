@@ -8,6 +8,8 @@ package wechat_business.service;/***********************************************
  * @version V1.0
  */
 
+import org.springframework.stereotype.Service;
+import wechat_business.dao.OrderDetailDao;
 import wechat_business.entity.OrderDetail;
 
 /**
@@ -16,7 +18,8 @@ import wechat_business.entity.OrderDetail;
  * @Description 订单详情业务类
  * @date 2018/1/22
  */
-public class OrderDetailServiceImpl extends OrderDetail implements OrderDetailService {
+@Service("orderDetailService")
+public class OrderDetailServiceImpl extends ServiceUtil<OrderDetailDao,OrderDetail> implements OrderDetailService{
 
     /**
      * @Title: crateOrder
@@ -28,16 +31,17 @@ public class OrderDetailServiceImpl extends OrderDetail implements OrderDetailSe
      * @param amout 商品价格
      */
     @Override
-    public OrderDetailServiceImpl crateOrderDetail(Long taobaoAccountId, Long itemInfoId, Double itemNumber, Double amout) {
-        this.setOrderInfoId(0l);
-        this.setTaobaoAccountId(taobaoAccountId);
-        this.setItemInfoId(itemInfoId.longValue());
-        this.setItemNumber(itemNumber.doubleValue());
-        this.setAmount(amout.doubleValue());
-        this.setOrderStatus((byte)1);
-        this.setIsSent(false);
-        this.setIsReceived(false);
-        this.setIsReturned(false);
-        return this;
+    public OrderDetail crateOrderDetail(Long taobaoAccountId, Long itemInfoId, Double itemNumber, Double amout) {
+        OrderDetail orderDetail=new OrderDetail();
+        orderDetail.setOrderInfoId(0l);
+        orderDetail.setTaobaoAccountId(taobaoAccountId);
+        orderDetail.setItemInfoId(itemInfoId.longValue());
+        orderDetail.setItemNumber(itemNumber.doubleValue());
+        orderDetail.setAmount(amout.doubleValue());
+        orderDetail.setOrderStatus((byte) 1);
+        orderDetail.setIsSent(false);
+        orderDetail.setIsReceived(false);
+        orderDetail.setIsReturned(false);
+        return orderDetail;
     }
 }

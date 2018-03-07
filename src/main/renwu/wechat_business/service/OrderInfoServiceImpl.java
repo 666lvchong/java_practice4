@@ -8,6 +8,8 @@ package wechat_business.service;/***********************************************
  * @version V1.0
  */
 
+import org.springframework.stereotype.Service;
+import wechat_business.dao.OrderInfoDao;
 import wechat_business.entity.OrderInfo;
 
 import java.util.Date;
@@ -18,7 +20,8 @@ import java.util.Date;
  * @Description 订单信息业务类
  * @date 2018/1/22
  */
-public class OrderInfoServiceImpl extends OrderInfo implements OrderInfoService {
+@Service("orderInfoService")
+public class OrderInfoServiceImpl extends ServiceUtil<OrderInfoDao,OrderInfo> implements OrderInfoService {
     /**
      * @Title: crateOrderInfo
      * @Description: 创建订单信息
@@ -29,12 +32,13 @@ public class OrderInfoServiceImpl extends OrderInfo implements OrderInfoService 
      * @param orderTotalAmount 订单总金额
      */
     @Override
-    public OrderInfoServiceImpl crateOrderInfo(String orderNumber, Long taobaoAccountId, Double orderTotalAmount) {
-        this.setOrderNum(orderNumber);
-        this.setTaobaoAccountId(taobaoAccountId);
-        this.setOrderTotalAmount(orderTotalAmount);
-        this.setCreationTime(new Date());
-        this.setIsSuccess(false);
-        return this;
+    public OrderInfo crateOrderInfo(String orderNumber, Long taobaoAccountId, Double orderTotalAmount) {
+        OrderInfo orderInfo=new OrderInfo();
+        orderInfo.setOrderNum(orderNumber);
+        orderInfo.setTaobaoAccountId(taobaoAccountId);
+        orderInfo.setOrderTotalAmount(orderTotalAmount);
+        orderInfo.setCreationTime(new Date());
+        orderInfo.setIsSuccess(false);
+        return orderInfo;
     }
 }
