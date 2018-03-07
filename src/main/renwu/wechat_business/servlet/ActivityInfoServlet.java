@@ -11,9 +11,7 @@ package wechat_business.servlet;/***********************************************
 import wechat_business.dao.ActivityRelationDao;
 import wechat_business.entity.ActivityInfo;
 import wechat_business.entity.ActivityRelation;
-import wechat_business.service.ActivityInfoService;
 import wechat_business.service.ActivityInfoServiceImpl;
-import wechat_business.service.ActivityRelationService;
 import wechat_business.service.ActivityRelationServiceImpl;
 
 import javax.servlet.ServletException;
@@ -48,8 +46,8 @@ public class ActivityInfoServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         //活动信息方法实例化
-        ActivityInfoService activityInfoService=new ActivityInfoServiceImpl();
-        ActivityRelationService activityRelationService=new ActivityRelationServiceImpl();
+        ActivityInfoServiceImpl activityInfoService=new ActivityInfoServiceImpl();
+        ActivityRelationServiceImpl activityRelationService=new ActivityRelationServiceImpl();
         //定义搜索条件
         Map<String,Object> map=new HashMap<String, Object>();
         Map<String,Object> mapActivityRelation=new HashMap<String, Object>();

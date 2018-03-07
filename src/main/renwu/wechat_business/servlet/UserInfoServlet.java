@@ -10,7 +10,6 @@ package wechat_business.servlet;/***********************************************
 
 import wechat_business.dao.TaobaoAccountDao;
 import wechat_business.entity.TaobaoAccount;
-import wechat_business.service.TaobaoAccountService;
 import wechat_business.service.TaobaoAccountServicelmpl;
 
 import javax.servlet.ServletException;
@@ -48,7 +47,7 @@ public class UserInfoServlet extends HttpServlet {
         //定义响应输出
         PrintWriter out = response.getWriter();
         //淘宝账户方法实例化
-        TaobaoAccountService taobaoAccountService = new TaobaoAccountServicelmpl();
+        TaobaoAccountServicelmpl taobaoAccountService = new TaobaoAccountServicelmpl();
         //定义管理页面搜索条件
         Map<String, Object> mapTaobaoCondition = new HashMap<String, Object>();
 
@@ -104,7 +103,7 @@ public class UserInfoServlet extends HttpServlet {
     private void del(HttpServletRequest req, HttpServletResponse resp) {
         try {
             System.out.println("执行删除" + (++i));
-            TaobaoAccountService taobaoAccountService = new TaobaoAccountServicelmpl();
+            TaobaoAccountServicelmpl taobaoAccountService = new TaobaoAccountServicelmpl();
             Long id = new Long(req.getParameter("id"));
             int rows = taobaoAccountService.deleteById(id);
         } catch (Exception e) {

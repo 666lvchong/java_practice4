@@ -8,6 +8,7 @@ package wechat_business.servlet;/***********************************************
  * @version V1.0
  */
 
+import wechat_business.dao.ItemInfoDao;
 import wechat_business.service.ItemInfoServiceImpl;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +35,7 @@ public class ItemInfoServlet  extends HttpServlet {
         Long  id=1l;
         request.getParameter("id");
         id=Long.parseLong("1");
+        ItemInfoDao itemInfoDao=new ItemInfoDao();
         ItemInfoServiceImpl itemInfoService=new ItemInfoServiceImpl();
         try {
             request.setAttribute("item",itemInfoService.findById(id));
@@ -42,7 +44,7 @@ public class ItemInfoServlet  extends HttpServlet {
             e.printStackTrace();
            
         }finally {
-            itemInfoService.release();
+            itemInfoDao.release();
         }
         request.getRequestDispatcher("/jsp/GoodsInfo.jsp").forward(request,response);
     }

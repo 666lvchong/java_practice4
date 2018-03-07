@@ -52,8 +52,7 @@ public class AddByPeopleInfoServlet extends HttpServlet {
         peopleInfo.setWorkUnit(req.getParameter("work"));
         PeopleInfoServiceImpl peopleInfoService = new PeopleInfoServiceImpl();
         try {
-
-            System.out.println(peopleInfoService.saveOrUpdate(peopleInfo));
+            System.out.println(peopleInfoService.save(peopleInfo));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,7 +76,7 @@ public class AddByPeopleInfoServlet extends HttpServlet {
         taobaoAccount.setPeopleInfo(req.getParameter("peopleinfo"));
         TaobaoAccountServicelmpl accountServicel =new TaobaoAccountServicelmpl();
         try {
-            System.out.println(accountServicel.saveOrUpdate(taobaoAccount));
+            System.out.println(accountServicel.save(taobaoAccount));
         } catch (SQLException e) {
             e.printStackTrace();
         }
