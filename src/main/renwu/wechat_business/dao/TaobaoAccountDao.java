@@ -1,11 +1,12 @@
 package wechat_business.dao;
 
+import org.springframework.stereotype.Repository;
 import wechat_business.entity.TaobaoAccount;
 
 /**
  * Created by Lenovo on 2018/1/22.
  */
-
+    @Repository
     public class TaobaoAccountDao extends Dao<TaobaoAccount> {
 //    private String sql = null;
 //    private Integer result;
