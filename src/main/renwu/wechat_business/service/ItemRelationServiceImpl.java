@@ -23,7 +23,7 @@ import java.util.Map;
  * @Description 交易流水操作类
  * @date 2018/1/22
  */
-@Service("itemRelationServiceImpl")
+@Service("itemRelationService")
 public class ItemRelationServiceImpl extends ServiceUtil<ItemRelationDao,ItemRelation>{
     /*
     @Autowired

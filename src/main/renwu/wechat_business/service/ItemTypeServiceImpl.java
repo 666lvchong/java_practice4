@@ -8,6 +8,7 @@ package wechat_business.service;
  * @version V1.0
  */
 
+import org.springframework.stereotype.Service;
 import wechat_business.dao.ItemTypeDao;
 import wechat_business.entity.ItemType;
 
@@ -21,6 +22,7 @@ import java.util.Map;
  * @Description 交易流水操作类
  * @date 2018/1/22
  */
+@Service("itemTypeService")
 public class ItemTypeServiceImpl extends ServiceUtil<ItemTypeDao,ItemType>  {
   /*
   private ItemTypeDao itemTypeDao =  new ItemTypeDao();

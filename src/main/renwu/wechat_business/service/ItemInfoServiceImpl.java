@@ -24,7 +24,7 @@ import java.util.Map;
  * @Description 类描述
  * @date 2018/1/26
  */
-@Service("itemInfoServiceImpl")
+@Service("itemInfoService")
 public class ItemInfoServiceImpl extends ServiceUtil<ItemInfoDao,ItemInfo> {
   /*
   //定义一个静态对象，方便调用方法
