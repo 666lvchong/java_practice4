@@ -1,25 +1,27 @@
 package wechat_business.service;/********************************************************************
  /**
- * @Project: java_practice
+ * @Project: Team4
  * @Package wechat_business.service
  * @author caixing
- * @date 2018/1/29 9:56
+ * @date 2018/3/5 17:27
  * @Copyright: 2018 www.zyht.com Inc. All rights reserved.
  * @version V1.0
  */
 
-import wechat_business.dao.PaypalInfoDaoImpl;
+import org.springframework.stereotype.Service;
+import wechat_business.dao.PaypalInfoDao;
 import wechat_business.entity.PaypalInfo;
 
 import java.sql.SQLException;
 
 /**
  * @author caixing
- * @ClassName paypalInfoServiceImpl
- * @Description 类描述 支付宝业务实现类
- * @date 2018/1/29
+ * @ClassName PaypalInfoServiceImpl
+ * @Description 类描述 支付业务
+ * @date 2018/3/5
  */
-public class PaypalInfoServiceImpl implements PaypalInfoService {
+@Service("PaypalInfoService")
+public class PaypalInfoServiceImpl extends  ServiceUtil<PaypalInfoDao,PaypalInfo>{
     /**
      * @Title: pay
      * @Description: 方法描述 支付
@@ -27,11 +29,11 @@ public class PaypalInfoServiceImpl implements PaypalInfoService {
      * @param: number支付金额
      * @date 2018/1/29
      */
-    @Override
+
     public void pay( PaypalInfo paypalInfo,Double number) {
-       paypalInfo.setBalance(paypalInfo.getBalance().doubleValue()-number.doubleValue());
+        paypalInfo.setBalance(paypalInfo.getBalance().doubleValue()-number.doubleValue());
         try {
-            new PaypalInfoDaoImpl().saveOrUpdate(paypalInfo);
+            new PaypalInfoDao().update(paypalInfo);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,8 +46,10 @@ public class PaypalInfoServiceImpl implements PaypalInfoService {
      * @date 2018/1/29
      * @param: number充值金额
      */
-    @Override
     public void recharge(Double number) {
 
     }
+
+
+
 }
