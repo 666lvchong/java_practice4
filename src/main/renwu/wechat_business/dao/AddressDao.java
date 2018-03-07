@@ -1,5 +1,6 @@
 package wechat_business.dao;
 
+import org.springframework.stereotype.Repository;
 import wechat_business.entity.Address;
 import wechat_business.util.FormatUtils;
 
@@ -9,6 +10,7 @@ import java.util.*;
 /**
  * Created by Lenovo on 2018/2/17.
  */
+@Repository
 public  class AddressDao extends Dao<Address> {
 //    private String sql = null;
 //    private Integer result;
