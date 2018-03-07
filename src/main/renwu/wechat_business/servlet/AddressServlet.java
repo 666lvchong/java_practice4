@@ -34,13 +34,16 @@ public class AddressServlet extends HttpServlet {
 
         String id=request.getParameter("id");
         String edit=request.getParameter("edit");
+        Long ids=0l ;
+        if(id!=null) ids=Long.valueOf(id);
 
         Object buyer=request.getSession().getAttribute("TaobaoAccount");
         TaobaoAccount taobaoAccount;
         taobaoAccount= (TaobaoAccount) buyer;
         Map<String,Object> stringObjectMap=new HashMap<String, Object>();
         stringObjectMap.put("ADDRESS_TYPE",(byte)1);
-        stringObjectMap.put("TAOBAO_ACCOUNT_ID",taobaoAccount.getId());
+//        stringObjectMap.put("TAOBAO_ACCOUNT_ID",taobaoAccount.getId());
+        stringObjectMap.put("TAOBAO_ACCOUNT_ID",(long)2);
 
         System.out.println(""+edit);
         Boolean indexAddress=false;
@@ -48,7 +51,6 @@ public class AddressServlet extends HttpServlet {
             edit="0";
         }
         if (edit.equals("is")){
-            Long ids = Long.valueOf(id);;
             AddressServiceImpl isAddressService=new AddressServiceImpl();
             List<Address> isAddressList=new ArrayList<Address>();
             Address isAddress=new Address();
@@ -67,26 +69,24 @@ public class AddressServlet extends HttpServlet {
 
         }
         if (edit.equals("del")){
-            Long ids = Long.valueOf(id);
             del(ids);
         }
         Address updateAddress=new Address();
         if (edit.equals("update")){
-            Long ids = Long.valueOf(id);
             AddressServiceImpl updateAddressService=new AddressServiceImpl();
             try {
                 updateAddress=updateAddressService.findById(ids);
                 indexAddress=true;
-                System.out.println("123");
+                System.out.println("123"+updateAddress.getId());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
         if (edit.equals("save")){
-            String address=request.getParameter("address");
+            String address=request.getParameter("addres");
             String name=request.getParameter("name");
             String tel=request.getParameter("tel");
-            AddressServiceImpl saveAddressService=new AddressServiceImpl();
+            System.out.println("address"+address);
             Address saveAddress=new Address();
             saveAddress.setAddress(address);
             saveAddress.setTelephone(tel);
@@ -95,16 +95,16 @@ public class AddressServlet extends HttpServlet {
             saveAddress.setIsDefault(false);
             saveAddress.setCreateTime(new Date());
             saveAddress.setUpdateTime(new Date());
-            saveAddress.setTaobaoAccountID(taobaoAccount.getId());
+//            saveAddress.setTaobaoAccountID(taobaoAccount.getId());
+            saveAddress.setTaobaoAccountID((long)2);
             save(saveAddress);
             System.out.println("保存");
         }
         if (edit.equals("saveId")){
-            Long ids = Long.valueOf(id);
-            String address=request.getParameter("address");
+            String address=request.getParameter("addres");
             String name=request.getParameter("name");
             String tel=request.getParameter("tel");
-            AddressServiceImpl saveAddressService=new AddressServiceImpl();
+            System.out.println(ids+"address"+address);
             Address saveAddress=new Address();
             saveAddress.setAddress(address);
             saveAddress.setTelephone(tel);
@@ -113,7 +113,8 @@ public class AddressServlet extends HttpServlet {
             saveAddress.setIsDefault(false);
             saveAddress.setCreateTime(new Date());
             saveAddress.setUpdateTime(new Date());
-            saveAddress.setTaobaoAccountID(taobaoAccount.getId());
+//            saveAddress.setTaobaoAccountID(taobaoAccount.getId());
+            saveAddress.setTaobaoAccountID((long)2);
             saveAddress.setId(ids);
             save(saveAddress);
         }
@@ -156,7 +157,21 @@ public class AddressServlet extends HttpServlet {
     public void save(Address address){
         AddressServiceImpl addressServicesSave=new AddressServiceImpl();
         try {
-            addressServicesSave.saveOrUpdate(address);
+            addressServicesSave.save(address);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * @Title:
+     * @Description: 地址保存
+     * @author hehongju
+     * @date 2018-03-04
+     */
+    public void update(Address address){
+        AddressServiceImpl addressServicesSave=new AddressServiceImpl();
+        try {
+            addressServicesSave.update(address);
         } catch (SQLException e) {
             e.printStackTrace();
         }

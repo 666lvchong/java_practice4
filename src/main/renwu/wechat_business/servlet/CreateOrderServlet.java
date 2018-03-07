@@ -1,9 +1,11 @@
 package wechat_business.servlet;
 
 import wechat_business.dao.ItemInfoDao;
-import wechat_business.dao.OrderDetailDaoImpl;
-import wechat_business.dao.OrderInfoDaoImpl;
+import wechat_business.dao.OrderDetailDao;
+import wechat_business.dao.OrderInfoDao;
 import wechat_business.entity.ItemInfo;
+import wechat_business.entity.OrderDetail;
+import wechat_business.entity.OrderInfo;
 import wechat_business.entity.TaobaoAccount;
 import wechat_business.service.OrderDetailServiceImpl;
 import wechat_business.service.OrderInfoServiceImpl;
@@ -43,8 +45,8 @@ public class CreateOrderServlet extends HttpServlet {
         Map<String,Object> stringObjectMap=new HashMap<String, Object>();
         stringObjectMap.put("TAOBAO_ACCOUNT_ID",taobaoAccount.getId());
         stringObjectMap.put("ORDER_INFO_ID",0);
-        List<OrderDetailServiceImpl> orderDetailServiceList=new ArrayList<OrderDetailServiceImpl>();
-        OrderDetailDaoImpl orderDetailDao = new OrderDetailDaoImpl();
+        List<OrderDetail> orderDetailList=new ArrayList<OrderDetail>();
+        OrderDetailDao orderDetailDao = new OrderDetailDao();
 
         ItemInfo itemInfo=new ItemInfo();
         ItemInfoDao itemInfoDao=new ItemInfoDao();
@@ -54,24 +56,25 @@ public class CreateOrderServlet extends HttpServlet {
         try{
             //创建订单信息
             OrderInfoServiceImpl orderInfoService=new OrderInfoServiceImpl();
-            OrderInfoDaoImpl orderInfoDao=new OrderInfoDaoImpl();
+            OrderInfo orderInfo=new OrderInfo();
+            OrderInfoDao orderInfoDao=new OrderInfoDao();
             Long buyerId=Long.valueOf(taobaoAccount.getId());
             Double money=Double.valueOf(moneystr);
-            orderInfoService=orderInfoService.crateOrderInfo(orderNum,buyerId,money);
-            System.out.println(orderInfoDao.saveOrUpdate(orderInfoService));
+            orderInfo=orderInfoService.crateOrderInfo(orderNum,buyerId,money);
+            System.out.println(orderInfoDao.save(orderInfo));
             //取id
             Map<String,Object> stringObjectMap0=new HashMap<String, Object>();
             stringObjectMap0.put("ORDER_NUM",orderNum);
-            List<OrderInfoServiceImpl> orderInfoServiceList=new ArrayList<OrderInfoServiceImpl>();
-            orderInfoServiceList= orderInfoDao.findByCondtion(stringObjectMap0);
+            List<OrderInfo> orderInfoList=new ArrayList<OrderInfo>();
+            orderInfoList= orderInfoDao.findByCondtion(stringObjectMap0);
             //删除购物车的数据创建订单
-            orderDetailServiceList=orderDetailDao.findByCondtion(stringObjectMap);
-            for (int i=0;i<orderDetailServiceList.size();i++){
-                OrderDetailServiceImpl orderDetailService=new OrderDetailDaoImpl();
-                orderDetailService.setId(orderDetailServiceList.get(i).getId());
-                orderDetailService.setOrderInfoId(orderInfoServiceList.get(0).getId());
+            orderDetailList=orderDetailDao.findByCondtion(stringObjectMap);
+            for (int i=0;i<orderDetailList.size();i++){
+                OrderDetail orderDetailService=new OrderDetail();
+                orderDetailService.setId(orderDetailList.get(i).getId());
+                orderDetailService.setOrderInfoId(orderInfoList.get(0).getId());
                 orderDetailService.setOrderStatus((byte)1);
-                orderDetailDao.saveOrUpdate(orderDetailService);
+                orderDetailDao.update(orderDetailService);
             }
         } catch (SQLException e) {
             e.printStackTrace();

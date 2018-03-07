@@ -1,15 +1,11 @@
 package wechat_business.servlet;
 
 import wechat_business.dao.ItemInfoDao;
-import wechat_business.dao.OrderDetailDaoImpl;
-import wechat_business.dao.OrderInfoDaoImpl;
+import wechat_business.dao.OrderDetailDao;
+import wechat_business.dao.OrderInfoDao;
 import wechat_business.entity.ItemInfo;
+import wechat_business.entity.OrderDetail;
 import wechat_business.entity.OrderInfo;
-import wechat_business.entity.TaobaoAccount;
-import wechat_business.service.ItemInfoServiceImpl;
-import wechat_business.service.OrderDetailServiceImpl;
-import wechat_business.service.OrderInfoServiceImpl;
-import wechat_business.util.FormatUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,37 +39,37 @@ public class OrderDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String orderInfoId=request.getParameter("id");
-        OrderInfoDaoImpl orderInfoDao=new OrderInfoDaoImpl();
-        OrderInfoServiceImpl orderInfoService=new OrderInfoServiceImpl();
+        OrderInfoDao orderInfoDao=new OrderInfoDao();
+        OrderInfo orderInfo=new OrderInfo();
 
         Map<String,Object> stringObjectMap=new HashMap<String, Object>();
-        List<OrderDetailServiceImpl> orderDetailServiceList=new ArrayList<OrderDetailServiceImpl>();
-        OrderDetailDaoImpl orderDetailDao = new OrderDetailDaoImpl();
+        List<OrderDetail> orderDetailList=new ArrayList<OrderDetail>();
+        OrderDetailDao orderDetailDao=new OrderDetailDao();
 
         ItemInfo itemInfo;
         ItemInfoDao itemInfoDao=new ItemInfoDao();
         List itemInfos=new ArrayList<String>();
         try {
             //根据orderInfoId获取订单信息
-            orderInfoService=orderInfoDao.findById(Long.valueOf(orderInfoId));
-            stringObjectMap.put("TAOBAO_ACCOUNT_ID",orderInfoService.getTaobaoAccountId());
-            stringObjectMap.put("ORDER_INFO_ID",orderInfoService.getId());
+            orderInfo=orderInfoDao.findById(Long.valueOf(orderInfoId));
+            stringObjectMap.put("TAOBAO_ACCOUNT_ID",orderInfo.getTaobaoAccountId());
+            stringObjectMap.put("ORDER_INFO_ID",orderInfo.getId());
             //根据获取订单详情
-            orderDetailServiceList=orderDetailDao.findByCondtion(stringObjectMap);
+            orderDetailList=orderDetailDao.findByCondtion(stringObjectMap);
             //获取商品名
-            for (int i=0;i<orderDetailServiceList.size();i++){
-               itemInfo= itemInfoDao.findById(orderDetailServiceList.get(i).getItemInfoId());
+            for (int i=0;i<orderDetailList.size();i++){
+               itemInfo= itemInfoDao.findById(orderDetailList.get(i).getItemInfoId());
                 itemInfos.add(i, itemInfo.getName());
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        request.setAttribute("list",orderDetailServiceList);
-        request.setAttribute("money",orderInfoService.getOrderTotalAmount());
+        request.setAttribute("list",orderDetailList);
+        request.setAttribute("money",orderInfo.getOrderTotalAmount());
         request.setAttribute("listName",itemInfos );
         request.setAttribute("orderInfoId",orderInfoId);
-        request.setAttribute("pay",orderDetailServiceList.get(0).getOrderStatus());
+        request.setAttribute("pay",orderDetailList.get(0).getOrderStatus());
         request.getRequestDispatcher("jsp/order_detail.jsp").forward(request,response);
     }
 }

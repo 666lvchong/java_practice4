@@ -1,6 +1,6 @@
 package wechat_business.servlet;
 
-import wechat_business.dao.OrderDetailDaoImpl;
+import wechat_business.dao.OrderDetailDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,7 +33,7 @@ public class DelShoppingCartServlet extends HttpServlet {
 
         String id=request.getParameter("id");
         String buyer=null;
-        OrderDetailDaoImpl orderDetailDao = new OrderDetailDaoImpl();
+        OrderDetailDao orderDetailDao = new OrderDetailDao();
         try {
             buyer=orderDetailDao.findById(Long.valueOf(id)).getTaobaoAccountId().toString();
             System.out.println("删除个数"+orderDetailDao.deleteById((Long.valueOf(id))));

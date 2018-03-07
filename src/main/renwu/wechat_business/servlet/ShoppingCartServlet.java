@@ -2,12 +2,12 @@ package wechat_business.servlet;
 
 
 import wechat_business.dao.ItemInfoDao;
-import wechat_business.dao.OrderDetailDaoImpl;
+import wechat_business.dao.OrderDetailDao;
 import wechat_business.entity.Address;
 import wechat_business.entity.ItemInfo;
+import wechat_business.entity.OrderDetail;
 import wechat_business.entity.TaobaoAccount;
 import wechat_business.service.AddressServiceImpl;
-import wechat_business.service.OrderDetailServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,8 +45,8 @@ public class ShoppingCartServlet extends HttpServlet {
         Map<String,Object> stringObjectMap=new HashMap<String, Object>();
         stringObjectMap.put("TAOBAO_ACCOUNT_ID",taobaoAccount.getId());
         stringObjectMap.put("ORDER_INFO_ID",0);
-        List<OrderDetailServiceImpl> orderDetailServiceList=new ArrayList<OrderDetailServiceImpl>();
-        OrderDetailDaoImpl orderDetailDao = new OrderDetailDaoImpl();
+        List<OrderDetail> orderDetailList=new ArrayList<OrderDetail>();
+        OrderDetailDao orderDetailDao = new OrderDetailDao();
 
         Map<String,Object> stringObjectMapAddress=new HashMap<String, Object>();
         stringObjectMapAddress.put("ADDRESS_TYPE",(byte)1);
@@ -68,25 +68,25 @@ public class ShoppingCartServlet extends HttpServlet {
         Double money=0d;
         try {
             //获取无订单编号订单详情
-            orderDetailServiceList=orderDetailDao.findByCondtion(stringObjectMap);
-            for (int i=0;i<orderDetailServiceList.size();i++){
-                itemInfo= itemInfoDao.findById(orderDetailServiceList.get(i).getItemInfoId());
-                System.out.println(orderDetailServiceList.get(i).getItemInfoId());
+            orderDetailList=orderDetailDao.findByCondtion(stringObjectMap);
+            for (int i=0;i<orderDetailList.size();i++){
+                itemInfo= itemInfoDao.findById(orderDetailList.get(i).getItemInfoId());
+                System.out.println(orderDetailList.get(i).getItemInfoId());
                 System.out.println("name" + itemInfo.getName());
                 itemInfos.add(i,itemInfo.getName());
                 //计算总金额
-                money+=orderDetailServiceList.get(i).getAmount()*orderDetailServiceList.get(i).getItemNumber();
+                money+=orderDetailList.get(i).getAmount()*orderDetailList.get(i).getItemNumber();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         System.out.println(money);
-        request.setAttribute("list",orderDetailServiceList);
+        request.setAttribute("list",orderDetailList);
         request.setAttribute("listName", itemInfos);
         request.setAttribute("money",money);
         request.setAttribute("listAddress",addressList);
         request.setAttribute("index",index);
         request.getRequestDispatcher("jsp/shopping_cart.jsp").forward(request, response);
-        System.out.println(orderDetailServiceList.size());
+        System.out.println(orderDetailList.size());
     }
 }

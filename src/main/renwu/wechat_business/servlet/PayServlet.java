@@ -1,8 +1,10 @@
 package wechat_business.servlet;
 
-import wechat_business.dao.OrderDetailDaoImpl;
-import wechat_business.dao.OrderInfoDaoImpl;
-import wechat_business.dao.PaypalInfoDaoImpl;
+import wechat_business.dao.OrderDetailDao;
+import wechat_business.dao.OrderInfoDao;
+import wechat_business.dao.PaypalInfoDao;
+import wechat_business.entity.OrderDetail;
+import wechat_business.entity.OrderInfo;
 import wechat_business.entity.OrderStatementInfo;
 import wechat_business.entity.PaypalInfo;
 import wechat_business.service.OrderDetailServiceImpl;
@@ -42,19 +44,19 @@ public class PayServlet extends HttpServlet {
         String orderInfoId=request.getParameter("orderInfoId");
         String pwd=request.getParameter("pwd");
         System.out.println("支付");
-        OrderInfoDaoImpl orderInfoDao=new OrderInfoDaoImpl();
-        OrderInfoServiceImpl orderInfoService=new OrderInfoServiceImpl();
+        OrderInfoDao orderInfoDao=new OrderInfoDao();
+        OrderInfo orderInfo=new OrderInfo();
 
         List<PaypalInfo> paypalInfoList=new ArrayList<PaypalInfo>();
-        PaypalInfoDaoImpl paypalInfoDao=new PaypalInfoDaoImpl();
+        PaypalInfoDao paypalInfoDao=new PaypalInfoDao();
 
         Long id=Long.valueOf(orderInfoId);
         try {
             //获取订单信息
-            orderInfoService=orderInfoDao.findById(id);
+            orderInfo=orderInfoDao.findById(id);
             //获取支付宝账户
             Map<String,Object> stringObjectMap=new HashMap<String, Object>();
-            stringObjectMap.put("TAOBAO_ACCOUNT_ID",orderInfoDao.getTaobaoAccountId());
+            stringObjectMap.put("TAOBAO_ACCOUNT_ID",orderInfo.getTaobaoAccountId());
             paypalInfoList=paypalInfoDao.findByCondtion(stringObjectMap);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,16 +68,16 @@ public class PayServlet extends HttpServlet {
         //创建流水
         OrderStatementInfo orderStatementInfo=new OrderStatementInfo();
         orderStatementInfo.setSerialNumber(serialNum);
-        orderStatementInfo.setOrderInfoId(orderInfoService.getId());
+        orderStatementInfo.setOrderInfoId(orderInfo.getId());
         orderStatementInfo.setPaypalInfoId(paypalInfoList.get(0).getId());
         orderStatementInfo.setFlowRecordType((byte) 2);
         orderStatementInfo.setIsPayStatus((byte) 1);
-        orderStatementInfo.setAmounts(orderInfoService.getOrderTotalAmount());
+        orderStatementInfo.setAmounts(orderInfo.getOrderTotalAmount());
         orderStatementInfo.setLaunchTime(new Date(System.currentTimeMillis()));
         orderStatementInfo.setFinshTime(new Date(System.currentTimeMillis()));
         OrderStatementInfoServiceImp orderStatementInfoServiceImp=new OrderStatementInfoServiceImp();
         try {
-            orderStatementInfoServiceImp.saveOrUpdate(orderStatementInfo);
+            orderStatementInfoServiceImp.save(orderStatementInfo);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -84,19 +86,19 @@ public class PayServlet extends HttpServlet {
         System.out.println(pwd);
         System.out.println(paypalInfoList.get(0).getPayPassword().toString());
         if(paypalInfoList.get(0).getPayPassword().toString().equals(pwd.toString())){
-            if(paypalInfoList.get(0).getBalance()>=orderInfoService.getOrderTotalAmount()){
-                paypalInfoService.pay(paypalInfoList.get(0),orderInfoService.getOrderTotalAmount());
+            if(paypalInfoList.get(0).getBalance()>=orderInfo.getOrderTotalAmount()){
+                paypalInfoService.pay(paypalInfoList.get(0),orderInfo.getOrderTotalAmount());
                 //订单状态改变
-                OrderDetailDaoImpl orderDetailDao=new OrderDetailDaoImpl();
-                List<OrderDetailServiceImpl> orderDetailList;
+                OrderDetailDao orderDetailDao=new OrderDetailDao();
+                List<OrderDetail> orderDetailList;
                 Map<String,Object> stringObjectMap0=new HashMap<String, Object>();
-                stringObjectMap0.put("TAOBAO_ACCOUNT_ID", orderInfoService.getTaobaoAccountId());
-                stringObjectMap0.put("ORDER_INFO_ID",orderInfoService.getId());
+                stringObjectMap0.put("TAOBAO_ACCOUNT_ID", orderInfo.getTaobaoAccountId());
+                stringObjectMap0.put("ORDER_INFO_ID",orderInfo.getId());
                 try {
                     orderDetailList=orderDetailDao.findByCondtion(stringObjectMap0);
                     for(int i=0;i<orderDetailList.size();i++){
                         orderDetailList.get(i).setOrderStatus((byte)2);
-                        orderDetailDao.saveOrUpdate(orderDetailList.get(i));
+                        orderDetailDao.update(orderDetailList.get(i));
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();

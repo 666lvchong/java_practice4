@@ -14,6 +14,13 @@
     <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
     <script type="text/javascript">
         function delOrder(id){
+            $.ajax({
+                        type : "POST",
+                        url : "DelShoppingCartServlet?id="+id,
+//                        date : text:
+                    }
+
+            )
             if(confirm("你确定要取消此订单？")){
                 var path="DelShoppingCartServlet?id="+id;
                 window.document.location.href=path;

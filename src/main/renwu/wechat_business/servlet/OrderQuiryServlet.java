@@ -1,9 +1,8 @@
 package wechat_business.servlet;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-import wechat_business.dao.OrderInfoDaoImpl;
+import wechat_business.dao.OrderInfoDao;
+import wechat_business.entity.OrderInfo;
 import wechat_business.entity.TaobaoAccount;
-import wechat_business.service.OrderInfoServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,8 +40,8 @@ public class OrderQuiryServlet extends HttpServlet {
         taobaoAccount= (TaobaoAccount) buyer;
         Map<String,Object> stringObjectMap=new HashMap<String, Object>();
         stringObjectMap.put("TAOBAO_ACCOUNT_ID",taobaoAccount.getId());
-        List<OrderInfoServiceImpl> orderInfoServiceList=new ArrayList<OrderInfoServiceImpl>();
-        OrderInfoDaoImpl orderInfoDao = new OrderInfoDaoImpl();
+        List<OrderInfo> orderInfoServiceList=new ArrayList<OrderInfo>();
+        OrderInfoDao orderInfoDao = new OrderInfoDao();
         int index=0;
 
         try {
