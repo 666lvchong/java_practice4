@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" import="java.sql.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="wechat_business.entity.TaobaoAccount" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
@@ -14,20 +14,27 @@
     <meta http-equiv="description" content="ajax方式">
     <title>账户管理</title>
     <link rel="stylesheet" type="text/css" href="/Team4/css/user_info.css">
-    <script type="text/javascript" src="../js/jquery.js"/>
-    <script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"/>
+    <script type="text/javascript">
         function doFind(){
             $.ajax({
-                cache: true,
                 type: "POST",
-                url:"ajax.jsp",	//把表单数据发送到ajax.jsp
-                data:$('#search_form').serialize(),	//要发送的是search_form表单中的数据
-                async: false,
+                url:"${pageContext.request.contextPath}/action/UserInfo!doPost.do",
+                data:{keyword:$("#keyword").val()},
+                dataType:"json",
+                success: function(data) {
+//                    var outTaobaoId=data.obj.outTaobaoId.toString();
+//                    var outTaobaoAccount=data.obj.outTaobaoAccount.toString();
+//                    var outPeopleName=data.obj.outPeopleName.toString();
+//                    var outAddTime=data.obj.outAddTime.toString();
+//                    var outGradeName=data.obj.outGradeName.toString();
+//                    $("#taobaoId").append(outTaobaoId);
+//                    $("#taobaoAccount").append(outTaobaoAccount);
+//                    $("#peopleName").append(outPeopleName);
+                    alert("请求成功！");
+                },
                 error: function(request) {
                     alert("发送请求失败！");
-                },
-                success: function(data) {
-                    $("#ajaxDiv").html(data);	//将返回的结果显示到ajaxDiv中
                 }
             });
         }
@@ -39,8 +46,8 @@
 <div class="diaplay_box">
     <img id="logo" class="float_left" src="/Team4/img/lv_logo.png" alt="logo">
     <div class="search_box">
-        <form class="search_form" id="search_form" action="/Team4/userInfoServlet.do" method="post">
-            <div class="taobaoAccount"><input type="text" name="keyword" placeholder="请输入淘宝账号" value=""/>
+        <form class="search_form" id="search_form"  action="${pageContext.request.contextPath}/action/UserInfo!doPost.do" method="post">
+            <div class="taobaoAccount"><input type="text" id="keyword" name="keyword" placeholder="请输入淘宝账号" value=""/>
                 <button type="submit" id="submit" onclick="doFind()" value="搜索">搜索</button></div>
         </form>
     </div>
@@ -59,12 +66,12 @@
             <c:forEach items="${listResult}" var="taobao" varStatus="index">
             <tbody id="table_body_id">
                 <tr id="trId">
-                        <td>${taobao.getId()}</td>
-                        <td><a href="#" title=" " class="taobaoAccount">${taobao.getPersonnelAccount()}</a></td>
-                        <td><a title=""  class="peopleName">${taobao.getPeopleInfo().getName()}</a></td>
+                        <td id="taobaoId">${taobao.getId()}</td>
+                        <td><a href="#" title=" " id="taobaoAccount" class="taobaoAccount">${taobao.getPersonnelAccount()}</a></td>
+                        <td><a title=""  id="peopleName" class="peopleName">${taobao.getPeopleInfo().getName()}</a></td>
                         <td>${taobao.getAddTime()}</td>
                         <td>${taobao.getGrade().getGradeName()}</td>
-                        <td><a title="" id="del_click" href="${pageContext.request.contextPath}/userInfoServlet.do?method=del&id=${taobao.getId()}">删除</a></td>
+                        <td><a title="" id="del_click" href="${pageContext.request.contextPath}/action/UserInfo!doPost.do?method=del&id=${taobao.getId()}">删除</a></td>
                 </tr>
             </tbody>
             </c:forEach>
