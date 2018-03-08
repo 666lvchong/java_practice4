@@ -26,11 +26,9 @@
     <delete id="deleteByIds" parameterType="java.util.Arrays">
         DELETE FROM ADDRESS
         WHERE ID IN
-        <if test="@wechat_business.dao.Ognl@isNotEmpty(ids)">
-            <foreach collection="ids" item="ids" open="(" separator="," close=")">
-                #{ids}
-            </foreach>
-        </if>
+        <foreach collection="array" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
     </delete>
     <!-- 保存 -->
     <insert id="save" parameterType="wechat_business.entity.Address">
