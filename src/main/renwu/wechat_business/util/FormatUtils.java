@@ -8,6 +8,7 @@ package wechat_business.util;/**************************************************
  * @version V1.0
  */
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -68,5 +69,30 @@ public class FormatUtils {
      */
     public static String timeFormat(Date date){
         return timeFormat.format(date);
+    }
+
+    /**
+     * @Title:dateFromStr
+     * @Description:字符串转为Date
+     * @param dateStr
+     * @return
+     * @throws ParseException
+     */
+    public static Date dateFromStr(String dateStr) throws ParseException {
+        Date date=dateTimeFormat.parse(dateStr);
+        return date;
+    }
+
+    /**
+     * @Title:now
+     * @Description:获取当前系统时间并格式化输出
+     * @return
+     * @throws ParseException
+     */
+    public static Date now() throws ParseException {
+        Date date=new Date();
+        String nowStr=dateTimeFormat(date);
+        Date now=dateTimeFormat.parse(nowStr);
+        return now;
     }
 }
