@@ -18,10 +18,10 @@
         WHERE ID=#{id}
     </delete>
     <!-- 根据多个id删除 -->
-    <delete id="deleteByIds" parameterType="java.util.Map">
+    <delete id="deleteByIds" parameterType="java.util.Arrays">
         DELETE FROM GRADE
         WHERE ID IN
-        <foreach collection="ids" item="ids" open="(" separator="," close=")">
+        <foreach collection="larray" item="ids" open="(" separator="," close=")">
             #{ids}
         </foreach>
     </delete>
@@ -42,24 +42,16 @@
         FROM GRADE
         WHERE ID=#{id}
     </select>
-    <!-- 根据条件查询 -->
+    <!-- 根据条件(等级名称)查询 -->
     <select id="findByCondtion" parameterType="java.util.Map" resultMap="gradeMap">
         SELECT <include refid="columns"/>
         FROM GRADE
-        <where>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(gradeName)">
-                AND GRADE_NAME LIKE #{gradeName}
-            </if>
-        </where>
+        WHERE GRADE_NAME LIKE #{GRADE_NAME}
     </select>
-    <!-- 根据条件分页查询 -->
+    <!-- 根据条件（等级名称）分页查询 -->
     <select id="findByCondtionForPage" parameterType="java.util.Map" resultMap="gradeMap">
         SELECT <include refid="columns"/>
         FROM GRADE
-        <where>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(gradeName)">
-                AND GRADE_NAME LIKE #{gradeName}
-            </if>
-        </where>
+        WHERE GRADE_NAME LIKE #{GRADE_NAME}
     </select>
 </mapper>
