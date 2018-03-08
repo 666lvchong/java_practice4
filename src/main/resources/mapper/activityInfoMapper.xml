@@ -18,9 +18,9 @@
         DELETE FROM ACTIVITY_INFO WHERE ID=#{id}
     </delete>
     <!-- 根据多个id删除 -->
-    <delete id="deleteByIds" parameterType="java.util.Map">
+    <delete id="deleteByIds" parameterType="java.util.Arrays">
         DELETE FROM ACTIVITY_INFO WHERE ID IN
-        <foreach collection="ids" item="ids" open="(" separator="," close=")">
+        <foreach collection="larray" item="ids" open="(" separator="," close=")">
             #{ids}
         </foreach>
     </delete>
@@ -45,20 +45,12 @@
     <select id="findByCondtion" parameterType="java.util.Map" resultMap="activityInfoMap">
         SELECT <include refid="columns"/>
         FROM ACTIVITY_INFO
-        <where>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(activityName)">
-                AND ACTIVITY_NAME LIKE #{activityName}
-            </if>
-        </where>
+        WHERE ACTIVITY_NAME LIKE #{ACTIVITY_NAME}
     </select>
     <!-- 根据条件分页查询 -->
     <select id="findByCondtionForPage" parameterType="java.util.Map" resultMap="activityInfoMap">
         SELECT <include refid="columns"/>
         FROM ACTIVITY_INFO
-        <where>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(activityName)">
-                AND ACTIVITY_NAME LIKE #{activityName}
-            </if>
-        </where>
+        WHERE ACTIVITY_NAME LIKE #{ACTIVITY_NAME}
     </select>
 </mapper>
