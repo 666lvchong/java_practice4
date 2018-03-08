@@ -1,0 +1,69 @@
+
+body, html {
+    font-family: Roboto,"Helvetica Neue",Helvetica,Tahoma,Arial,"PingFang SC","Microsoft YaHei";
+}
+tr{
+    height: 60px;
+}
+.orangered{
+    color: orangered;
+}
+.shoppingCart{
+    margin-left: 600px;
+    font-size: 18pt;
+    border: 6px solid orangered;
+    background-color: orangered;
+    color: white;
+}
+.save{
+    text-align: center;
+    font-size: 18pt;
+    border: 6px solid orangered;
+    background-color: orangered;
+    color: white;
+}
+.maninlogo{
+    margin: auto;
+    width: 1080px;
+}
+th{
+    color: orangered;
+    font-size: 13pt;
+}
+.orderInfoTable{
+    width: 1080px;
+    margin: auto;
+    text-align: center;
+    background-color:rgba(195,195,195,0.1);
+    border: 2px solid orangered;
+}
+a{
+    text-decoration:none;
+    color: dodgerblue;
+}
+.blue{
+    color: blue;
+}
+hr{
+    width: 1080px;
+}
+td span{
+    color: orange;
+}
+.tdleft{
+    text-align: left;
+}
+.moneySum{
+    margin-left: 400px;
+    font-size: 14pt;
+}
+.shoppingCartNull{
+    border: 2px solid orangered;
+    color: orangered;
+    width: 1080px;
+    font-size: 24px;
+    margin: auto;
+    height: 400px;
+    text-align: center;
+    line-height: 400px;
+}

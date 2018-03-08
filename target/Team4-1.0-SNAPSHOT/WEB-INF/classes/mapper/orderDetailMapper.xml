@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wechat_business.entity.OrderDetail">
+    <!-- 定义结果集-->
+        <resultMap id="orderDetailMap" type="wechat_business.entity.OrderDetail">
+            <id property="id" column="ID" />
+            <result property="orderInfoId" column="ORDER_INFO_ID" />
+            <result property="taobaoAccountId" column="TAOBAO_ACCOUNT_ID" />
+            <result property="itemInfoId" column="ITEM_INFO_ID" />
+            <result property="itemNumber" column="ITEM_NUMBER" />
+            <result property="amount" column="AMOUNT" />
+            <result property="orderStatus" column="ORDER_STATUS" />
+            <result property="isSent" column="IS_SENT" />
+            <result property="isReceived" column="IS_RECEIVED" />
+            <result property="isReturned" column="IS_RETURNED" />
+            <result property="sentTime" column="SENT_TIME" />
+            <result property="receivedTime" column="RECEIVED_TIME" />
+            <result property="returnedTime" column="RETURNED_TIME" />
+            <result property="addressId" column="ADDRESS_ID" />
+        </resultMap>
+    <!-- 定义sql操作列 -->
+    <sql id="columns">
+        ID,ORDER_INFO_ID,TAOBAO_ACCOUNT_ID,ITEM_INFO_ID,ITEM_NUMBER,AMOUNT,ORDER_STATUS,IS_SENT,IS_RECEIVED,IS_RETURNED,SENT_TIME,RECEIVED_TIME,RETURNED_TIME,ADDRESS_ID
+    </sql>
+    <!-- 根据id删除 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM ORDER_DETAIL
+        WHERE ID=#{id}
+    </delete>
+    <!-- 根据多个id删除 -->
+    <delete id="deleteByIds" parameterType="java.util.Arrays">
+        DELETE FROM ORDER_DETAIL
+        WHERE ID IN
+        <foreach collection="array" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+    <!-- 保存 -->
+    <insert id="save" parameterType="wechat_business.entity.OrderDetail">
+        INSERT INTO ORDER_DETAIL(ID,ORDER_INFO_ID,TAOBAO_ACCOUNT_ID,ITEM_INFO_ID,ITEM_NUMBER,AMOUNT,ORDER_STATUS,IS_SENT,IS_RECEIVED,IS_RETURNED,SENT_TIME,RECEIVED_TIME,RETURNED_TIME,ADDRESS_ID)
+        VALUES (DEFAULT ,#{orderInfoId},#{taobaoAccountId},#{itemInfoId},#{itemNumber},#{amount},#{orderStatus},#{isSent},#{isReceived},#{isReturned},#{sentTime},#{receivedTime},#{returnedTime},#{addressId})
+    </insert>
+    <!-- 修改 -->
+    <update id="update" parameterType="wechat_business.entity.OrderDetail">
+        UPDATE ORDER_DETAIL
+        SET ORDER_INFO_ID=#{orderInfoId},TAOBAO_ACCOUNT_ID=#{taobaoAccountId},ITEM_INFO_ID=#{itemInfoId},ITEM_NUMBER=#{itemNumber},AMOUNT=#{amount},ORDER_STATUS=#{orderStatus},IS_SENT=#{isSent},IS_RECEIVED=#{isReceived},
+        IS_RETURNED=#{isReturned},SENT_TIME=#{sentTime},RECEIVED_TIME=#{receivedTime},RETURNED_TIME=#{returnedTime},ADDRESS_ID=#{addressId}
+        WHERE ID=#{id}
+    </update>
+    <!-- 根据id查询 -->
+    <select id="findById" parameterType="java.lang.Long" resultMap="orderDetailMap">
+        SELECT <include refid="columns"/>
+        FROM ORDER_DETAIL
+        WHERE ID=#{id}
+    </select>
+    <!-- 根据条件查询 -->
+    <select id="findByCondtion" parameterType="java.util.HashMap" resultMap="orderDetailMap">
+        SELECT <include refid="columns"/>
+        FROM ORDER_DETAIL
+        <where>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(orderInfoId)">
+                AND ORDER_INFO_ID LIKE #{orderInfoId}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(taobaoAccountId)">
+                AND TAOBAO_ACCOUNT_ID LIKE #{taobaoAccountId}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(itemInfoId)">
+                AND ITEM_INFO_ID LIKE #{itemInfoId}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(itemNumber)">
+                AND ITEM_NUMBER LIKE #{itemNumber}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(amount)">
+                AND AMOUNT LIKE #{amount}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(orderStatus)">
+                AND ORDER_STATUS LIKE #{orderStatus}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(isSent)">
+                AND IS_SENT LIKE #{isSent}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(isReceived)">
+                AND IS_RECEIVED LIKE #{isReceived}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(isReturned)">
+                AND IS_RETURNED LIKE #{isReturned}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(sentTime)">
+                AND SENT_TIME LIKE #{sentTime}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(receivedTime)">
+                AND RECEIVED_TIME LIKE #{receivedTime}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(returnedTime)">
+                AND RETURNED_TIME LIKE #{returnedTime}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(addressId)">
+                AND ADDRESS_ID LIKE #{addressId}
+            </if>
+        </where>
+    </select>
+    <!-- 根据条件分页查询 -->
+    <select id="findByCondtionForPage" parameterType="java.util.HashMap" resultMap="orderDetailMap">
+        SELECT <include refid="columns"/>
+        FROM ORDER_DETAIL
+        <where>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(orderInfoId)">
+                AND ORDER_INFO_ID LIKE #{orderInfoId}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(taobaoAccountId)">
+                AND TAOBAO_ACCOUNT_ID LIKE #{taobaoAccountId}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(itemInfoId)">
+                AND ITEM_INFO_ID LIKE #{itemInfoId}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(itemNumber)">
+                AND ITEM_NUMBER LIKE #{itemNumber}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(amount)">
+                AND AMOUNT LIKE #{amount}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(orderStatus)">
+                AND ORDER_STATUS LIKE #{orderStatus}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(isSent)">
+                AND IS_SENT LIKE #{isSent}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(isReceived)">
+                AND IS_RECEIVED LIKE #{isReceived}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(isReturned)">
+                AND IS_RETURNED LIKE #{isReturned}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(sentTime)">
+                AND SENT_TIME LIKE #{sentTime}
+            </if>
+            <if test="@wechat_business.dao.Ognl@isNotEmpty(receivedTime)">
+                AND RECEIVED_TIME LIKE #{receivedTime}
+            </if>
+            <if test="@Ognl@isNotEmpty(returnedTime)">
+                AND RETURNED_TIME LIKE #{returnedTime}
+            </if>
+            <if test="@Ognl@isNotEmpty(addressId)">
+                AND ADDRESS_ID LIKE #{addressId}
+            </if>
+        </where>
+    </select>
+</mapper>

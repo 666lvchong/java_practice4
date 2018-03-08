@@ -33,7 +33,7 @@
     <delete id="deleteByIds" parameterType="java.util.Arrays">
         DELETE FROM PEOPLE_INFO
         WHERE ID IN
-        <foreach collection="larray" item="ids" open="(" separator="," close=")">
+        <foreach collection="array" item="ids" open="(" separator="," close=")">
             #{ids}
         </foreach>
     </delete>

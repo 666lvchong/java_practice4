@@ -1,0 +1,27 @@
+ul .li{
+    margin-right: 20px;
+    width: 100px;
+    color: #7E7E81;
+    float: right;
+    list-style-type: none;
+    line-height: 40px;
+}
+ul .li:hover{
+    color: #ee3400;
+}
+#gouwuc{
+    margin-right: 50px;
+}
+.ft_left{
+    float: left;
+    color: #7E7E81;
+    list-style-type: none;
+    line-height: 40px;
+}
+#danghanglan{
+    width: 100%;
+    background-color: #EEEEEE;
+    height:40px;
+}
+
+
