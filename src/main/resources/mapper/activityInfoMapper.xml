@@ -20,7 +20,7 @@
     <!-- 根据多个id删除 -->
     <delete id="deleteByIds" parameterType="java.util.Arrays">
         DELETE FROM ACTIVITY_INFO WHERE ID IN
-        <foreach collection="larray" item="ids" open="(" separator="," close=")">
+        <foreach collection="array" item="ids" open="(" separator="," close=")">
             #{ids}
         </foreach>
     </delete>
