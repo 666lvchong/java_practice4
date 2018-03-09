@@ -14,7 +14,7 @@
         <img id="logo" class="float_left" src="/Team4/img/lv_logo.png" alt="logo">
         <h1 class="activity_title">活动信息发布</h1>
         <div class="search_box">
-            <form class="search_form" id="search_form" action="/Team4/activityInfoServlet.do" method="post">
+            <form class="search_form" id="search_form" action="${pageContext.request.contextPath}/action/activity!doPost.do" method="post">
                 <div class="activitySearch_box"><input type="text" name="keyword" placeholder="请输入活动名称" value=""/>
                     <button type="submit" id="submit" onclick="doFind()" value="搜索">搜索</button></div>
             </form>

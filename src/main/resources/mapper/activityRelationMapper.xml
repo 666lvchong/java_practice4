@@ -76,12 +76,17 @@
         FROM ACTIVITY_RELATION
         WHERE ID=#{id}
     </select>
-    <!-- 根据条件（活动信息表id）查询 -->
+    <!-- 根据条件（活动信息表id 或 商品关系表id）查询 -->
     <select id="findByCondtion" parameterType="java.util.Map" resultMap="activityRelationMap">
         SELECT ID,ITEM_RELATION_ID,ACTIVITY_INFO_ID
         FROM ACTIVITY_RELATION
         <where>
-            ACTIVITY_INFO_ID=#{ACTIVITY_INFO_ID}
+            <if test="ACTIVITY_INFO_ID != null">
+                ACTIVITY_INFO_ID=#{ACTIVITY_INFO_ID}
+            </if>
+            <if test="ITEM_RELATION_ID != null">
+                AND ITEM_RELATION_ID=#{ITEM_RELATION_ID}
+            </if>
         </where>
     </select>
 </mapper>
