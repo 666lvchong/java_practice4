@@ -55,16 +55,60 @@
         FROM PEOPLE_INFO
         WHERE ID=#{id}
     </select>
-    <!-- 根据条件(手机号)查询 -->
+    <!-- 根据条件(姓名、性别、年龄、身份证号、常住地址、籍贯、手机号)查询 -->
     <select id="findByCondtion" parameterType="java.util.Map" resultMap="peopleInfoMap">
         SELECT <include refid="columns"/>
         FROM PEOPLE_INFO
-        WHERE MOBILE_PHONE LIKE #{MOBILE_PHONE}
+        <where>
+            <if test="NAME != null">
+                `NAME` LIKE #{NAME}
+            </if>
+            <if test="SEX != null">
+                AND SEX LIKE #{SEX}
+            </if>
+            <if test="AGE != null">
+                AND AGE=#{AGE}
+            </if>
+            <if test="ID_NUMBER != null">
+                AND ID_NUMBER=#{ID_NUMBER}
+            </if>
+            <if test="PERMANENT_ADDRESS != null">
+                AND PERMANENT_ADDRESS LIKE #{PERMANENT_ADDRESS}
+            </if>
+            <if test="NATIVE_PLACE != null">
+                AND NATIVE_PLACE LIKE #{NATIVE_PLACE}
+            </if>
+            <if test="MOBILE_PHONE != null">
+                AND MOBILE_PHONE=#{MOBILE_PHONE}
+            </if>
+        </where>
     </select>
-    <!-- 根据条件（手机号）分页查询 -->
+    <!-- 根据条件（姓名、性别、年龄、身份证号、常住地址、籍贯、手机号）分页查询 -->
     <select id="findByCondtionForPage" parameterType="java.util.Map" resultMap="peopleInfoMap">
         SELECT <include refid="columns"/>
         FROM PEOPLE_INFO
-        WHERE MOBILE_PHONE LIKE #{MOBILE_PHONE}
+        <where>
+            <if test="NAME != null">
+                `NAME` LIKE #{NAME}
+            </if>
+            <if test="SEX != null">
+                AND SEX LIKE #{SEX}
+            </if>
+            <if test="AGE != null">
+                AND AGE=#{AGE}
+            </if>
+            <if test="ID_NUMBER != null">
+                AND ID_NUMBER=#{ID_NUMBER}
+            </if>
+            <if test="PERMANENT_ADDRESS != null">
+                AND PERMANENT_ADDRESS LIKE #{PERMANENT_ADDRESS}
+            </if>
+            <if test="NATIVE_PLACE != null">
+                AND NATIVE_PLACE LIKE #{NATIVE_PLACE}
+            </if>
+            <if test="MOBILE_PHONE != null">
+                AND MOBILE_PHONE=#{MOBILE_PHONE}
+            </if>
+        </where>
     </select>
 </mapper>

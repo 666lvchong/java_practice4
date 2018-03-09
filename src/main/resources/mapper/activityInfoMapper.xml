@@ -41,16 +41,24 @@
         FROM ACTIVITY_INFO
         WHERE ID=#{id}
     </select>
-    <!-- 根据条件查询 -->
+    <!-- 根据条件(活动名称)查询 -->
     <select id="findByCondtion" parameterType="java.util.Map" resultMap="activityInfoMap">
         SELECT <include refid="columns"/>
         FROM ACTIVITY_INFO
-        WHERE ACTIVITY_NAME LIKE #{ACTIVITY_NAME}
+        <where>
+            <if test="ACTIVITY_NAME != null">
+                ACTIVITY_NAME LIKE #{ACTIVITY_NAME}
+            </if>
+        </where>
     </select>
     <!-- 根据条件分页查询 -->
     <select id="findByCondtionForPage" parameterType="java.util.Map" resultMap="activityInfoMap">
         SELECT <include refid="columns"/>
         FROM ACTIVITY_INFO
-        WHERE ACTIVITY_NAME LIKE #{ACTIVITY_NAME}
+        <where>
+            <if test="ACTIVITY_NAME != null">
+                ACTIVITY_NAME LIKE #{ACTIVITY_NAME}
+            </if>
+        </where>
     </select>
 </mapper>

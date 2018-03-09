@@ -46,12 +46,20 @@
     <select id="findByCondtion" parameterType="java.util.Map" resultMap="gradeMap">
         SELECT <include refid="columns"/>
         FROM GRADE
-        WHERE GRADE_NAME LIKE #{GRADE_NAME}
+        <where>
+            <if test="GRADE_NAME != null">
+                GRADE_NAME LIKE #{GRADE_NAME}
+            </if>
+        </where>
     </select>
     <!-- 根据条件（等级名称）分页查询 -->
     <select id="findByCondtionForPage" parameterType="java.util.Map" resultMap="gradeMap">
         SELECT <include refid="columns"/>
         FROM GRADE
-        WHERE GRADE_NAME LIKE #{GRADE_NAME}
+        <where>
+            <if test="GRADE_NAME != null">
+                GRADE_NAME LIKE #{GRADE_NAME}
+            </if>
+        </where>
     </select>
 </mapper>
