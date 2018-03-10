@@ -32,13 +32,10 @@ import java.util.Map;
  */
 @Action(value = "taobaoAccount")
 @Results({
-        @Result(name = "chenggong",location = "../jsp/home_page.jsp"),
-        @Result(name = "zhuye",location = "../jsp/administrator_login.jsp")
+        @Result(name = "chenggong",location = "/jsp/home_page.jsp"),
+        @Result(name = "zhuye",location = "/jsp/administrator_login.jsp")
 })
 public class TaobaoAccountAction extends ActionSupport {
-    public TaobaoAccountAction(){
-        System.out.println("创建");
-    }
     private TaobaoAccount taobaoAccount;
     private ItemInfo itemInfo;
     private ItemRelation itemRelation;
@@ -54,17 +51,17 @@ public class TaobaoAccountAction extends ActionSupport {
         Map<String,Object> map = new HashMap<String, Object>();
         String ret = "";
         try {
-            map.put(" PERSONNEL_ACCOUNT ",taobaoAccount.getPersonnelAccount());
-            map.put(" PASSWORD ",taobaoAccount.getPassword());
+            map.put("PERSONNEL_ACCOUNT",taobaoAccount.getPersonnelAccount());
+            map.put("PASSWORD",taobaoAccount.getPassword());
             List<TaobaoAccount> list = taobaoAccountServicelmpl.findByCondtion(map);
             if(list.size()>0){
                 byte grade = 6;
-                if (list.get(0).getGrade().getGradeNumber()==grade){
+                if (/*list.get(0).getGrade().getGradeNumber()==grade*/false){
                     taobaoAccount = list.get(0);
                     ret="gly";
                 }else{
                     taobaoAccount = list.get(0);
-                    zhuYe();
+                    ret=zhuYe();
                 }
             }else{
                 //转发到主页面
@@ -82,7 +79,7 @@ public class TaobaoAccountAction extends ActionSupport {
         //判断传过来的条件是否存在 如果存在则添加到map中
         try {
             map = new HashMap<String, Object>();
-            if (itemInfo.getName()!=null){
+            if (itemInfo!=null){
                 map.put("name",itemInfo.getName());
             }
             itemInfoList = itemInfoServiceImpl.findByCondtion(map);
@@ -92,11 +89,12 @@ public class TaobaoAccountAction extends ActionSupport {
         try {
             //通过service的分页条件查询 获得商品关系表中的数据
             itemRelationList = new ArrayList<ItemRelation>();
+            map = new HashMap<String, Object>();
             for (ItemInfo item :itemInfoList){
-                map = new HashMap<String, Object>();
                 map.put("ITEM_INFO_ID",item.getId());
                 itemRelationList.addAll(itemRelationServiceImpl.findByCondtion(map));
-                map=null;
+                System.out.println(itemRelationList.get(0).getItemInfo()+"aaaaaa");
+                map.clear();
             }
         } catch (SQLException e) {
             e.printStackTrace();

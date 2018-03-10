@@ -19,10 +19,11 @@
 <body>
 <div id="danghanglan">
     <ul>
-        <a href="/Team4/findByItemInfo.do"><li class="ft_left">嘿嘿 欢迎来到WechatBusiness</li></a>
-        <a href="/Team4/ShoppingCartServlet"><li id="gouwuc">购物车</li></a>
-        <a href="/Team4/SellerRegisterServlet"><li >卖家中心</li></a>
-        <a href="/Team4/OrderQuiryServlet"><li >订单信息</li></a>
+        <a href="/Team4/taobaoAccount!zhuYe.do"><li class="ft_left">${taobaoAccount.personnelAccount} 欢迎来到WechatBusiness</li></a>
+        <a href=""></a>
+        <a href="/Team4/shoppingCartAction!open.do"><li id="gouwuc">购物车</li></a>
+        <a href="/Team4/jsp/seller_center.jsp"><li >卖家中心</li></a>
+        <a href="/Team4/orderQuiryAction!open.do"><li >订单信息</li></a>
         <a href="/Team4/BillFlowServlet.do"><li >流水记录</li></a>
     </ul>
 </div>
@@ -31,15 +32,18 @@
         <div class="_zhukuan">
             <img id="logo" class="float_left" src="/Team4/img/lv_logo.png" alt="logo">
             <div class="float_left _zhugao">
-                <form action="findByItemInfo.do">
-                    <div id="shoushuokuang" class="float_left"><input name="name" type="text"/></div>
+                <form action="taobaoAccount!zhuYe.do">
+                    <div id="shoushuokuang" class="float_left"><input name="itemInfo.name"
+
+                                                                      .
+                                                                      .type="text"/></div>
                     <button type="submit" id="submit" class="float_left">搜索</button>
                 </form>
             </div>
         </div>
     </div>
     <div id="commodity_display" class="_zhukuan">
-        <c:forEach var="itemRelation" items="${list}">
+        <c:forEach var="itemRelation" items="${itemRelationList}">
             <div class="item_outside_ ">
                 <div>
                     <a href="#" title="${itemRelation.getItemInfo().getName()}"><img src="${itemRelation.getImgAddr()}" class="item_outside_img"/></a>

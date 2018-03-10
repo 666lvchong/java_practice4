@@ -33,9 +33,6 @@ public class ServiceUtil<E extends Dao,A> {
     public Integer deleteById(Long id) throws SQLException {
         return dao.deleteById(id);
     }
-
-    ;
-
     /**
      * @Title: deleteByIds
      * @Description: 根据Id删除多个
