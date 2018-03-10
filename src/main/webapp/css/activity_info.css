@@ -57,14 +57,14 @@ html body{
 .activityShow_box .discount_info{
     width: 100px;
     text-align: center;
-    margin-left: 260px;
+    margin-left: 180px;
     font-size: 22px;
     color: coral;
 }
 .activityShow_box .date_info{
     width: 200px;
     text-align: right;
-    margin-left: 320px;
+    margin-left: 220px;
     font-size: 22px;
     color: coral;
 }
