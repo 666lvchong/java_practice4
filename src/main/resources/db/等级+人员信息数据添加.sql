@@ -31,7 +31,7 @@ INSERT INTO `wechat_business`.`item_relation` (`ID`, `SELLER_INFO_ID`, `ITEM_INF
 
 
 INSERT INTO `wechat_business`.`taobao_account` (`ID`, `PERSONNEL_ACCOUNT`, `PASSWORD`, `GRADE_ID`, `IS_FROZEN`, `IS_CANCELLATION`, `IS_DELETE`, `PEOPLE_INFO_ID`, `ADD_TIME`, `UPDATE_TIME`) VALUES (default, 'door', '123456', '6', '0', '0', '0', '1', '2017-01-01 00:00:00', '2017-02-02 00:00:00');
-INSERT INTO `wechat_business`.`taobao_account` (`ID`, `PERSONNEL_ACCOUNT`, `PASSWORD`, `GRADE_ID`, `IS_FROZEN`, `IS_CANCELLATION`, `IS_DELETE`, `PEOPLE_INFO_ID`, `ADD_TIME`, `UPDATE_TIME`) VALUES (default, 'van', '654321', '6', '0', '0', '0', '2', '2017-01-05 00:00:00', '2017-01-22 00:00:00');
+INSERT INTO `wechat_business`.`taobao_account` (`ID`, `PERSONNEL_ACCOUNT`, `PASSWORD`, `GRADE_ID`, `IS_FROZEN`, `IS_CANCELLATION`, `IS_DELETE`, `PEOPLE_INFO_ID`, `ADD_TIME`, `UPDATE_TIME`) VALUES (default, 'van', '654321', '1', '0', '0', '0', '2', '2017-01-05 00:00:00', '2017-01-22 00:00:00');
 
 
 -- -- 人员信息插入数据
