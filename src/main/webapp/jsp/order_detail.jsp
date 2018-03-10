@@ -30,7 +30,7 @@
     <div class="maninlogo">
         <a href="findByItemInfo.do" title="首页"><img src="img/lv_logo.png" width="198px" height="114px"; /></a>
         <a href="findByItemInfo.do" title="回到首页">首页</a>
-        > <a href="OrderQuiryServlet" title="返回订单信息">订单信息</a>
+        > <a href="orderQuiryAction!open.do" title="返回订单信息">订单信息</a>
         > <span class="orangered" >订单详情</span >
         <span class="moneySum orangered">订单总金额：${money} 元</span>
         <%--<c:if test="${pay==1}"><a href="PayServlet?orderInfoId=${orderInfoId}">去付款</a></c:if>--%>
@@ -94,7 +94,7 @@
                     <td><span>商品购买数量：</span>${list.itemNumber}</td>
                     <td ><span> 价格：</span>${list.amount}<span> 元 </span></td>
                     <c:if test="${list.orderStatus==4 || list.orderStatus==3 || list.orderStatus==2 || list.orderStatus==5 }">
-                        <td ><a>申请退货</a></td>
+                        <td ><a>申请退货</a><c:if test="${list.orderStatus==4}"></c:if> / <a>确认收货</a></td>
                     </c:if>
                     <c:if test="${list.orderStatus==6}">
                         <td ><a>确认退货</a></td>

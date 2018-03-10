@@ -6,12 +6,11 @@
         <result column="INVENTORY" property="inventory"></result>
         <result column="PRICE" property="price"></result>
         <result column="IMG_ADDR" property="imgAddr"></result>
-        <association property="sellerInfo" column="SELLER_INFO_ID" javaType="wechat_business.entity.SellerInfo">
+        <association property="sellerInfo" column="SELLER_INFO_ID" javaType="wechat_business.entity.SellerInfo" select="BySellerInfo">
             <id column="ID" property="id"></id>
             <result column="SHOP_NAME" property="shopName"></result>
             <result column="SHOP_NUMBER" property="shopNumber"></result>
             <result column="SHOP_TYPE" property="shopType"></result>
-            <result column="TAOBAO_ACCOUNT_ID" property="taobaoAccountId"></result>
             <result column="REGISTRATION_TIME" property="registrationTime"></result>
             <result column="ADDRESS" property="address"></result>
             <result column="EMAIL" property="email"></result>
@@ -21,7 +20,8 @@
             <result column="DEPOSIT" property="deposit"></result>
             <result column="CREDITWORTHINESS" property="creditworthiness"></result>
         </association>
-        <association property="itemInfo" column="ITEM_INFO_ID"  javaType="wechat_business.entity.ItemInfo">
+
+        <association property="itemInfo" column="ITEM_INFO_ID"  javaType="wechat_business.entity.ItemInfo" select="ByItemInfo">
             <id column="ID" property="id"></id>
             <result column="NAME" property="name"></result>
             <result column="NUMBER" property="number"></result>
@@ -36,7 +36,12 @@
             <result column="DISCOUNT" property="discount"></result>
         </association>
    </resultMap>
-
+    <select id="ByItemInfo" parameterType="java.lang.Long" resultType="wechat_business.entity.ItemInfo">
+        SELECT ID,NAME,NUMBER,IN_TIME,UPDATE_TIME,MAKER,ADDR,MAKE_TIME,EXPIRATION,ORIGIN,DESCRIPTION,DISCOUNT FROM ITEM_INFO WHERE  ID = #{id}
+    </select>
+    <select id="BySellerInfo" parameterType="java.lang.Long" resultType="wechat_business.entity.SellerInfo">
+        SELECT ID,SHOP_NAME,SHOP_NUMBER,SHOP_TYPE,REGISTRATION_TIME,ADDRESS,EMAIL,AFFILIATED_COMPANY,COMMERCIAL_REGISTRATION_NUM,UPDATE_TIME,DEPOSIT,CREDITWORTHINESS FROM SELLER_INFO WHERE  ID = #{id}
+    </select>
     <!-- SELLER_INFO_ID, ITEM_INFO_ID, -->
     <select id="findByCondtion" parameterType="java.util.HashMap" resultMap="ItemRelation">
         SELECT ID,ITEM_INFO_ID,SELLER_INFO_ID,INVENTORY, PRICE,IMG_ADDR

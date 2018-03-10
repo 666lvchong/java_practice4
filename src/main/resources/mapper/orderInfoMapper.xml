@@ -51,26 +51,26 @@
         SELECT <include refid="columns"/>
         FROM ORDER_INFO
         <where>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(orderNum)">
-                AND ORDER_NUM LIKE #{orderNum}
+            <if test="ORDER_NUM != null">
+                AND ORDER_NUM LIKE #{ORDER_NUM}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(taobaoAccountId)">
-                AND TAOBAO_ACCOUNT_ID LIKE #{taobaoAccountId}
+            <if test="TAOBAO_ACCOUNT_ID != null">
+                AND TAOBAO_ACCOUNT_ID LIKE #{TAOBAO_ACCOUNT_ID}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(orderTotalAmount)">
-                AND ORDER_TOTAL_AMOUNT LIKE #{orderTotalAmount}
+            <if test="ORDER_TOTAL_AMOUNT != null">
+                AND ORDER_TOTAL_AMOUNT LIKE #{ORDER_TOTAL_AMOUNT}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(creationTime)">
-                AND CREATION_TIME LIKE #{creationTime}
+            <if test="CREATION_TIME != null">
+                AND CREATION_TIME LIKE #{CREATION_TIME}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(tradingTime)">
-                AND TRADING_TIME LIKE #{tradingTime}
+            <if test="TRADING_TIME != null">
+                AND TRADING_TIME LIKE #{TRADING_TIME}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(isSuccess)">
-                AND IS_SUCCESS LIKE #{isSuccess}
+            <if test="IS_SUCCESS != null">
+                AND IS_SUCCESS LIKE #{IS_SUCCESS}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(addressId)">
-                AND ADDRESS_ID LIKE #{addressId}
+            <if test="ADDRESS_ID != null">
+                AND ADDRESS_ID LIKE #{ADDRESS_ID}
             </if>
         </where>
     </select>

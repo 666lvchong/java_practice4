@@ -8,17 +8,9 @@ package wechat_business.service;
  * @version V1.0
  */
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import wechat_business.dao.Dao;
-import wechat_business.dao.ItemInfoDao;
-import wechat_business.dao.OrderDetailDaoImpl;
 import wechat_business.dao.SellerInfoDao;
-import wechat_business.entity.ItemInfo;
-import wechat_business.entity.OrderDetail;
-import wechat_business.entity.PeopleInfo;
 import wechat_business.entity.SellerInfo;
-import wechat_business.service.SellerInfoService;
 
 import java.sql.SQLException;
 import java.util.Date;

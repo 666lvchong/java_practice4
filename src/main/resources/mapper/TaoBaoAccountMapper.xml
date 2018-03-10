@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wechat_business.entity.TaobaoAccount">
+    <resultMap id="taobaoAccount" type="wechat_business.entity.TaobaoAccount">
+        <id column="ID" property="id"></id>
+        <result column="PERSONNEL_ACCOUNT" property="personnelAccount"></result>
+        <result column="PASSWORD" property="password"></result>
+        <result column="IS_FROZEN" property="isFrozen"></result>
+        <result column="IS_CANCELLATION" property="isCancellation"></result>
+        <result column="IS_DELETE" property="isDelete"></result>
+        <result column="ADD_TIME" property="addTime"></result>
+        <result column="UPDATE_TIME" property="updateTime"></result>
+        <association property="peopleInfo" column="PEOPLE_INFO_ID" javaType="wechat_business.entity.PeopleInfo">
+            <id property="id" column="ID"/>
+            <result property="name" column="NAME"/>
+            <result property="sex" column="SEX"/>
+            <result property="age" column="AGE"/>
+            <result property="nation" column="NATION"/>
+            <result property="birthdate" column="BIRTHDATE"/>
+            <result property="idNumber" column="ID_NUMBER"/>
+            <result property="mobilePhone" column="MOBILE_PHONE"/>
+            <result property="nativePlace" column="NATIVE_PLACE"/>
+            <result property="mailBox" column="MAILBOX"/>
+            <result property="permanentAdress" column="PERMANENT_ADDRESS"/>
+            <result property="profession" column="PROFESSION"/>
+            <result property="workUnit" column="WORK_UNIT"/>
+            <result property="createTime" column="CREATE_TIME"/>
+            <result property="updateTime" column="UPDATE_TIME"/>
+        </association>
+        <association property="grade" column="GRADE_ID" javaType="wechat_business.entity.Grade" select="ByGrade">
+            <id property="id" column="ID"/>
+            <result property="gradeNumber" column="GRADE_NUMBER"/>
+            <result property="gradeName" column="GRADE_NAME"/>
+        </association>
+    </resultMap>
+
+    <select id="ByGrade" parameterType="java.lang.Long" resultType="wechat_business.entity.Grade">
+        SELECT ID,GRADE_NUMBER,GRADE_NAME FROM GRADE WHERE  ID = #{id}
+    </select>
+    <select id="findByCondtion" parameterType="java.util.HashMap" resultMap="taobaoAccount">
+        SELECT
+        ID,PERSONNEL_ACCOUNT,`PASSWORD`,GRADE_ID,IS_FROZEN,IS_CANCELLATION,
+        IS_DELETE,PEOPLE_INFO_ID,ADD_TIME,UPDATE_TIME
+        FROM
+        taobao_account
+        <where>
+            AND PERSONNEL_ACCOUNT = #{PERSONNEL_ACCOUNT}
+            AND PASSWORD = #{PASSWORD}
+        </where>
+    </select>
+</mapper>

@@ -41,7 +41,7 @@ public class ItemInfo  {
     /**
      * 更新时间
      */
-    private Date updateTimel;
+    private Date updateTime;
     /**
      * 生产商
      */
@@ -111,12 +111,12 @@ public class ItemInfo  {
         this.inTime = inTime;
     }
 
-    public Date getUpdateTimel() {
-        return updateTimel;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdateTimel(Date updateTimel) {
-        this.updateTimel = updateTimel;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public String getMaker() {
