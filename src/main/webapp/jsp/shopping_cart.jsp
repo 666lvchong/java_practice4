@@ -14,16 +14,27 @@
     <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
     <script type="text/javascript">
         function delOrder(id){
-            $.ajax({
-                        type : "POST",
-                        url : "DelShoppingCartServlet?id="+id,
-//                        date : text:
-                    }
-
-            )
             if(confirm("你确定要取消此订单？")){
-                var path="DelShoppingCartServlet?id="+id;
-                window.document.location.href=path;
+                var path="shoppingCartAction!del.do";
+                $.ajax({
+                            type : "POST",
+                            url : path,
+                            dataType:'json',
+                            data:{strId:id}
+                        }
+                )
+            }
+        }
+        function buys(money){
+            if(confirm("你确定要购买此订单？")){
+                var path="shoppingCartAction!buy.do";
+                $.ajax({
+                            type : "POST",
+                            url : path,
+                            dataType:'json',
+                            data:{moneys:money}
+                        }
+                )
             }
         }
     </script>
@@ -33,12 +44,13 @@
     <div class="maninlogo">
         <a href="findByItemInfo.do" title="首页"><img src="img/lv_logo.png" width="198px" height="114px"; /></a>
         <a href="findByItemInfo.do" title="回到首页">首页</a>
-        > <a href="OrderQuiryServlet" title="返回订单信息">订单信息</a>
+        > <a href="orderQuiryAction!open.do" title="返回订单信息">订单信息</a>
         > <span class="orangered" >购物车</span >
         <span class="moneySum orangered">
             订单总金额：${money} 元
             <c:if test="${money!=0}">
-            <a href="CreateOrderServlet?money=${money}" onclick="return confirm('确定购买')">购买</a>
+            <a href="" onclick="buys(${money})">购买</a>
+                <%--<a href="orderQuiryAction!open.do" >购买</a>--%>
                 <%--<a  onclick="pay(${money})" href="#">购买</a>--%>
             </c:if>
         </span>
@@ -58,7 +70,7 @@
                         </c:forEach>
                     </c:if>
                 </select>
-                <a href="AddressServlet.do">收货地址详情</a>
+                <a href="addressAction!open.do">收货地址详情</a>
             </span>
         </form></div>
     </c:if>

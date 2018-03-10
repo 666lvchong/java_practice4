@@ -23,9 +23,9 @@ public class Address {
      */
     private Long id;
     /**
-     *taobaoAccountID 淘宝账户id
+     *taobaoAccountId 淘宝账户id
      */
-    private Long taobaoAccountID;
+    private Long taobaoAccountId;
     /**
      *addressType 地址类型 1-收货地址，2-发货地址 3-运输地址
      */
@@ -63,12 +63,12 @@ public class Address {
         this.id = id;
     }
 
-    public Long getTaobaoAccountID() {
-        return taobaoAccountID;
+    public Long getTaobaoAccountId() {
+        return taobaoAccountId;
     }
 
-    public void setTaobaoAccountID(Long taobaoAccountID) {
-        this.taobaoAccountID = taobaoAccountID;
+    public void setTaobaoAccountId(Long taobaoAccountID) {
+        this.taobaoAccountId = taobaoAccountID;
     }
 
     public Byte getAddressType() {
