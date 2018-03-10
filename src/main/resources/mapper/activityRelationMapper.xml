@@ -1,51 +1,197 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="wechat_business.entity.ActivityRelation">
+    <!-- 定义活动关系表结果集 -->
+    <!--<resultMap id="activityRelationMap" type="wechat_business.entity.ActivityRelation">-->
+    <!--<id column="ID" property="id"></id>-->
+    <!--<association property="itemRelationId" column="ITEM_RELATION_ID" javaType="wechat_business.entity.ItemRelation" select="getItemRelation">-->
+        <!--<id column="ID" property="id"></id>-->
+        <!--<result column="INVENTORY" property="inventory"></result>-->
+        <!--<result column="PRICE" property="price"></result>-->
+    <!--<association property="sellerInfo" column="SELLER_INFO_ID" javaType="wechat_business.entity.SellerInfo" select="getSellerInfo">-->
+        <!--<id column="ID" property="id"></id>-->
+        <!--<result column="SHOP_NAME" property="shopName"></result>-->
+        <!--<result column="SHOP_NUMBER" property="shopNumber"></result>-->
+        <!--<result column="SHOP_TYPE" property="shopType"></result>-->
+        <!--<result column="TAOBAO_ACCOUNT_ID" property="taobaoAccountId"></result>-->
+        <!--<result column="REGISTRATION_TIME" property="registrationTime"></result>-->
+        <!--<result column="ADDRESS" property="address"></result>-->
+        <!--<result column="EMAIL" property="email"></result>-->
+        <!--<result column="AFFILIATED_COMPANY" property="affiltaedCompany"></result>-->
+        <!--<result column="COMMERCIAL_REGISTRATION_NUM" property="commercialRegistrationNum"></result>-->
+        <!--<result column="UPDATE_TIME" property="updateTime"></result>-->
+        <!--<result column="DEPOSIT" property="deposit"></result>-->
+        <!--<result column="CREDITWORTHINESS" property="creditworthiness"></result>-->
+    <!--</association>-->
+    <!--<association property="itemInfo" column="ITEM_INFO_ID" javaType="wechat_business.entity.ItemInfo" select="getItemInfo">-->
+        <!--<id column="ID" property="id"></id>-->
+        <!--<result column="NAME" property="name"></result>-->
+        <!--<result column="NUMBER" property="number"></result>-->
+        <!--<result column="IN_TIME" property="inTime"></result>-->
+        <!--<result column="UPDATE_TIME" property="updateTimel"></result>-->
+        <!--<result column="MAKER" property="maker"></result>-->
+        <!--<result column="ADDR" property="addr"></result>-->
+        <!--<result column="MAKE_TIME" property="makeTime"></result>-->
+        <!--<result column="EXPIRATION" property="expiration"></result>-->
+        <!--<result column="ORIGIN" property="origin"></result>-->
+        <!--<result column="DESCRIPTION" property="description"></result>-->
+        <!--<result column="DISCOUNT" property="discount"></result>-->
+    <!--</association>-->
+    <!--</association>-->
+    <!--<association property="activityInfoId" column="ACTIVITY_INFO_ID" javaType="wechat_business.entity.ActivityInfo" select="getActivityInfo">-->
+        <!--<id property="id" column="ID"></id>-->
+        <!--<result property="discount" column="DISCOUNT"></result>-->
+        <!--<result property="activityName" column="ACTIVITY_NAME"></result>-->
+        <!--<result property="activityStartTime" column="ACTIVITY_START_TIME"></result>-->
+        <!--<result property="activityEndTime" column="ACTIVITY_END_TIME"></result>-->
+    <!--</association>-->
+    <!--</resultMap>-->
+
+    <!--&lt;!&ndash; 商品关系表结果集 &ndash;&gt;-->
+    <!--<resultMap id="itemRelationMap" type="wechat_business.entity.ItemRelation">-->
+        <!--<id column="ID" property="id"></id>-->
+        <!--<result column="INVENTORY" property="inventory"></result>-->
+        <!--<result column="PRICE" property="price"></result>-->
+        <!--<result column="IMG_ADDR" property="imgAddr"></result>-->
+        <!--<association property="sellerInfo" column="SELLER_INFO_ID" javaType="wechat_business.entity.SellerInfo" select="getSellerInfo">-->
+            <!--<id column="ID" property="id"></id>-->
+            <!--<result column="SHOP_NAME" property="shopName"></result>-->
+            <!--<result column="SHOP_NUMBER" property="shopNumber"></result>-->
+            <!--<result column="SHOP_TYPE" property="shopType"></result>-->
+            <!--<result column="TAOBAO_ACCOUNT_ID" property="taobaoAccountId"></result>-->
+            <!--<result column="REGISTRATION_TIME" property="registrationTime"></result>-->
+            <!--<result column="ADDRESS" property="address"></result>-->
+            <!--<result column="EMAIL" property="email"></result>-->
+            <!--<result column="AFFILIATED_COMPANY" property="affiltaedCompany"></result>-->
+            <!--<result column="COMMERCIAL_REGISTRATION_NUM" property="commercialRegistrationNum"></result>-->
+            <!--<result column="UPDATE_TIME" property="updateTime"></result>-->
+            <!--<result column="DEPOSIT" property="deposit"></result>-->
+            <!--<result column="CREDITWORTHINESS" property="creditworthiness"></result>-->
+        <!--</association>-->
+        <!--<association property="itemInfo" column="ITEM_INFO_ID"  javaType="wechat_business.entity.ItemInfo" select="getItemInfo">-->
+            <!--<id column="ID" property="id"></id>-->
+            <!--<result column="NAME" property="name"></result>-->
+            <!--<result column="NUMBER" property="number"></result>-->
+            <!--<result column="IN_TIME" property="inTime"></result>-->
+            <!--<result column="UPDATE_TIME" property="updateTimel"></result>-->
+            <!--<result column="MAKER" property="maker"></result>-->
+            <!--<result column="ADDR" property="addr"></result>-->
+            <!--<result column="MAKE_TIME" property="makeTime"></result>-->
+            <!--<result column="EXPIRATION" property="expiration"></result>-->
+            <!--<result column="ORIGIN" property="origin"></result>-->
+            <!--<result column="DESCRIPTION" property="description"></result>-->
+            <!--<result column="DISCOUNT" property="discount"></result>-->
+        <!--</association>-->
+    <!--</resultMap>-->
+
     <resultMap id="activityRelationMap" type="wechat_business.entity.ActivityRelation">
-    <id column="ID" property="id"></id>
-    <association property="itemRelationId" column="ITEM_RELATION_ID" javaType="wechat_business.entity.ItemRelation">
-    <id column="ID" property="id"></id>
-    <result column="INVENTORY" property="inventory"></result>
-    <result column="PRICE" property="price"></result>
-    <result column="IMG_ADDR" property="imgAddr"></result>
-    <association property="sellerInfo" column="SELLER_INFO_ID" javaType="wechat_business.entity.SellerInfo">
-    <id column="ID" property="id"></id>
-    <result column="SHOP_NAME" property="shopName"></result>
-    <result column="SHOP_NUMBER" property="shopNumber"></result>
-    <result column="SHOP_TYPE" property="shopType"></result>
-    <result column="TAOBAO_ACCOUNT_ID" property="taobaoAccountId"></result>
-    <result column="REGISTRATION_TIME" property="registrationTime"></result>
-    <result column="ADDRESS" property="address"></result>
-    <result column="EMAIL" property="email"></result>
-    <result column="AFFILIATED_COMPANY" property="affiltaedCompany"></result>
-    <result column="COMMERCIAL_REGISTRATION_NUM" property="commercialRegistrationNum"></result>
-    <result column="UPDATE_TIME" property="updateTime"></result>
-    <result column="DEPOSIT" property="deposit"></result>
-    <result column="CREDITWORTHINESS" property="creditworthiness"></result>
-    </association>
-    <association property="itemInfo" column="ITEM_INFO_ID"  javaType="wechat_business.entity.ItemInfo">
-    <id column="ID" property="id"></id>
-    <result column="NAME" property="name"></result>
-    <result column="NUMBER" property="number"></result>
-    <result column="IN_TIME" property="inTime"></result>
-    <result column="UPDATE_TIME" property="updateTimel"></result>
-    <result column="MAKER" property="maker"></result>
-    <result column="ADDR" property="addr"></result>
-    <result column="MAKE_TIME" property="makeTime"></result>
-    <result column="EXPIRATION" property="expiration"></result>
-    <result column="ORIGIN" property="origin"></result>
-    <result column="DESCRIPTION" property="description"></result>
-    <result column="DISCOUNT" property="discount"></result>
-    </association>
-    </association>
-    <association property="activityInfoId" column="ACTIVITY_INFO_ID"  javaType="wechat_business.entity.ActivityInfo">
-    <id property="id" column="ID"></id>
-    <result property="discount" column="DISCOUNT"></result>
-    <result property="activityName" column="ACTIVITY_NAME"></result>
-    <result property="activityStartTime" column="ACTIVITY_START_TIME"></result>
-    <result property="activityEndTime" column="ACTIVITY_END_TIME"></result>
-    </association>
+        <id column="ID" property="id"></id>
+        <association property="itemRelationId" column="ITEM_RELATION_ID" javaType="wechat_business.entity.ItemRelation">
+            <id column="IR_ID" property="id"></id>
+            <result column="IR_INVENTORY" property="inventory"></result>
+            <result column="IR_PRICE" property="price"></result>
+            <association property="sellerInfo" column="IR_SELLER_INFO_ID" javaType="wechat_business.entity.SellerInfo">
+                <id column="SI_ID" property="id"></id>
+                <result column="SI_SHOP_NAME" property="shopName"></result>
+                <result column="SI_SHOP_NUMBER" property="shopNumber"></result>
+                <result column="SI_SHOP_TYPE" property="shopType"></result>
+                <result column="SI_TAOBAO_ACCOUNT_ID" property="taobaoAccountId"></result>
+                <result column="SI_REGISTRATION_TIME" property="registrationTime"></result>
+                <result column="SI_ADDRESS" property="address"></result>
+                <result column="SI_EMAIL" property="email"></result>
+                <result column="SI_AFFILIATED_COMPANY" property="affiltaedCompany"></result>
+                <result column="SI_COMMERCIAL_REGISTRATION_NUM" property="commercialRegistrationNum"></result>
+                <result column="SI_UPDATE_TIME" property="updateTime"></result>
+                <result column="SI_DEPOSIT" property="deposit"></result>
+                <result column="SI_CREDITWORTHINESS" property="creditworthiness"></result>
+            </association>
+            <association property="itemInfo" column="SI_ITEM_INFO_ID" javaType="wechat_business.entity.ItemInfo" >
+                <id column="II_ID" property="id"></id>
+                <result column="II_NAME" property="name"></result>
+                <result column="II_NUMBER" property="number"></result>
+                <result column="II_IN_TIME" property="inTime"></result>
+                <result column="II_UPDATE_TIME" property="updateTimel"></result>
+                <result column="II_MAKER" property="maker"></result>
+                <result column="II_ADDR" property="addr"></result>
+                <result column="II_MAKE_TIME" property="makeTime"></result>
+                <result column="II_EXPIRATION" property="expiration"></result>
+                <result column="II_ORIGIN" property="origin"></result>
+                <result column="II_DESCRIPTION" property="description"></result>
+                <result column="II_DISCOUNT" property="discount"></result>
+            </association>
+        </association>
+        <association property="activityInfoId" column="ACTIVITY_INFO_ID" javaType="wechat_business.entity.ActivityInfo" >
+            <id property="id" column="AI_ID"></id>
+            <result property="discount" column="AI_DISCOUNT"></result>
+            <result property="activityName" column="AI_ACTIVITY_NAME"></result>
+            <result property="activityStartTime" column="AI_ACTIVITY_START_TIME"></result>
+            <result property="activityEndTime" column="AI_ACTIVITY_END_TIME"></result>
+        </association>
     </resultMap>
+
+    <!-- 商品关系表结果集 -->
+    <!--<resultMap id="itemRelationMap" type="wechat_business.entity.ItemRelation">-->
+        <!--<id column="ID" property="id"></id>-->
+        <!--<result column="INVENTORY" property="inventory"></result>-->
+        <!--<result column="PRICE" property="price"></result>-->
+        <!--<result column="IMG_ADDR" property="imgAddr"></result>-->
+        <!--<association property="sellerInfo" column="SELLER_INFO_ID" javaType="wechat_business.entity.SellerInfo">-->
+            <!--<id column="ID" property="id"></id>-->
+            <!--<result column="SHOP_NAME" property="shopName"></result>-->
+            <!--<result column="SHOP_NUMBER" property="shopNumber"></result>-->
+            <!--<result column="SHOP_TYPE" property="shopType"></result>-->
+            <!--<result column="TAOBAO_ACCOUNT_ID" property="taobaoAccountId"></result>-->
+            <!--<result column="REGISTRATION_TIME" property="registrationTime"></result>-->
+            <!--<result column="ADDRESS" property="address"></result>-->
+            <!--<result column="EMAIL" property="email"></result>-->
+            <!--<result column="AFFILIATED_COMPANY" property="affiltaedCompany"></result>-->
+            <!--<result column="COMMERCIAL_REGISTRATION_NUM" property="commercialRegistrationNum"></result>-->
+            <!--<result column="UPDATE_TIME" property="updateTime"></result>-->
+            <!--<result column="DEPOSIT" property="deposit"></result>-->
+            <!--<result column="CREDITWORTHINESS" property="creditworthiness"></result>-->
+        <!--</association>-->
+        <!--<association property="itemInfo" column="ITEM_INFO_ID"  javaType="wechat_business.entity.ItemInfo">-->
+            <!--<id column="ID" property="id"></id>-->
+            <!--<result column="NAME" property="name"></result>-->
+            <!--<result column="NUMBER" property="number"></result>-->
+            <!--<result column="IN_TIME" property="inTime"></result>-->
+            <!--<result column="UPDATE_TIME" property="updateTimel"></result>-->
+            <!--<result column="MAKER" property="maker"></result>-->
+            <!--<result column="ADDR" property="addr"></result>-->
+            <!--<result column="MAKE_TIME" property="makeTime"></result>-->
+            <!--<result column="EXPIRATION" property="expiration"></result>-->
+            <!--<result column="ORIGIN" property="origin"></result>-->
+            <!--<result column="DESCRIPTION" property="description"></result>-->
+            <!--<result column="DISCOUNT" property="discount"></result>-->
+        <!--</association>-->
+    <!--</resultMap>-->
+
+
+    <!--<resultMap id="activityRelationMap" type="wechat_business.entity.ActivityRelation">-->
+        <!--<id property="id" column="ID"/>-->
+        <!--<association property="itemRelationId" column="ITEM_RELATION_ID" javaType="wechat_business.entity.ItemRelation" select="getItemRelation"></association>-->
+        <!--<association property="activityInfoId" column="ACTIVITY_INFO_ID" javaType="wechat_business.entity.ActivityInfo" select="getActivityInfo"></association>-->
+    <!--</resultMap>-->
+    <!--<select id="getActivityInfo" parameterType="java.lang.Long" resultType="wechat_business.entity.ActivityInfo">-->
+        <!--SELECT ID,DISCOUNT,ACTIVITY_NAME,ACTIVITY_START_TIME,ACTIVITY_END_TIME-->
+        <!--FROM ACTIVITY_INFO-->
+        <!--WHERE ID=#{id}-->
+    <!--</select>-->
+    <!--<select id="getItemRelation" parameterType="java.lang.Long" resultMap="itemRelationMap">-->
+        <!--SELECT ID,ITEM_INFO_ID,SELLER_INFO_ID,INVENTORY, PRICE-->
+        <!--FROM item_relation-->
+        <!--WHERE ID=#{id}-->
+    <!--</select>-->
+    <!--<select id="getSellerInfo" parameterType="java.lang.Long" resultType="wechat_business.entity.SellerInfo">-->
+        <!--SELECT ID,SHOP_NAME,SHOP_NUMBER,SHOP_TYPE,TAOBAO_ACCOUNT_ID,REGISTRATION_TIME,ADDRESS,EMAIL,AFFILIATED_COMPANY,COMMERCIAL_REGISTRATION_NUM,UPDATE_TIME,DEPOSIT,CREDITWORTHINESS-->
+        <!--FROM SELLER_INFO-->
+        <!--WHERE ID=#{id}-->
+    <!--</select>-->
+    <!--<select id="getItemInfo" parameterType="java.lang.Long" resultType="wechat_business.entity.ItemInfo">-->
+        <!--SELECT ID,NAME,NUMBER,IN_TIME,UPDATE_TIME,MAKER,ADDR,MAKE_TIME,EXPIRATION,ORIGIN,DESCRIPTION,DISCOUNT-->
+        <!--FROM ITEM_INFO-->
+        <!--WHERE ID=#{id}-->
+    <!--</select>-->
     <!-- 根据id删除 -->
     <!--<delete id="deleteById" parameterType="java.lang.Long">-->
         <!--DELETE FROM ACTIVITY_RELATION-->
@@ -76,17 +222,34 @@
         FROM ACTIVITY_RELATION
         WHERE ID=#{id}
     </select>
-    <!-- 根据条件（活动信息表id 或 商品关系表id）查询 -->
     <select id="findByCondtion" parameterType="java.util.Map" resultMap="activityRelationMap">
-        SELECT ID,ITEM_RELATION_ID,ACTIVITY_INFO_ID
-        FROM ACTIVITY_RELATION
-        <where>
-            <if test="ACTIVITY_INFO_ID != null">
-                ACTIVITY_INFO_ID=#{ACTIVITY_INFO_ID}
-            </if>
-            <if test="ITEM_RELATION_ID != null">
-                AND ITEM_RELATION_ID=#{ITEM_RELATION_ID}
-            </if>
-        </where>
+        SELECT AR.ID,AR.ITEM_RELATION_ID,AR.ACTIVITY_INFO_ID,
+        IR.ID IR_ID,IR.ITEM_INFO_ID IR_ITEM_INFO_ID,IR.INVENTORY IR_INVENTORY,IR.PRICE IR_PRICE,IR.SELLER_INFO_ID IR_SELLER_INFO_ID,
+        SI.ID SI_ID,SI.SHOP_NAME SI_SHOP_NAME,SI.SHOP_NUMBER SI_SHOP_NUMBER,SI.SHOP_TYPE SI_SHOP_TYPE,SI.TAOBAO_ACCOUNT_ID SI_TAOBAO_ACCOUNT_ID,SI.REGISTRATION_TIME SI_REGISTRATION_TIME,SI.ADDRESS SI_ADDRESS,SI.EMAIL SI_EMAIL,SI.AFFILIATED_COMPANY SI_AFFILIATED_COMPANY,SI.COMMERCIAL_REGISTRATION_NUM SI_COMMERCIAL_REGISTRATION_NUM,SI.UPDATE_TIME SI_UPDATE_TIME,SI.DEPOSIT SI_DEPOSIT,SI.CREDITWORTHINESS SI_CREDITWORTHINESS,
+        II.ID II_ID,II.NAME II_NAME,II.NUMBER II_NUMBER,II.IN_TIME II_IN_TIME,II.UPDATE_TIME II_UPDATE_TIME,II.MAKER II_MAKER,II.ADDR II_ADDR,II.MAKE_TIME II_MAKE_TIME,II.EXPIRATION II_EXPIRATION,II.ORIGIN II_ORIGIN,II.DESCRIPTION II_DESCRIPTION,II.DISCOUNT II_DISCOUNT,
+        AI.ID AI_ID,AI.DISCOUNT AI_DISCOUNT,AI.ACTIVITY_NAME AI_ACTIVITY_NAME,AI.ACTIVITY_START_TIME AI_ACTIVITY_START_TIME,AI.ACTIVITY_END_TIME AI_ACTIVITY_END_TIME
+        FROM ACTIVITY_RELATION AR
+        LEFT JOIN ACTIVITY_INFO AI ON AI.ID=AR.ACTIVITY_INFO_ID
+        INNER JOIN item_relation IR ON IR.ID=AR.ITEM_RELATION_ID
+        LEFT JOIN ITEM_INFO II ON II.ID=IR. ITEM_INFO_ID
+        LEFT JOIN SELLER_INFO SI ON SI.ID=IR.SELLER_INFO_ID
+         <where>
+             <if test="ACTIVITY_INFO_ID != null">
+                 ACTIVITY_INFO_ID=#{ACTIVITY_INFO_ID}
+             </if>
+         </where>
     </select>
+    <!-- 根据条件（活动信息表id 或 商品关系表id）查询 -->
+    <!--<select id="findByCondtion" parameterType="java.util.Map" resultMap="activityRelationMap">-->
+        <!--SELECT ID,ITEM_RELATION_ID,ACTIVITY_INFO_ID-->
+        <!--FROM ACTIVITY_RELATION-->
+        <!--<where>-->
+            <!--<if test="ACTIVITY_INFO_ID != null">-->
+                <!--ACTIVITY_INFO_ID=#{ACTIVITY_INFO_ID}-->
+            <!--</if>-->
+            <!--&lt;!&ndash;<if test="ITEM_RELATION_ID != null">&ndash;&gt;-->
+                <!--&lt;!&ndash;AND ITEM_RELATION_ID=#{ITEM_RELATION_ID}&ndash;&gt;-->
+            <!--&lt;!&ndash;</if>&ndash;&gt;-->
+        <!--</where>-->
+    <!--</select>-->
 </mapper>
