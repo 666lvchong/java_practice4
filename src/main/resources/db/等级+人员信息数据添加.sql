@@ -1,4 +1,38 @@
 
+INSERT INTO `wechat_business`.`item_info` (`ID`, `NAME`, `NUMBER`, `ITEM_TYPE_ID`, `IN_TIME`, `UPDATE_TIME`, `MAKER`, `ADDR`, `MAKE_TIME`, `EXPIRATION`, `ORIGIN`, `DESCRIPTION`, `DISCOUNT`) VALUES (null, '美国高射炮', '7878778', '1', '2018-01-10 14:24:28', '2018-01-02 14:24:32', '美国', '美国', '2018-01-08', '2018-04-12', '1', '1', '1');
+INSERT INTO `wechat_business`.`item_info` (`ID`, `NAME`, `NUMBER`, `ITEM_TYPE_ID`, `IN_TIME`, `UPDATE_TIME`, `MAKER`, `ADDR`, `MAKE_TIME`, `EXPIRATION`, `ORIGIN`, `DESCRIPTION`, `DISCOUNT`) VALUES (null, '德国高射炮', '7878778', '1', '2018-01-10 14:24:28', '2018-01-02 14:24:32', '德国', '德国', '2018-01-08', '2018-04-12', '1', '1', '1');
+INSERT INTO `wechat_business`.`item_info` (`ID`, `NAME`, `NUMBER`, `ITEM_TYPE_ID`, `IN_TIME`, `UPDATE_TIME`, `MAKER`, `ADDR`, `MAKE_TIME`, `EXPIRATION`, `ORIGIN`, `DESCRIPTION`, `DISCOUNT`) VALUES (null, '中国高射炮', '7878778', '1', '2018-01-10 14:24:28', '2018-01-02 14:24:32', '中国', '中国', '2018-01-08', '2018-04-12', '1', '1', '1');
+INSERT INTO `wechat_business`.`item_info` (`ID`, `NAME`, `NUMBER`, `ITEM_TYPE_ID`, `IN_TIME`, `UPDATE_TIME`, `MAKER`, `ADDR`, `MAKE_TIME`, `EXPIRATION`, `ORIGIN`, `DESCRIPTION`, `DISCOUNT`) VALUES (null, '韩国高射炮', '7878778', '1', '2018-01-10 14:24:28', '2018-01-02 14:24:32', '韩国', '韩国', '2018-01-08', '2018-04-12', '1', '1', '1');
+INSERT INTO `wechat_business`.`seller_info` (`ID`, `SHOP_NAME`, `SHOP_NUMBER`, `SHOP_TYPE`, `TAOBAO_ACCOUNT_ID`, `REGISTRATION_TIME`, `ADDRESS`, `EMAIL`, `AFFILIATED_COMPANY`, `COMMERCIAL_REGISTRATION_NUM`, `UPDATE_TIME`, `DEPOSIT`, `CREDITWORTHINESS`) VALUES ('1', '美国军火商贩', '111111', '军火商铺', '1', '2018-01-30 16:46:27', '美国', '825@qq.com', '美国政府', 'FBI情报局', '2017-12-26 16:46:40', '99999999.000', '100');
+INSERT INTO `wechat_business`.`seller_info` (`ID`, `SHOP_NAME`, `SHOP_NUMBER`, `SHOP_TYPE`, `TAOBAO_ACCOUNT_ID`, `REGISTRATION_TIME`, `ADDRESS`, `EMAIL`, `AFFILIATED_COMPANY`, `COMMERCIAL_REGISTRATION_NUM`, `UPDATE_TIME`, `DEPOSIT`, `CREDITWORTHINESS`) VALUES ('2', '德国军火商贩', '111112', '军火商铺', '1', '2018-01-30 16:46:27', '德国', '825@qq.com', '德国政府', '希特勒反动派', '2017-12-26 16:46:40', '99999999.000', '100');
+INSERT INTO `wechat_business`.`seller_info` (`ID`, `SHOP_NAME`, `SHOP_NUMBER`, `SHOP_TYPE`, `TAOBAO_ACCOUNT_ID`, `REGISTRATION_TIME`, `ADDRESS`, `EMAIL`, `AFFILIATED_COMPANY`, `COMMERCIAL_REGISTRATION_NUM`, `UPDATE_TIME`, `DEPOSIT`, `CREDITWORTHINESS`) VALUES ('3', '中国军火商贩', '111113', '军火商铺', '1', '2018-01-30 16:46:27', '中国', '825@qq.com', '中国政府', '中央情报局', '2017-12-26 16:46:40', '99999999.000', '100');
+INSERT INTO `wechat_business`.`seller_info` (`ID`, `SHOP_NAME`, `SHOP_NUMBER`, `SHOP_TYPE`, `TAOBAO_ACCOUNT_ID`, `REGISTRATION_TIME`, `ADDRESS`, `EMAIL`, `AFFILIATED_COMPANY`, `COMMERCIAL_REGISTRATION_NUM`, `UPDATE_TIME`, `DEPOSIT`, `CREDITWORTHINESS`) VALUES ('4', '韩国军火商贩', '111114', '军火商铺', '1', '2018-01-30 16:46:27', '韩国', '825@qq.com', '韩国政府', '青瓦台智障组合', '2017-12-26 16:46:40', '99999999.000', '100');
+
+INSERT INTO `wechat_business`.`item_relation` (`ID`, `SELLER_INFO_ID`, `ITEM_INFO_ID`, `INVENTORY`, `PRICE`, `IMG_ADDR`) VALUES (null, '1', '1', '5.000', '999999.000', 'img/lv_item_img.jpg');
+INSERT INTO `wechat_business`.`item_relation` (`ID`, `SELLER_INFO_ID`, `ITEM_INFO_ID`, `INVENTORY`, `PRICE`, `IMG_ADDR`) VALUES (null, '1', '2', '5.000', '999999.000', 'img/lv_item_img.jpg');
+INSERT INTO `wechat_business`.`item_relation` (`ID`, `SELLER_INFO_ID`, `ITEM_INFO_ID`, `INVENTORY`, `PRICE`, `IMG_ADDR`) VALUES (null, '1', '3', '5.000', '999999.000', 'img/lv_item_img.jpg');
+INSERT INTO `wechat_business`.`item_relation` (`ID`, `SELLER_INFO_ID`, `ITEM_INFO_ID`, `INVENTORY`, `PRICE`, `IMG_ADDR`) VALUES (null, '1', '4', '5.000', '999999.000', 'img/lv_item_img.jpg');
+
+INSERT INTO `wechat_business`.`item_relation` (`ID`, `SELLER_INFO_ID`, `ITEM_INFO_ID`, `INVENTORY`, `PRICE`, `IMG_ADDR`) VALUES (null, '2', '1', '5.000', '999999.000', 'img/lv_item_img.jpg');
+INSERT INTO `wechat_business`.`item_relation` (`ID`, `SELLER_INFO_ID`, `ITEM_INFO_ID`, `INVENTORY`, `PRICE`, `IMG_ADDR`) VALUES (null, '2', '2', '5.000', '999999.000', 'img/lv_item_img.jpg');
+INSERT INTO `wechat_business`.`item_relation` (`ID`, `SELLER_INFO_ID`, `ITEM_INFO_ID`, `INVENTORY`, `PRICE`, `IMG_ADDR`) VALUES (null, '2', '3', '5.000', '999999.000', 'img/lv_item_img.jpg');
+INSERT INTO `wechat_business`.`item_relation` (`ID`, `SELLER_INFO_ID`, `ITEM_INFO_ID`, `INVENTORY`, `PRICE`, `IMG_ADDR`) VALUES (null, '2', '4', '5.000', '999999.000', 'img/lv_item_img.jpg');
+
+INSERT INTO `wechat_business`.`item_relation` (`ID`, `SELLER_INFO_ID`, `ITEM_INFO_ID`, `INVENTORY`, `PRICE`, `IMG_ADDR`) VALUES (null, '3', '1', '5.000', '999999.000', 'img/lv_item_img.jpg');
+INSERT INTO `wechat_business`.`item_relation` (`ID`, `SELLER_INFO_ID`, `ITEM_INFO_ID`, `INVENTORY`, `PRICE`, `IMG_ADDR`) VALUES (null, '3', '2', '5.000', '999999.000', 'img/lv_item_img.jpg');
+INSERT INTO `wechat_business`.`item_relation` (`ID`, `SELLER_INFO_ID`, `ITEM_INFO_ID`, `INVENTORY`, `PRICE`, `IMG_ADDR`) VALUES (null, '3', '3', '5.000', '999999.000', 'img/lv_item_img.jpg');
+INSERT INTO `wechat_business`.`item_relation` (`ID`, `SELLER_INFO_ID`, `ITEM_INFO_ID`, `INVENTORY`, `PRICE`, `IMG_ADDR`) VALUES (null, '3', '4', '5.000', '999999.000', 'img/lv_item_img.jpg');
+
+INSERT INTO `wechat_business`.`item_relation` (`ID`, `SELLER_INFO_ID`, `ITEM_INFO_ID`, `INVENTORY`, `PRICE`, `IMG_ADDR`) VALUES (null, '4', '1', '5.000', '999999.000', 'img/lv_item_img.jpg');
+INSERT INTO `wechat_business`.`item_relation` (`ID`, `SELLER_INFO_ID`, `ITEM_INFO_ID`, `INVENTORY`, `PRICE`, `IMG_ADDR`) VALUES (null, '4', '2', '5.000', '999999.000', 'img/lv_item_img.jpg');
+INSERT INTO `wechat_business`.`item_relation` (`ID`, `SELLER_INFO_ID`, `ITEM_INFO_ID`, `INVENTORY`, `PRICE`, `IMG_ADDR`) VALUES (null, '4', '3', '5.000', '999999.000', 'img/lv_item_img.jpg');
+INSERT INTO `wechat_business`.`item_relation` (`ID`, `SELLER_INFO_ID`, `ITEM_INFO_ID`, `INVENTORY`, `PRICE`, `IMG_ADDR`) VALUES (null, '4', '4', '5.000', '999999.000', 'img/lv_item_img.jpg');
+
+
+
+INSERT INTO `wechat_business`.`taobao_account` (`ID`, `PERSONNEL_ACCOUNT`, `PASSWORD`, `GRADE_ID`, `IS_FROZEN`, `IS_CANCELLATION`, `IS_DELETE`, `PEOPLE_INFO_ID`, `ADD_TIME`, `UPDATE_TIME`) VALUES (default, 'door', '123456', '6', '0', '0', '0', '1', '2017-01-01 00:00:00', '2017-02-02 00:00:00');
+INSERT INTO `wechat_business`.`taobao_account` (`ID`, `PERSONNEL_ACCOUNT`, `PASSWORD`, `GRADE_ID`, `IS_FROZEN`, `IS_CANCELLATION`, `IS_DELETE`, `PEOPLE_INFO_ID`, `ADD_TIME`, `UPDATE_TIME`) VALUES (default, 'van', '654321', '6', '0', '0', '0', '2', '2017-01-05 00:00:00', '2017-01-22 00:00:00');
+
 
 -- -- 人员信息插入数据
 INSERT INTO people_info (ID,`NAME`,SEX,AGE,NATION,BIRTHDATE,ID_NUMBER,MOBILE_PHONE,NATIVE_PLACE,MAILBOX,PERMANENT_ADDRESS,PROFESSION,WORK_UNIT,CREATE_TIME,UPDATE_TIME)
@@ -22,7 +56,7 @@ VALUES (DEFAULT,'1','一星级'),
 				(DEFAULT,'5','五星级'),
 				(DEFAULT,'6','管理员');
 
--- -- 活动信心表插入数据
+-- -- 活动信心表插入数据' ACTIVITY_SATRT_TIME'
 INSERT INTO activity_info (ID,DISCOUNT,ACTIVITY_NAME,ACTIVITY_SATRT_TIME,ACTIVITY_END_TIME)
 VALUES(DEFAULT,'9.5','商城周年庆','2018-01-01 00:00:00','2018-01-08 23:59:59'),
 			(DEFAULT,'9.0','大型优惠节','2018-02-08 00:00:00','2018-02-12 23:59:59');
