@@ -58,44 +58,44 @@
         SELECT <include refid="columns"/>
         FROM ORDER_DETAIL
         <where>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(orderInfoId)">
-                AND ORDER_INFO_ID LIKE #{orderInfoId}
+            <if test="ORDER_INFO_ID != null">
+                AND ORDER_INFO_ID LIKE #{ORDER_INFO_ID}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(taobaoAccountId)">
-                AND TAOBAO_ACCOUNT_ID LIKE #{taobaoAccountId}
+            <if test="TAOBAO_ACCOUNT_ID !=null">
+                AND TAOBAO_ACCOUNT_ID LIKE #{TAOBAO_ACCOUNT_ID}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(itemInfoId)">
-                AND ITEM_INFO_ID LIKE #{itemInfoId}
+            <if test="ITEM_INFO_ID !=null">
+                AND ITEM_INFO_ID LIKE #{ITEM_INFO_ID}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(itemNumber)">
-                AND ITEM_NUMBER LIKE #{itemNumber}
+            <if test="ITEM_NUMBER !=null">
+                AND ITEM_NUMBER LIKE #{ITEM_NUMBER}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(amount)">
-                AND AMOUNT LIKE #{amount}
+            <if test="AMOUNT !=null">
+                AND AMOUNT LIKE #{AMOUNT}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(orderStatus)">
-                AND ORDER_STATUS LIKE #{orderStatus}
+            <if test="ORDER_STATUS !=null">
+                AND ORDER_STATUS LIKE #{ORDER_STATUS}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(isSent)">
-                AND IS_SENT LIKE #{isSent}
+            <if test="IS_SENT !=null">
+                AND IS_SENT LIKE #{IS_SENT}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(isReceived)">
-                AND IS_RECEIVED LIKE #{isReceived}
+            <if test="IS_RECEIVED !=null">
+                AND IS_RECEIVED LIKE #{IS_RECEIVED}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(isReturned)">
-                AND IS_RETURNED LIKE #{isReturned}
+            <if test="IS_RETURNED !=null">
+                AND IS_RETURNED LIKE #{IS_RETURNED}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(sentTime)">
-                AND SENT_TIME LIKE #{sentTime}
+            <if test="SENT_TIME !=null">
+                AND SENT_TIME LIKE #{SENT_TIME}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(receivedTime)">
-                AND RECEIVED_TIME LIKE #{receivedTime}
+            <if test="RECEIVED_TIME !=null">
+                AND RECEIVED_TIME LIKE #{RECEIVED_TIME}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(returnedTime)">
-                AND RETURNED_TIME LIKE #{returnedTime}
+            <if test="RETURNED_TIME !=null">
+                AND RETURNED_TIME LIKE #{RETURNED_TIME}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(addressId)">
-                AND ADDRESS_ID LIKE #{addressId}
+            <if test="ADDRESS_ID !=null">
+                AND ADDRESS_ID LIKE #{ADDRESS_ID}
             </if>
         </where>
     </select>

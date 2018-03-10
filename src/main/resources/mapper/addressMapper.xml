@@ -52,29 +52,29 @@
         SELECT <include refid="columns"/>
         FROM ADDRESS
         <where>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(taobaoAccountId)">
-                AND TAOBAO_ACCOUNT_ID LIKE #{taobaoAccountId}
+            <if test="TAOBAO_ACCOUNT_ID">
+                AND TAOBAO_ACCOUNT_ID LIKE #{TAOBAO_ACCOUNT_ID}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(addressType)">
-                AND ADDRESS_TYPE LIKE #{addressType}
+            <if test="ADDRESS_TYPE">
+                AND ADDRESS_TYPE LIKE #{ADDRESS_TYPE}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(address)">
-                AND ADDRESS LIKE #{address}
+            <if test="ADDRESS">
+                AND ADDRESS LIKE #{ADDRESS}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(linkmanContacts)">
-                AND LINKMAN_CONTACTS LIKE #{linkmanContacts}
+            <if test="LINKMAN_CONTACTS">
+                AND LINKMAN_CONTACTS LIKE #{LINKMAN_CONTACTS}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(telephone)">
-                AND TELEPHONE LIKE #{telephone}
+            <if test="TELEPHONE">
+                AND TELEPHONE LIKE #{TELEPHONE}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(createTime)">
-                AND CREATE_TIME LIKE #{createTime}
+            <if test="CREATE_TIME">
+                AND CREATE_TIME LIKE #{CREATE_TIME}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(updateTime)">
-                AND UPDATE_TIME LIKE #{updateTime}
+            <if test="UPDATE_TIME">
+                AND UPDATE_TIME LIKE #{UPDATE_TIME}
             </if>
-            <if test="@wechat_business.dao.Ognl@isNotEmpty(isDefault)">
-                AND IS_DEFAULT LIKE #{isDefault}
+            <if test="IS_DEFAULT">
+                AND IS_DEFAULT LIKE #{IS_DEFAULT}
             </if>
         </where>
     </select>

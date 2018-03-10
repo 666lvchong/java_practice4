@@ -20,7 +20,7 @@ import java.sql.SQLException;
  * @Description 类描述 支付业务
  * @date 2018/3/5
  */
-@Service("PaypalInfoService")
+@Service("paypalInfoService")
 public class PaypalInfoServiceImpl extends  ServiceUtil<PaypalInfoDao,PaypalInfo>{
     /**
      * @Title: pay

@@ -19,7 +19,7 @@
         <div class="maninlogo">
             <a href="findByItemInfo.do" title="首页"><img src="img/lv_logo.png" width="198px" height="114px"; /></a>
             <a href="findByItemInfo.do" title="回到首页">首页</a>
-            > <span class="orangered" title="我的订单信息">订单信息</span ><a href="ShoppingCartServlet">
+            > <span class="orangered" title="我的订单信息">订单信息</span ><a href="shoppingCartAction!open.do">
             <span class="shoppingCart" title="我的购物车">购物车</span></a>
         </div>
         <hr>
@@ -56,7 +56,7 @@
                             <c:if test="${list.tradingTime.toString()==null}">暂无记录</c:if>
                         </td>
                         <td>
-                            <a href="OrderDetailServlet?id=${list.id}" >订单详情</a>
+                            <a href="orderDetailAction!open.do?strId=${list.id}" >订单详情</a>
                         </td>
                     </tr>
                 </c:forEach>

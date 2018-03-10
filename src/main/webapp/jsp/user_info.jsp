@@ -19,7 +19,7 @@
         function doFind(){
             $.ajax({
                 type: "POST",
-                url:"${pageContext.request.contextPath}/action/UserInfo!doPost.do",
+                url:"${pageContext.request.contextPath}/userInfo!doPost.do",
                 data:{keyword:$("#keyword").val()},
                 dataType:"json",
                 success: function(data) {
@@ -46,7 +46,7 @@
 <div class="diaplay_box">
     <img id="logo" class="float_left" src="/Team4/img/lv_logo.png" alt="logo">
     <div class="search_box">
-        <form class="search_form" id="search_form"  action="${pageContext.request.contextPath}/action/UserInfo!doPost.do" method="post">
+        <form class="search_form" id="search_form"  action="${pageContext.request.contextPath}/userInfo!doPost.do" method="post">
             <div class="taobaoAccount"><input type="text" id="keyword" name="keyword" placeholder="请输入淘宝账号" value=""/>
                 <button type="submit" id="submit" onclick="doFind()" value="搜索">搜索</button></div>
         </form>
@@ -71,7 +71,7 @@
                         <td><a title=""  id="peopleName" class="peopleName">${taobao.getPeopleInfo().getName()}</a></td>
                         <td>${taobao.getAddTime()}</td>
                         <td>${taobao.getGrade().getGradeName()}</td>
-                        <td><a title="" id="del_click" href="${pageContext.request.contextPath}/action/UserInfo!doPost.do?method=del&id=${taobao.getId()}">删除</a></td>
+                        <td><a title="" id="del_click" href="${pageContext.request.contextPath}/userInfo!doPost.do?method=del&id=${taobao.getId()}">删除</a></td>
                 </tr>
             </tbody>
             </c:forEach>
