@@ -37,12 +37,15 @@ import java.util.*;
 public class ShoppingCartAction extends BaseAction{
     private List<Address> addressList;
     private List<OrderDetail> orderDetailList;
+    private List listNames;
     private ItemInfo itemInfo;
     private OrderInfo orderInfo;
     private Double money = 0d;
     private int index=0;
+    private String taoBaoId;
     private String strId;
     private String moneys;
+    private String addressId;
 
     @Autowired
     private AddressServiceImpl addressService;
@@ -68,11 +71,12 @@ public class ShoppingCartAction extends BaseAction{
      * @date 2018-03-09
      */
     public String open(){
+        Long taoBaoAccountId=Long.valueOf(taoBaoId);
         //查询出当前账户的收货地址
         Map<String,Object> stringObjectMapAddress=new HashMap<String, Object>();
         stringObjectMapAddress.put("ADDRESS_TYPE",(byte)1);
 //        stringObjectMap.put("TAOBAO_ACCOUNT_ID",taobaoAccount.getId());
-        stringObjectMapAddress.put("TAOBAO_ACCOUNT_ID",(long)2);
+        stringObjectMapAddress.put("TAOBAO_ACCOUNT_ID",taoBaoAccountId);
         try {
             //根据条件查询出地址
             addressList=addressService.findByCondtion(stringObjectMapAddress);
@@ -86,29 +90,28 @@ public class ShoppingCartAction extends BaseAction{
         Map<String,Object> stringObjectMap=new HashMap<String, Object>();
         stringObjectMap.put("ORDER_INFO_ID",0);
 //        stringObjectMap.put("TAOBAO_ACCOUNT_ID",taobaoAccount.getId());
-        stringObjectMap.put("TAOBAO_ACCOUNT_ID",(long)2);
+        stringObjectMap.put("TAOBAO_ACCOUNT_ID",taoBaoId);
+        List<String> itemInfos=new ArrayList<String>();
         try {
             //根据条件查询出购物车信息
             orderDetailList=orderDetailService.findByCondtion(stringObjectMap);
+            listNames=new ArrayList();
             for (int i=0;i<orderDetailList.size();i++){
-//                itemInfo=itemInfoService.findById(orderDetailList.get(i).getId());
-//                itemInfos.add(i,itemInfo.getName());
+                itemInfo=itemInfoService.findById(orderDetailList.get(i).getItemInfoId());
+                listNames.add(i,itemInfo.getName());
                 //计算总金额
                 money+=orderDetailList.get(i).getAmount()*orderDetailList.get(i).getItemNumber();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        request.setAttribute("list",orderDetailList);
-//        request.setAttribute("listName", itemInfos);
-//        request.setAttribute("money",money);
-//        request.setAttribute("listAddress",addressList);
-//        request.setAttribute("index",index);
         System.out.println("购物车信息记录："+orderDetailList.size());
         ActionContext.getContext().put("list", orderDetailList);
         ActionContext.getContext().put("listAddress",addressList);
         ActionContext.getContext().put("money",money);
         ActionContext.getContext().put("index",index);
+        ActionContext.getContext().put("listNames",listNames);
+        ActionContext.getContext().put("taoBaoId",taoBaoId);
 
         return "shoppingCart";
     }
@@ -136,44 +139,45 @@ public class ShoppingCartAction extends BaseAction{
      * @date 2018-03-09
      */
     public String buy(){
-//        Long taobaoAccountId=2l;
-//        money=Double.valueOf(moneys);
-//        //取收货地址id
-//        Long addressId=1l;
-//        // 生成订单编号
-//        String orderNum=new Date().getTime()+""+new Random().nextInt(10000)+""+new Date().getTime();
-//        orderInfo=orderInfoService.crateOrderInfo(orderNum,taobaoAccountId,money);
-//        orderInfo.setAddressId(addressId);
-//        try {
-//            //创建订单
-//            orderInfoService.save(orderInfo);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        //查询出当前账户的购物车信息（未创建订的详情信息）
-//        Map<String,Object> stringObjectMap=new HashMap<String, Object>();
-//        stringObjectMap.put("ORDER_INFO_ID",0l);
-////        stringObjectMap.put("TAOBAO_ACCOUNT_ID",taobaoAccount.getId());
-//        stringObjectMap.put("TAOBAO_ACCOUNT_ID",taobaoAccountId);
-//        //取订单信息id
-//        Map<String,Object> stringObjectMap0=new HashMap<String, Object>();
-//        stringObjectMap0.put("ORDER_NUM",orderNum);
-//
-//        try {
-//            //根据条件查询出购物车信息
-//            orderDetailList=orderDetailService.findByCondtion(stringObjectMap);
-//            for (int i=0;i<orderDetailList.size();i++){
-//                orderDetailList.get(i).setOrderStatus((byte)1);
-//                orderDetailList.get(i).setOrderInfoId(orderInfoService.findByCondtion(stringObjectMap0).get(0).getId());
-//                orderDetailService.update(orderDetailList.get(i));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-        System.out.println("创建订单");
+        Long taobaoAccountId=Long.valueOf(taoBaoId);
+        Long addressID=Long.valueOf(addressId);
+        money=Double.valueOf(moneys);
+        // 生成订单编号
+        String orderNum=new Date().getTime()+""+new Random().nextInt(10000)+""+new Date().getTime();
+        orderInfo=orderInfoService.crateOrderInfo(orderNum,taobaoAccountId,money);
+        orderInfo.setAddressId(addressID);
+        try {
+            //创建订单
+            orderInfoService.save(orderInfo);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //查询出当前账户的购物车信息（未创建订的详情信息）
+        Map<String,Object> stringObjectMap=new HashMap<String, Object>();
+        stringObjectMap.put("ORDER_INFO_ID",0l);
+//        stringObjectMap.put("TAOBAO_ACCOUNT_ID",taobaoAccount.getId());
+        stringObjectMap.put("TAOBAO_ACCOUNT_ID",taobaoAccountId);
+        //取订单信息id
+        Map<String,Object> stringObjectMap0=new HashMap<String, Object>();
+        stringObjectMap0.put("ORDER_NUM",orderNum);
+
+        try {
+            //根据条件查询出购物车信息
+            orderDetailList=orderDetailService.findByCondtion(stringObjectMap);
+            for (int i=0;i<orderDetailList.size();i++){
+                orderDetailList.get(i).setOrderStatus((byte)1);
+                orderDetailList.get(i).setOrderInfoId(orderInfoService.findByCondtion(stringObjectMap0).get(0).getId());
+                orderDetailService.update(orderDetailList.get(i));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("创建订单"+addressId);
 
         return "orderInfoAc";
     }
+
+
 
     public String getMoneys() {
         return moneys;
@@ -189,5 +193,21 @@ public class ShoppingCartAction extends BaseAction{
 
     public void setStrId(String strId) {
         this.strId = strId;
+    }
+
+    public String getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
+    }
+
+    public String getTaoBaoId() {
+        return taoBaoId;
+    }
+
+    public void setTaoBaoId(String taoBaoId) {
+        this.taoBaoId = taoBaoId;
     }
 }

@@ -20,7 +20,7 @@
                             type : "POST",
                             url : path,
                             dataType:'json',
-                            data:{strId:id}
+                            data:{strId:id,taoBaoId:${taobaoId}}
                         }
                 )
             }
@@ -31,7 +31,7 @@
                         type : "POST",
                         url : path,
                         dataType:'json',
-                        data:{strId:id}
+                        data:{strId:id,taoBaoId:${taobaoId}}
                     }
             )
         }
@@ -41,7 +41,7 @@
                         type : "POST",
                         url : path,
                         dataType:'json',
-                        data:{strId:id}
+                        data:{strId:id,taoBaoId:${taobaoId}}
                     }
             )
         }
@@ -57,7 +57,7 @@
                             type : "POST",
                             dataType:'json',
                             url : path,
-                            data:{addres:$('#addres').val(),name:$('#name').val(),tel:$('#tel').val(),id:id}
+                            data:{addres:$('#addres').val(),name:$('#name').val(),tel:$('#tel').val(),id:id,taoBaoId:${taobaoId}}
                         }
                 )
             }
@@ -67,10 +67,10 @@
 <body>
     <div class="maninlogo">
         <div class="maninlogo">
-            <a href="findByItemInfo.do" title="首页"><img src="img/lv_logo.png" width="198px" height="114px"; /></a>
-            <a href="findByItemInfo.do" title="回到首页">首页</a>
-            > <a href="orderQuiryAction!open.do" title="返回订单信息">订单信息</a>
-            > <a href="shoppingCartAction!open.do"  title="我的购物车">购物车</a >
+            <a href="/Team4/taobaoAccount!zhuYe.do" title="首页"><img src="img/lv_logo.png" width="198px" height="114px"; /></a>
+            <a href="/Team4/taobaoAccount!zhuYe.do" title="回到首页">首页</a>
+            > <a href="orderQuiryAction!open.do?taoBaoId=${taoBaoId}" title="返回订单信息">订单信息</a>
+            > <a href="shoppingCartAction!open.do?taoBaoId=${taoBaoId}"  title="我的购物车">购物车</a >
             > <span class="orangered" >地址管理</span >
         </div>
         <hr>

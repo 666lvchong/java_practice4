@@ -21,9 +21,9 @@
     <ul>
         <a href="/Team4/taobaoAccount!zhuYe.do"><li class="ft_left">${taobaoAccount.personnelAccount} 欢迎来到WechatBusiness</li></a>
         <a href=""></a>
-        <a href="/Team4/shoppingCartAction!open.do"><li id="gouwuc">购物车</li></a>
+        <a href="/Team4/shoppingCartAction!open.do?taoBaoId=${taobaoAccount.taoBaoAccountId}"><li id="gouwuc">购物车</li></a>
         <a href="/Team4/jsp/seller_center.jsp"><li >卖家中心</li></a>
-        <a href="/Team4/orderQuiryAction!open.do"><li >订单信息</li></a>
+        <a href="/Team4/orderQuiryAction!open.do?taoBaoId=${taobaoAccount.taoBaoAccountId}"><li >订单信息</li></a>
         <a href="/Team4/BillFlowServlet.do"><li >流水记录</li></a>
     </ul>
 </div>

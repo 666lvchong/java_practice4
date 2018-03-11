@@ -47,6 +47,7 @@ public class AddressAction extends BaseAction{
     private Long id;
     private Boolean indexAddress=false;
     private Integer index;
+    private String taoBaoId;
 
 
     ApplicationContext applicationContext=new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -61,10 +62,10 @@ public class AddressAction extends BaseAction{
      * @date 2018-03-08
      */
     public String open(){
+        Long taoBaoAccountId=Long.valueOf(taoBaoId);
         Map<String,Object> stringObjectMap=new HashMap<String, Object>();
         stringObjectMap.put("ADDRESS_TYPE",(byte)1);
-//        stringObjectMap.put("TAOBAO_ACCOUNT_ID",taobaoAccount.getId());
-        stringObjectMap.put("TAOBAO_ACCOUNT_ID",(long)2);
+        stringObjectMap.put("TAOBAO_ACCOUNT_ID",taoBaoAccountId);
         try {
             //根据条件查询出地址
             addressList=addressService.findByCondtion(stringObjectMap);
@@ -76,6 +77,7 @@ public class AddressAction extends BaseAction{
         ActionContext.getContext().put("list", addressList);
         ActionContext.getContext().put("indexAddress",indexAddress);
         ActionContext.getContext().put("index",index);
+        ActionContext.getContext().put("taoBaoId",taoBaoId);
 
         return "addressInfo";
     }
@@ -167,10 +169,10 @@ public class AddressAction extends BaseAction{
      */
     public void is(){
         id=Long.valueOf(strId);
+        Long taoBaoAccountId=Long.valueOf(taoBaoId);
         Map<String,Object> stringObjectMapIs=new HashMap<String, Object>();
         stringObjectMapIs.put("ADDRESS_TYPE",(byte)1);
-//        stringObjectMap.put("TAOBAO_ACCOUN_ID",taobaoAccount.getId());
-        stringObjectMapIs.put("TAOBAO_ACCOUNT_ID",(long)2);
+        stringObjectMapIs.put("TAOBAO_ACCOUNT_ID",taoBaoAccountId);
         addressService= (AddressServiceImpl) applicationContext.getBean("addressService");
         try {
             addressList=addressService.findByCondtion(stringObjectMapIs);
@@ -218,5 +220,13 @@ public class AddressAction extends BaseAction{
 
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    public String getTaoBaoId() {
+        return taoBaoId;
+    }
+
+    public void setTaoBaoId(String taoBaoId) {
+        this.taoBaoId = taoBaoId;
     }
 }

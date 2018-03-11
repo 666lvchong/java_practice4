@@ -13,19 +13,13 @@ import org.apache.struts2.convention.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import wechat_business.entity.OrderDetail;
-import wechat_business.entity.OrderInfo;
-import wechat_business.entity.PaypalInfo;
-import wechat_business.service.OrderDetailServiceImpl;
-import wechat_business.service.OrderInfoServiceImpl;
-import wechat_business.service.PaypalInfoServiceImpl;
+import wechat_business.entity.*;
+import wechat_business.service.*;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author hehongju
@@ -44,18 +38,34 @@ public class OrderDetailAction extends BaseAction {
     private OrderInfoServiceImpl orderInfoService;
     @Autowired
     private PaypalInfoServiceImpl paypalInfoService;
+    @Autowired
+    private AddressServiceImpl addressService;
+    @Autowired
+    private ItemInfoServiceImpl itemInfoService;
 
     private OrderDetail orderDetail;
     private OrderInfo orderInfo;
     private PaypalInfo paypalInfo;
+    private Address address;
+    private ItemInfo itemInfo;
     private List<OrderDetail> orderDetailList;
     private List<PaypalInfo> paypalInfoList;
+    private List addresss;
+    private List listNames;
     private Double money = 0d;
+    private String moneys ;
     private String pwd="123456";
     private String strId;
+    private String orderInfoID;
+    private String taoBaoId;
     ApplicationContext applicationContext=new ClassPathXmlApplicationContext("applicationContext.xml");
     public void orderDetailAction(){
         System.out.println("订单详情");
+        orderDetailService=(OrderDetailServiceImpl)applicationContext.getBean("orderDetailService");
+        orderInfoService=(OrderInfoServiceImpl)applicationContext.getBean("orderInfoService");
+        paypalInfoService=(PaypalInfoServiceImpl)applicationContext.getBean("paypalInfoService");
+        addressService=(AddressServiceImpl)applicationContext.getBean("addressService");
+        itemInfoService=(ItemInfoServiceImpl)applicationContext.getBean("itemInfoService");
     }
     /**
      * @Title:
@@ -68,9 +78,22 @@ public class OrderDetailAction extends BaseAction {
 
         Map<String,Object> stringObjectMap=new HashMap<String, Object>();
         stringObjectMap.put("ORDER_INFO_ID",orederInfoId);
-        orderDetailService=(OrderDetailServiceImpl)applicationContext.getBean("orderDetailService");
         try {
+            //订单详情查询统计
             orderDetailList=orderDetailService.findByCondtion(stringObjectMap);
+            addresss= new ArrayList();
+            listNames=new ArrayList();
+            for(int i=0;i<orderDetailList.size();i++){
+                //地址查询
+                address=addressService.findById(orderDetailList.get(i).getAddressId());
+                addresss.add(i,address.getAddress());
+                //商品查询
+                itemInfo=itemInfoService.findById(orderDetailList.get(i).getItemInfoId());
+                listNames.add(i,itemInfo.getName());
+            }
+            orderInfo=orderInfoService.findById(orederInfoId);
+            address=addressService.findById(orderInfo.getAddressId());
+            money=orderInfo.getOrderTotalAmount();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -78,11 +101,10 @@ public class OrderDetailAction extends BaseAction {
         ActionContext.getContext().put("list", orderDetailList);
         ActionContext.getContext().put("money", money);
         ActionContext.getContext().put("pay", orderDetailList.get(0).getOrderStatus());
-//        request.setAttribute("list",orderDetailList);
-//        request.setAttribute("money",orderInfo.getOrderTotalAmount());
-//        request.setAttribute("listName",itemInfos );
-//        request.setAttribute("orderInfoId",orderInfoId);
-//        request.setAttribute("pay",orderDetailList.get(0).getOrderStatus());
+        ActionContext.getContext().put("address",address);
+        ActionContext.getContext().put("addresss",addresss);
+        ActionContext.getContext().put("listNames",listNames);
+        ActionContext.getContext().put("taoBaoId",taoBaoId);
 
         return "orderDetail";
     }
@@ -93,15 +115,13 @@ public class OrderDetailAction extends BaseAction {
      * @date 2018-03-09
      */
     public void pay(){
-        pwd="123456";
-        money=50d;
-        Long orderInfoId=1l;
-        Long taoBaoAccountId=1l;
-
+        money=Double.valueOf(moneys);
+        Long orderInfoId=Long.valueOf(strId);
+        Long taoBaoAccountId=2l;
+        System.out.println("密码"+getPwd()+"金额"+moneys);
         //获取支付宝账户
         Map<String,Object> stringObjectMapPay=new HashMap<String, Object>();
         stringObjectMapPay.put("TAOBAO_ACCOUNT_ID",taoBaoAccountId);
-        paypalInfoService=(PaypalInfoServiceImpl)applicationContext.getBean("paypalInfoService");
         try {
             paypalInfoList=paypalInfoService.findByCondtion(stringObjectMapPay);
         } catch (SQLException e) {
@@ -144,26 +164,36 @@ public class OrderDetailAction extends BaseAction {
                 }else {
                     //余额不足，支付失败
                     System.out.println("余额不足，支付失败");
-//                    response.setContentType("text/html; charset=UTF-8"); //转码
-//                    PrintWriter out = response.getWriter();
-//                    out.flush();
-//                    out.println("<script>");
-//                    out.println("alert('账户余额不足，支付失败！返回订单详情：');");
-//                    out.println("var path='OrderDetailServlet?id="+orderInfoId+"';");
-//                    out.println("window.document.location.href=path;");
-//                    out.println("</script>");
+                    response.setContentType("text/html; charset=UTF-8"); //转码
+                    PrintWriter out = null;
+                    try {
+                        out = response.getWriter();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    out.flush();
+                    out.println("<script>");
+                    out.println("alert('账户余额不足，支付失败！返回订单详情：');");
+                    out.println("var path='orderDetailAction!open.do?strId="+orderInfoId+"';");
+                    out.println("window.document.location.href=path;");
+                    out.println("</script>");
                 }
             }else {
                 //支付密码错误，返回订单详情
                 System.out.println("支付密码错误，返回订单详情");
-//                response.setContentType("text/html; charset=UTF-8"); //转码
-//                PrintWriter out = response.getWriter();
-//                out.flush();
-//                out.println("<script>");
-//                out.println("alert('支付密码错误，支付失败！返回订单详情：');");
-//                out.println("var path='OrderDetailServlet?id="+orderInfoId+"';");
-//                out.println("window.document.location.href=path;");
-//                out.println("</script>");
+                response.setContentType("text/html; charset=UTF-8"); //转码
+                PrintWriter out = null;
+                try {
+                    out = response.getWriter();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                out.flush();
+                out.println("<script>");
+                out.println("alert('支付密码错误，支付失败！返回订单详情：');");
+                out.println("var path='orderDetailAction!open.do?strId="+orderInfoId+"';");
+                out.println("window.document.location.href=path;");
+                out.println("</script>");
             }
         }
     }
@@ -173,11 +203,9 @@ public class OrderDetailAction extends BaseAction {
      * @author hehongju
      * @date 2018-03-09
      */
-    public void Receiving(){
+    public void receiving(){
         Long orderDetailId=Long.valueOf(strId);
 
-        orderDetailService=(OrderDetailServiceImpl)applicationContext.getBean("orderDetailService");
-        orderInfoService=(OrderInfoServiceImpl)applicationContext.getBean("orderInfoService");
         try {
             //确认收货
             orderDetail=orderDetailService.findById(orderDetailId);
@@ -207,7 +235,6 @@ public class OrderDetailAction extends BaseAction {
     private void returning(){
         Long orderDetailId=Long.valueOf(strId);
 
-        orderDetailService=(OrderDetailServiceImpl)applicationContext.getBean("orderDetailService");
         try {
             //申请退货
             orderDetail=orderDetailService.findById(orderDetailId);
@@ -230,8 +257,6 @@ public class OrderDetailAction extends BaseAction {
     public void returned(){
         Long orderDetailId=Long.valueOf(strId);
 
-        orderDetailService=(OrderDetailServiceImpl)applicationContext.getBean("orderDetailService");
-        orderInfoService=(OrderInfoServiceImpl)applicationContext.getBean("orderInfoService");
         try {
             //确认退货
             orderDetail=orderDetailService.findById(orderDetailId);
@@ -252,11 +277,45 @@ public class OrderDetailAction extends BaseAction {
         open();
     }
 
+
+
     public String getStrId() {
         return strId;
     }
 
     public void setStrId(String strId) {
         this.strId = strId;
+    }
+
+    public String getMoneys() {
+        return moneys;
+    }
+
+    public void setMoneys(String moneys) {
+        this.moneys = moneys;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    public String getOrderInfoID() {
+        return orderInfoID;
+    }
+
+    public void setOrderInfoID(String orderInfoID) {
+        this.orderInfoID = orderInfoID;
+    }
+
+    public String getTaoBaoId() {
+        return taoBaoId;
+    }
+
+    public void setTaoBaoId(String taoBaoId) {
+        this.taoBaoId = taoBaoId;
     }
 }

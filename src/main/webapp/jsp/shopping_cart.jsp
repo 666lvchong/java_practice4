@@ -20,7 +20,7 @@
                             type : "POST",
                             url : path,
                             dataType:'json',
-                            data:{strId:id}
+                            data:{strId:id,taoBaoId:${taobaoId}}
                         }
                 )
             }
@@ -32,7 +32,7 @@
                             type : "POST",
                             url : path,
                             dataType:'json',
-                            data:{moneys:money}
+                            data:{moneys:money,addressId:$('#addressId option:selected') .val(),taoBaoId:${taobaoId}}
                         }
                 )
             }
@@ -42,16 +42,14 @@
 <body >
 <div id="dialog">
     <div class="maninlogo">
-        <a href="findByItemInfo.do" title="首页"><img src="img/lv_logo.png" width="198px" height="114px"; /></a>
-        <a href="findByItemInfo.do" title="回到首页">首页</a>
-        > <a href="orderQuiryAction!open.do" title="返回订单信息">订单信息</a>
+        <a href="/Team4/taobaoAccount!zhuYe.do" title="首页"><img src="img/lv_logo.png" width="198px" height="114px"; /></a>
+        <a href="/Team4/taobaoAccount!zhuYe.do" title="回到首页">首页</a>
+        > <a href="orderQuiryAction!open.do?taoBaoId=${taoBaoId}" title="返回订单信息">订单信息</a>
         > <span class="orangered" >购物车</span >
         <span class="moneySum orangered">
             订单总金额：${money} 元
             <c:if test="${money!=0}">
             <a href="" onclick="buys(${money})">购买</a>
-                <%--<a href="orderQuiryAction!open.do" >购买</a>--%>
-                <%--<a  onclick="pay(${money})" href="#">购买</a>--%>
             </c:if>
         </span>
     </div>
@@ -62,15 +60,15 @@
     <c:if test="${money!=0}">
         <div ><form>
             <span class="moneySum orangered">
-                <select >
+                <select id="addressId" >
                     <c:if test="${index==0}"><option value="0">未设置收货地址</option></c:if>
                     <c:if test="${index!=0}">
                         <c:forEach items="${listAddress}" var="address" varStatus="i">
-                            <option value="${address.address}" <c:if test="${address.isDefault==true}">SELECTED="selected" </c:if> >${address.address}</option>
+                            <option value="${address.id}" <c:if test="${address.isDefault==true}">SELECTED="selected" </c:if> ><span class="orangered"><地址：</span>${address.address}   <span class="orangered">><联系人：</span>${address.linkmanContacts}> <span class="orangered"><电话：</span>${address.telephone}></option>
                         </c:forEach>
                     </c:if>
                 </select>
-                <a href="addressAction!open.do">收货地址详情</a>
+                <a href="addressAction!open.do?taoBaoId=${taoBaoId}">收货地址详情</a>
             </span>
         </form></div>
     </c:if>
@@ -80,7 +78,7 @@
             <table class="orderInfoTable">
                 <tr>
                     <td rowspan="2"><img src="img/hu.jpg" width="120px"></td>
-                    <td colspan="2">${listName.get(Integer.valueOf(i.count-1))}</td>
+                    <td colspan="2"><span >商品名称：</span>${listNames.get(Integer.valueOf(i.count-1))}</td>
                     <td><a onclick="delOrder(${list.id})" href="#" >取消订单</a></td>
                 </tr>
                 <tr>

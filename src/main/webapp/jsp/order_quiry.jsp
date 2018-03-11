@@ -8,6 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>订单信息</title>
@@ -17,9 +18,9 @@
 <body >
     <div>
         <div class="maninlogo">
-            <a href="findByItemInfo.do" title="首页"><img src="img/lv_logo.png" width="198px" height="114px"; /></a>
-            <a href="findByItemInfo.do" title="回到首页">首页</a>
-            > <span class="orangered" title="我的订单信息">订单信息</span ><a href="shoppingCartAction!open.do">
+            <a href="/Team4/taobaoAccount!zhuYe.do" title="首页"><img src="img/lv_logo.png" width="198px" height="114px"; /></a>
+            <a href="/Team4/taobaoAccount!zhuYe.do" title="回到首页">首页</a>
+            > <span class="orangered" title="我的订单信息">订单信息</span ><a href="shoppingCartAction!open.do?taoBaoId=${taoBaoId}">
             <span class="shoppingCart" title="我的购物车">购物车</span></a>
         </div>
         <hr>
@@ -44,9 +45,9 @@
                         <td class="orangered"> ${i.count} </td>
                         <td class="orangered"> | </td>
                         <td>${list.orderNum}</td>
-                        <td>${buyer}</td>
+                        <td>${users.get(Integer.valueOf(i.count-1))}</td>
                         <td>${list.orderTotalAmount}</td>
-                        <td>${list.creationTime.toString().substring(0,19)}</td>
+                        <td><fmt:formatDate value="${list.creationTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                         <td>
                             <c:if test="${list.isSuccess}">交易成功</c:if>
                             <c:if test="${!list.isSuccess}">未交易成功</c:if>
@@ -56,7 +57,7 @@
                             <c:if test="${list.tradingTime.toString()==null}">暂无记录</c:if>
                         </td>
                         <td>
-                            <a href="orderDetailAction!open.do?strId=${list.id}" >订单详情</a>
+                            <a href="orderDetailAction!open.do?strId=${list.id}&taoBaoId=${taoBaoId}" >订单详情</a>
                         </td>
                     </tr>
                 </c:forEach>
