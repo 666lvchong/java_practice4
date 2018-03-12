@@ -38,15 +38,15 @@
         </foreach>
     </delete>
     <!-- 保存 -->
-    <insert id="save" parameterType="wechat_business.entity.PeopleInfo">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" keyColumn="ID"  parameterType="wechat_business.entity.PeopleInfo">
         INSERT INTO PEOPLE_INFO(ID,`NAME`,SEX,AGE,NATION,BIRTHDATE,ID_NUMBER,MOBILE_PHONE,NATIVE_PLACE,MAILBOX,PERMANENT_ADDRESS,PROFESSION,WORK_UNIT,CREATE_TIME,UPDATE_TIME)
-        VALUES (DEFAULT ,#{name},#{sex},#{age},#{nation},#{birthdate},#{idNumber},#{mobilePhone},#{nativePlace},#{mailBox},#{permanentAdress},#{profession},#{workUnit},#{createTime},#{updateTime})
+        VALUES (DEFAULT ,#{name},#{sex},#{age},#{nation},#{birthdate},#{idNumber},#{mobilePhone},#{nativePlace},#{mailBox},#{permanentAdress},#{profession},#{workUnit},sysdate(),sysdate())
     </insert>
     <!-- 修改 -->
     <update id="update" parameterType="wechat_business.entity.PeopleInfo">
         UPDATE PEOPLE_INFO
         SET `NAME`=#{name},SEX=#{sex},AGE=#{age},NATION=#{nation},BIRTHDATE=#{birthdate},ID_NUMBER=#{idNumber},MOBILE_PHONE=#{mobilePhone},NATIVE_PLACE=#{nativePlace},
-        MAILBOX=#{mailBox},PERMANENT_ADDRESS=#{permanentAdress},PROFESSION=#{profession},WORK_UNIT=#{workUnit},CREATE_TIME=#{createTime},UPDATE_TIME=#{updateTime}
+        MAILBOX=#{mailBox},PERMANENT_ADDRESS=#{permanentAdress},PROFESSION=#{profession},WORK_UNIT=#{workUnit},CREATE_TIME=#{createTime},UPDATE_TIME=sysdate()
         WHERE ID=#{id}
     </update>
     <!-- 根据id查询 -->

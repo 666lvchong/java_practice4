@@ -35,7 +35,7 @@ import java.util.Map;
         @Result(name = "chenggong",location = "/jsp/home_page.jsp"),
         @Result(name = "zhuye",location = "/jsp/administrator_login.jsp")
 })
-public class TaobaoAccountAction extends ActionSupport {
+public class TaobaoAccountAction extends BaseAction {
     private TaobaoAccount taobaoAccount;
     private ItemInfo itemInfo;
     private ItemRelation itemRelation;

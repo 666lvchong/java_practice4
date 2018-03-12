@@ -48,4 +48,9 @@
             AND PASSWORD = #{PASSWORD}
         </where>
     </select>
+    <insert id="save" parameterType="wechat_business.entity.TaobaoAccount" useGeneratedKeys="true" keyProperty="id" keyColumn="ID" >
+        INSERT INTO `wechat_business`.`taobao_account`
+        (`ID`, `PERSONNEL_ACCOUNT`, `PASSWORD`, `GRADE_ID`, `IS_FROZEN`, `IS_CANCELLATION`, `IS_DELETE`, `PEOPLE_INFO_ID`, `ADD_TIME`, `UPDATE_TIME`)
+        VALUES (DEFAULT , #{personnelAccount},#{password}, 1,0, 0, 0, #{peopleInfo.id}, sysdate(), sysdate());
+    </insert>
 </mapper>

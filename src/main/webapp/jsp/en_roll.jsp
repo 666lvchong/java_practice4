@@ -14,55 +14,55 @@
     <meta http-equiv="expires" content="0">
     <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
     <meta http-equiv="description" content="This is my page">
-    <link href="../css/en_roll.css" type="text/css" rel="stylesheet"/>
+    <link href="/Team4/css/en_roll.css" type="text/css" rel="stylesheet"/>
 </head>
 <body>
 <div class="all">
     <div class="most" >
-        <form action="../addByPeopleInfo.do" method="get">
+        <form action="peopleInfoAction!addPeople.do" method="post">
             <table align="center" width="900px">
             <caption class="user">用户注册</caption>
                 <tr>
                     <td class="birthdate" align="center">姓名</td>
-                    <td><input type="text" name="name" size="20"/></td>
+                    <td><input type="text" name="peopleInfo.name" size="20"/></td>
                     <td class="birthdate" align="center">性别</td>
-                    <td><input type="text" name="sex" value=""/></td>
+                    <td><input type="text" name="peopleInfo.sex" value=""/></td>
                 </tr>
                 <tr>
                     <td class="birthdate" align="center">年龄</td>
-                    <td><input type="text" name="age" value=""/></td>
+                    <td><input type="text" name="peopleInfo.age" value=""/></td>
                     <td class="birthdate" align="center">民族</td>
-                    <td><input type="text" name="nation" value=""/></td>
+                    <td><input type="text" name="peopleInfo.nation" value=""/></td>
                 </tr>
                 <tr>
                     <td class="birthdate" align="center">出生日期</td>
-                    <td><input type="text" name="birthdate" value=""/></td>
+                    <td><input type="text" name="peopleInfo.birthdate" value=""/></td>
                     <td class="birthdate" align="center">身份证号</td>
-                    <td><input type="text" name="id_number" value=""/></td>
+                    <td><input type="text" name="peopleInfo.idNumber" value=""/></td>
                 </tr>
                  <tr>
                     <td class="birthdate" align="center">手机号</td>
-                    <td><input type="text" name="phone" value=""/></td>
+                    <td><input type="text" name="peopleInfo.mobilePhone" value=""/></td>
                     <td class="birthdate" align="center">籍贯</td>
-                    <td><input type="text" name="place" value=""/></td>
+                    <td><input type="text" name="peopleInfo.nativePlace" value=""/></td>
                 </tr>
                 <tr>
                     <td class="birthdate" align="center">邮箱</td>
-                    <td><input type="text" name="email" value="" /></td>
+                    <td><input type="text" name="peopleInfo.mailBox" value="" /></td>
                     <td class="birthdate" align="center">常住地址</td>
-                    <td><input type="text" name="address" value=""/></td>
+                    <td><input type="text" name="peopleInfo.permanentAdress" value=""/></td>
                 </tr>
                 <tr>
                     <td class="birthdate" align="center">职业</td>
-                    <td><input type="text" name="job" value=""/></td>
+                    <td><input type="text" name="peopleInfo.profession" value=""/></td>
                     <td class="birthdate" align="center">工作单位</td>
-                    <td><input type="text" name="work" value=""/></td>
+                    <td><input type="text" name="peopleInfo.workUnit" value=""/></td>
                 </tr>
                 <tr>
                     <td class="birthdate" align="center">淘宝账户</td>
-                    <td><input type="text" name="taobao" value=""/></td>
+                    <td><input type="text" name="taobaoAccount.personnelAccount" value=""/></td>
                     <td class="birthdate" align="center">密码</td>
-                    <td><input type="password" name="password" value=""/></td>
+                    <td><input type="password" name="taobaoAccount.password" value=""/></td>
                 </tr>
                 <tr>
                     <td></td>

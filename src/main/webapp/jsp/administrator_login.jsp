@@ -11,20 +11,20 @@
     <meta http-equiv="description" content="ajax方式">
     <title>管理员登录</title>
     <%--<link rel="stylesheet" href="../css/administrator_login.css">--%>
-    <link rel="stylesheet" href="../css/administrator_login.css">
+    <link rel="stylesheet" href="/Team4/css/administrator_login.css">
 </head>
 <body>
 <div class="formLogin">
     <div id="auto">
-        <form action="../taobaoAccount!denLu.do" name="administrator_Login_Form" id="administrator_Login_Form" method="post">
+        <form action="/Team4/taobaoAccount!denLu.do" name="administrator_Login_Form" id="administrator_Login_Form" method="post">
             <div id="margin_top"> 登录 </div>
             <div class="username_div">
-                <img class="float_left" src="../img/user_img.jpg"/>
+                <img class="float_left" src="/Team4/img/user_img.jpg"/>
                 <div class="float_left emm">用户名：</div>
                 <input  type="text" class="float_left username_div_input" name="taobaoAccount.personnelAccount" placeholder="请输入帐户名或手机号" value=""/>
             </div>
             <div class="username_div">
-                <img class="float_left" src="../img/lock.png"/>
+                <img class="float_left" src="/Team4/img/lock.png"/>
                 <div class="float_left emm">密&nbsp;&nbsp;&nbsp;码：</div>
                 <input type="password" class="username_div_input float_left" name="taobaoAccount.password" placeholder="请输入密码" value=""/>
             </div>

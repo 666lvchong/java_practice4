@@ -20,8 +20,8 @@
 <div id="danghanglan">
     <ul>
         <a href="/Team4/taobaoAccount!zhuYe.do"><li class="ft_left">${taobaoAccount.personnelAccount} 欢迎来到WechatBusiness</li></a>
-        <a href=""></a>
         <a href="/Team4/shoppingCartAction!open.do"><li id="gouwuc">购物车</li></a>
+        <a href="/Team4/activity!findInfo.do"><li >活动中心</li></a>
         <a href="/Team4/jsp/seller_center.jsp"><li >卖家中心</li></a>
         <a href="/Team4/orderQuiryAction!open.do"><li >订单信息</li></a>
         <a href="/Team4/BillFlowServlet.do"><li >流水记录</li></a>
@@ -33,10 +33,7 @@
             <img id="logo" class="float_left" src="/Team4/img/lv_logo.png" alt="logo">
             <div class="float_left _zhugao">
                 <form action="taobaoAccount!zhuYe.do">
-                    <div id="shoushuokuang" class="float_left"><input name="itemInfo.name"
-
-                                                                      .
-                                                                      .type="text"/></div>
+                    <div id="shoushuokuang" class="float_left"><input name="itemInfo.name" type="text"/></div>
                     <button type="submit" id="submit" class="float_left">搜索</button>
                 </form>
             </div>
