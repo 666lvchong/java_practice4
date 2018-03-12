@@ -54,7 +54,7 @@ public class OrderDetailAction extends BaseAction {
     private List listNames;
     private Double money = 0d;
     private String moneys ;
-    private String pwd="123456";
+    private String pwd;
     private String strId;
     private String orderInfoID;
     private String taoBaoId;
@@ -213,11 +213,27 @@ public class OrderDetailAction extends BaseAction {
             orderDetail.setIsReturned(true);
             orderDetail.setReturnedTime(new Date());
             orderDetailService.save(orderDetail);
-            //订单成功
+            boolean is=true;
+
+            //判断订单是否交易成功
             orderInfo=orderInfoService.findById(orderDetail.getOrderInfoId());
-            orderInfo.setIsSuccess(true);
-            orderInfo.setTradingTime(new Date());
-            orderInfoService.save(orderInfo);
+            Map<String,Object> stringObjectMapIs=new HashMap<String, Object>();
+            stringObjectMapIs.put("ORDER_INFO_ID",orderInfo.getId());
+            orderDetailList=orderDetailService.findByCondtion(stringObjectMapIs);
+            for(int i=0;i<orderDetailList.size();i++){
+                if(orderDetailList.get(i).getIsReceived()==false){
+                    is=false;
+                }
+            }
+            if (is==false){
+                System.out.println("交易中");
+            }else {
+                //订单交易成功，修改订单信息
+                orderInfo.setIsSuccess(true);
+                orderInfo.setTradingTime(new Date());
+                orderInfoService.update(orderInfo);
+                System.out.println("订单交易成功");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
