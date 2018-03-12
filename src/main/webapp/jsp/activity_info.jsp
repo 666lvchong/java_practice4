@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/Team4/css/activity_info.css">
 </head>
 <body>
-<iframe src="jsp/dao_hang_lan.jsp" width="100%" height="40" frameborder="0"></iframe>
+<%--<iframe src="jsp/dao_hang_lan.jsp" width="100%" height="40" frameborder="0"></iframe>--%>
 <div id="danghanglan">
     <ul>
         <a href="/Team4/taobaoAccount!zhuYe.do"><li class="ft_left">${taobaoAccount.personnelAccount} 欢迎来到WechatBusiness</li></a>

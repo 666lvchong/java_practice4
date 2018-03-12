@@ -34,10 +34,6 @@ import java.util.Map;
 })
 public class UserInfoAction extends BaseAction {
     /**
-     * i 定义一个常量
-     */
-    private int i=0;
-    /**
      * keyword 接收页面传递过来的参数
      */
     private String keyword;
@@ -62,24 +58,26 @@ public class UserInfoAction extends BaseAction {
      * @author dengchao
      * @date 2018/3/6
      */
-    public void doPost() throws UnsupportedEncodingException, SQLException {
+    public String doPost() throws UnsupportedEncodingException, SQLException {
         //设置请求/响应编码格式
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        //判断是否需要删除
-        if ("del".equals(method)){
-            del();
-        }
+
         Map<String,Object> stringObjectMap= new HashMap<String, Object>();
         //判断输入搜索关键字是否为空
-            if (keyword != null && keyword != ""){
+            if (this.keyword != null && !("".equals(this.keyword))){
                 //将获取到的关键字（淘宝账号）存入map中
-            stringObjectMap.put("PERSONNEL_ACCOUNT",keyword);
+                stringObjectMap.put("PERSONNEL_ACCOUNT",this.keyword);
+//                //调用服务方法
+//                List<TaobaoAccount> listResult=taobaoAccountService.findByCondtion(stringObjectMap);
+//                //保存查询结果 将action方法中产生的数据存入request域中的方式 第一种
+//                ActionContext.getContext().put("listResult",listResult);
         }
-        //调用服务方法
-        List<TaobaoAccount> listResult=taobaoAccountService.findByCondtion(stringObjectMap);
-        //保存查询结果 将action方法中产生的数据存入request域中的方式 第一种
-        ActionContext.getContext().put("listResult",listResult);
+                //调用服务方法
+                List<TaobaoAccount> listResult=taobaoAccountService.findByCondtion(stringObjectMap);
+                //保存查询结果 将action方法中产生的数据存入request域中的方式 第一种
+                ActionContext.getContext().put("listResult",listResult);
+
 //        //将action方法中产生的数据存入request域中的方式 第二种
 //        ServletActionContext.getRequest().setAttribute("listResult",listResult);
 
@@ -100,14 +98,23 @@ public class UserInfoAction extends BaseAction {
 //            e.printStackTrace();
 //        }
 
-//        return "userInfo";
+        return "userInfo";
     }
 
+    /**
+     * @Title: del
+     * @Description: 删除
+     * @author dengchao
+     * @date 2018/3/11
+     */
     private void del(){
-        try {
-            taobaoAccountService.deleteById(Long.valueOf(id));
-        } catch (SQLException e) {
-            e.printStackTrace();
+        //判断是否需要删除
+        if ("del".equals(this.method)) {
+            try {
+                taobaoAccountService.deleteById(Long.valueOf(id));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
