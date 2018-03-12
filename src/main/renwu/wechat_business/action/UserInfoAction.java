@@ -107,7 +107,7 @@ public class UserInfoAction extends BaseAction {
      * @author dengchao
      * @date 2018/3/11
      */
-    private void del(){
+    private String del(){
         //判断是否需要删除
         if ("del".equals(this.method)) {
             try {
@@ -116,6 +116,7 @@ public class UserInfoAction extends BaseAction {
                 e.printStackTrace();
             }
         }
+        return "userInfo";
     }
 
     public String getKeyword() {

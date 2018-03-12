@@ -71,7 +71,7 @@
                         <td><a title=""  id="peopleName" class="peopleName">${taobao.getPeopleInfo().getName()}</a></td>
                         <td>${taobao.getAddTime()}</td>
                         <td>${taobao.getGrade().getGradeName()}</td>
-                        <td><a title="" id="del_click" href="${pageContext.request.contextPath}/userInfo!doPost.do?method=del&id=${taobao.getId()}">删除</a></td>
+                        <td><a title="" id="del_click" href="${pageContext.request.contextPath}/userInfo!del.do?method=del&id=${taobao.getId()}">删除</a></td>
                 </tr>
             </tbody>
             </c:forEach>
