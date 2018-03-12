@@ -133,7 +133,7 @@ public class SellerRegisterServlet extends HttpServlet {
                     } else if (affiliatedCompany!=null) {
                         mapSeller.put("AFFILIATED_COMPANY", email);
                     }
-                    sellerInfoDao.saveOrUpdate(sellerInfo);
+                    sellerInfoDao.save(sellerInfo);
                     System.out.println("注册成功");
                     out.print("<script language='javaScript'> alert('注册成功');</script>");
                     //转发页面
