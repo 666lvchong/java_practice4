@@ -110,7 +110,7 @@
                 <result column="II_NAME" property="name"></result>
                 <result column="II_NUMBER" property="number"></result>
                 <result column="II_IN_TIME" property="inTime"></result>
-                <result column="II_UPDATE_TIME" property="updateTimel"></result>
+                <result column="II_UPDATE_TIME" property="updateTime"></result>
                 <result column="II_MAKER" property="maker"></result>
                 <result column="II_ADDR" property="addr"></result>
                 <result column="II_MAKE_TIME" property="makeTime"></result>

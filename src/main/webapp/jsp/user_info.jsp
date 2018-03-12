@@ -14,42 +14,40 @@
     <meta http-equiv="description" content="ajax方式">
     <title>账户管理</title>
     <link rel="stylesheet" type="text/css" href="/Team4/css/user_info.css">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
     <script type="text/javascript">
+        //添加button点击事件
         function doFind(){
+            alert("马上就来！");
             $.ajax({
-                type: "POST",
-                url:"${pageContext.request.contextPath}/userInfo!doPost.do",
+                type:"POST",//发送请求的方式为GET/POST
+                //请求的后台servlet地址,（注：pageContext.request.contextPath为当前页面请求路径，后面直接跟servlet地址，不要再加工程名）
+                url:"${pageContext.request.contextPath}/action/userInfo!doPost.do",
+                //当前请求页面要传递的数据，如果要获取页面输入的值则使用$("#name".val())。username(password)为向后台传递的参数名
                 data:{keyword:$("#keyword").val()},
-                dataType:"json",
-                success: function(data) {
-//                    var outTaobaoId=data.obj.outTaobaoId.toString();
-//                    var outTaobaoAccount=data.obj.outTaobaoAccount.toString();
-//                    var outPeopleName=data.obj.outPeopleName.toString();
-//                    var outAddTime=data.obj.outAddTime.toString();
-//                    var outGradeName=data.obj.outGradeName.toString();
-//                    $("#taobaoId").append(outTaobaoId);
-//                    $("#taobaoAccount").append(outTaobaoAccount);
-//                    $("#peopleName").append(outPeopleName);
-                    alert("请求成功！");
-                },
-                error: function(request) {
-                    alert("发送请求失败！");
-                }
+                dataType:'json'//数据传输格式为json
             });
         }
+
     </script>
 </head>
 <body>
-<iframe src="jsp/dao_hang_lan.jsp" width="100%" height="40" frameborder="0"></iframe>
-<div id="ajaxDiv"></div>
+<%--<iframe src="jsp/dao_hang_lan.jsp" width="100%" height="40" frameborder="0"></iframe>--%>
+<div id="danghanglan">
+    <ul>
+        <a href="/Team4/taobaoAccount!zhuYe.do"><li class="ft_left">${taobaoAccount.personnelAccount} 欢迎来到WechatBusiness</li></a>
+        <a href="/Team4/shoppingCartAction!open.do"><li id="gouwuc">购物车</li></a>
+        <a href="/Team4/jsp/seller_center.jsp"><li >卖家中心</li></a>
+        <a href="/Team4/orderQuiryAction!open.do"><li >订单信息</li></a>
+        <a href="/Team4/BillFlowServlet.do"><li >流水记录</li></a>
+    </ul>
+</div>
 <div class="diaplay_box">
     <img id="logo" class="float_left" src="/Team4/img/lv_logo.png" alt="logo">
     <div class="search_box">
-        <form class="search_form" id="search_form"  action="${pageContext.request.contextPath}/userInfo!doPost.do" method="post">
-            <div class="taobaoAccount"><input type="text" id="keyword" name="keyword" placeholder="请输入淘宝账号" value=""/>
-                <button type="submit" id="submit" onclick="doFind()" value="搜索">搜索</button></div>
-        </form>
+        <div class="taobaoAccount"><input type="text" id="keyword" placeholder="请输入淘宝账号" value=""/>
+            <button type="button" id="submit" onclick="doFind()" value="搜索">搜索</button>
+        </div>
     </div>
     <div class="display_table">
         <table >
@@ -71,7 +69,7 @@
                         <td><a title=""  id="peopleName" class="peopleName">${taobao.getPeopleInfo().getName()}</a></td>
                         <td>${taobao.getAddTime()}</td>
                         <td>${taobao.getGrade().getGradeName()}</td>
-                        <td><a title="" id="del_click" href="${pageContext.request.contextPath}/userInfo!doPost.do?method=del&id=${taobao.getId()}">删除</a></td>
+                        <td><a title="" id="del_click" href="${pageContext.request.contextPath}/action/userInfo!del.do?method=del&id=${taobao.getId()}">删除</a></td>
                 </tr>
             </tbody>
             </c:forEach>
