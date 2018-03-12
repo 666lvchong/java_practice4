@@ -105,8 +105,8 @@ public class SellerPublishServlet extends HttpServlet {
                     mapItemInfo.put("NAME", name);
                     mapItemRelation.put("PRICE", price);
                     mapItemRelation.put("INVENTLATORY", inventory);
-                    itemInfoDao.saveOrUpdate(itemInfo);
-                    itemRelationDao.saveOrUpdate(itemRelation);
+                    itemInfoDao.save(itemInfo);
+                    itemRelationDao.save(itemRelation);
                     System.out.println("发布成功");
                     out.print("<script language='javaScript'> alert('发布成功');</script>");
                     //转发页面
