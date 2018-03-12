@@ -19,7 +19,8 @@
         </resultMap>
     <!-- 定义sql操作列 -->
     <sql id="columns">
-        ID,SHOP_NAME,SHOP_TYPE,TAOBAO_ACCOUNT_ID,REGISTRATION_TIME,ADDRESS,EMAIL,AFFILIATED_COMPANY,COMMERCIAL_REGISTRATION_NUM,UPDATE_TIME,DEPOSIT,CREDITWORTHINESS
+        ID,SHOP_NAME,SHOP_NUMBER,SHOP_TYPE,TAOBAO_ACCOUNT_ID,REGISTRATION_TIME,ADDRESS,EMAIL,AFFILIATED_COMPANY,
+        COMMERCIAL_REGISTRATION_NUM,UPDATE_TIME,DEPOSIT,CREDITWORTHINESS
     </sql>
     <!-- 根据id删除 -->
     <delete id="deleteById" parameterType="java.lang.Long">
@@ -27,7 +28,7 @@
         WHERE ID=#{id}
     </delete>
     <!-- 根据多个id删除 -->
-    <delete id="deleteByIds" parameterType="java.util.Map">
+    <delete id="deleteByIds" parameterType="java.util.Arrays">
         DELETE FROM SELLER_INFO
         WHERE ID IN
         <if test="@Ognl@isNotEmpty(ids)">
@@ -38,66 +39,64 @@
     </delete>
     <!-- 保存 -->
     <insert id="save" parameterType="wechat_business.entity.SellerInfo">
-        <if test="@Ognl@isNotEmpty(seller)">
             INSERT INTO SELLER_INFO(ID,SHOP_NAME,SHOP_NUMBER,SHOP_TYPE,TAOBAO_ACCOUNT_ID,REGISTRATION_TIME,ADDRESS,EMAIL,AFFILIATED_COMPANY,COMMERCIAL_REGISTRATION_NUM,UPDATE_TIME,DEPOSIT,CREDITWORTHINESS)
             VALUES (DEFAULT ,#{shopName},#{shopNumber},#{shopType},#{taobaoAccountId},#{registrationTime},#{address},#{email},#{affiltaedCompany},#{commercialRegistrationNum},#{updateTime},#{deposit},#{creditworthiness})
-        </if>
     </insert>
     <!-- 修改 -->
     <update id="update" parameterType="wechat_business.entity.SellerInfo">
-        <if test="@wechat_business.dao.Ognl@isNotEmpty(seller)">
             UPDATE SELLER_INFO
-            SET SHOP_NAME=#{shopName},SHOP_NUMBER=#{shopNumber},SHOP_TYPE=#{shopType},TAOBAO_ACCOUNT_ID=#{taobaoAccountId},REGISTRATION_TIME=#{registrationTime},ADDRESS=#{address},EMAIL=#{email},
-            AFFILIATED_COMPANY=#{affiltaedCompany},COMMERCIAL_REGISTRATION_NUM=#{commercialRegistrationNum},UPDATE_TIME=#{updateTime},DEPOSIT=#{deposit},CREDITWORTHINESS=#{creditworthiness}
+            SET SHOP_NAME=#{shopName},SHOP_NUMBER=#{shopNumber},SHOP_TYPE=#{shopType},TAOBAO_ACCOUNT_ID=#{taobaoAccountId},
+            REGISTRATION_TIME=#{registrationTime},ADDRESS=#{address},EMAIL=#{email},AFFILIATED_COMPANY=#{affiltaedCompany},
+            COMMERCIAL_REGISTRATION_NUM=#{commercialRegistrationNum},UPDATE_TIME=#{updateTime},DEPOSIT=#{deposit},
+            CREDITWORTHINESS=#{creditworthiness}
             WHERE ID=#{id}
-        </if>
     </update>
     <!-- 根据id查询 -->
-    <select id="findById" parameterType="java.lang.Long" resultMap="SellerInfoMap">
+    <select id="findById" parameterType="java.lang.Long" resultMap="sellerInfoMap">
         SELECT <include refid="columns"/>
         FROM SELLER_INFO
         WHERE ID=#{id}
     </select>
     <!-- 根据条件查询 -->
-    <select id="findByCondtion" parameterType="java.util.HashMap" resultMap="SellerInfoMap">
+    <select id="findByCondtion" parameterType="java.util.HashMap" resultMap="sellerInfoMap">
         SELECT <include refid="columns"/>
         FROM SELLER_INFO
         <where>
-            <if test="@Ognl@isNotEmpty(shopName)">
-                AND `NAME` LIKE #{shopName}
+            <if test="SHOP_NAME!=NULL ">
+                AND SHOP_NAME LIKE #{shopName}
             </if>
-            <if test="@Ognl@isNotEmpty(shopNumber)">
-                AND SEX LIKE #{shopNumber}
+            <if test="SHOP_NUMBER!=NULL">
+                AND SHOP_NUMBER LIKE #{shopNumber}
             </if>
-            <if test="@Ognl@isNotEmpty(shopType)">
-                AND AGE LIKE #{shopType}
+            <if test="SHOP_TYPE!=NULL">
+                AND SHOP_TYPE LIKE #{shopType}
             </if>
-            <if test="@Ognl@isNotEmpty(taobaoAccountId)">
-                AND ID_NUMBER LIKE #{taobaoAccountId}
+            <if test="TAOBAO_ACCOUNT_ID!=NULL">
+                AND TAOBAO_ACCOUNT_ID LIKE #{taobaoAccountId}
             </if>
-            <if test="@Ognl@isNotEmpty(registrationTime)">
-                AND MOBILE_PHONE LIKE #{registrationTime}
+            <if test="REGISTRATION_TIME!=NULL">
+                AND REGISTRATION_TIME LIKE #{registrationTime}
             </if>
-            <if test="@Ognl@isNotEmpty(address)">
-                AND PROFESSION LIKE #{address}
+            <if test="ADDRESS!=NULL">
+                AND ADDRESS LIKE #{address}
             </if>
-            <if test="@Ognl@isNotEmpty(email)">
-                AND `NAME` LIKE #{email}
+            <if test="EMAIL!=NULL">
+                AND EMAIL LIKE #{email}
             </if>
-            <if test="@Ognl@isNotEmpty(affiltaedCompany)">
-                AND SEX LIKE #{affiltaedCompany}
+            <if test="AFFILIATED_COMPANY!=NULL">
+                AND AFFILIATED_COMPANY LIKE #{affiltaedCompany}
             </if>
-            <if test="@Ognl@isNotEmpty(commercialRegistrationNum)">
-                AND AGE LIKE #{commercialRegistrationNum}
+            <if test="COMMERCIAL_REGISTRATION_NUM!=NULL">
+                AND COMMERCIAL_REGISTRATION_NUM LIKE #{commercialRegistrationNum}
             </if>
-            <if test="@Ognl@isNotEmpty(updateTime)">
-                AND ID_NUMBER LIKE #{updateTime}
+            <if test="UPDATE_TIME!=NULL">
+                AND UPDATE_TIME LIKE #{updateTime}
             </if>
-            <if test="@Ognl@isNotEmpty(deposit)">
-                AND MOBILE_PHONE LIKE #{deposit}
+            <if test="DEPOSIT!=NULL">
+                AND DEPOSIT LIKE #{deposit}
             </if>
-            <if test="@Ognl@isNotEmpty(creditworthiness)">
-                AND PROFESSION LIKE #{creditworthiness}
+            <if test="CREDITWORTHINESS!=NULL">
+                AND CREDITWORTHINESS LIKE #{creditworthiness}
             </if>
         </where>
     </select>
@@ -106,41 +105,41 @@
         SELECT <include refid="columns"/>
         FROM SELLER_INFO
         <where>
-            <if test="@Ognl@isNotEmpty(shopName)">
-            AND `NAME` LIKE #{shopName}
-        </if>
-            <if test="@Ognl@isNotEmpty(shopNumber)">
-                AND SEX LIKE #{shopNumber}
+            <if test="SHOP_NAME!=NULL ">
+                AND SHOP_NAME LIKE #{shopName}
             </if>
-            <if test="@Ognl@isNotEmpty(shopType)">
-                AND AGE LIKE #{shopType}
+            <if test="SHOP_NUMBER!=NULL">
+                AND SHOP_NUMBER LIKE #{shopNumber}
             </if>
-            <if test="@Ognl@isNotEmpty(taobaoAccountId)">
-                AND ID_NUMBER LIKE #{taobaoAccountId}
+            <if test="SHOP_TYPE!=NULL">
+                AND SHOP_TYPE LIKE #{shopType}
             </if>
-            <if test="@Ognl@isNotEmpty(registrationTime)">
-                AND MOBILE_PHONE LIKE #{registrationTime}
+            <if test="TAOBAO_ACCOUNT_ID!=NULL">
+                AND TAOBAO_ACCOUNT_ID LIKE #{taobaoAccountId}
             </if>
-            <if test="@Ognl@isNotEmpty(address)">
-                AND PROFESSION LIKE #{address}
+            <if test="REGISTRATION_TIME!=NULL">
+                AND REGISTRATION_TIME LIKE #{registrationTime}
             </if>
-            <if test="@Ognl@isNotEmpty(email)">
-                AND `NAME` LIKE #{email}
+            <if test="ADDRESS!=NULL">
+                AND ADDRESS LIKE #{address}
             </if>
-            <if test="@Ognl@isNotEmpty(affiltaedCompany)">
-                AND SEX LIKE #{affiltaedCompany}
+            <if test="EMAIL!=NULL">
+                AND EMAIL LIKE #{email}
             </if>
-            <if test="@Ognl@isNotEmpty(commercialRegistrationNum)">
-                AND AGE LIKE #{commercialRegistrationNum}
+            <if test="AFFILIATED_COMPANY!=NULL">
+                AND AFFILIATED_COMPANY LIKE #{affiltaedCompany}
             </if>
-            <if test="@Ognl@isNotEmpty(updateTime)">
-                AND ID_NUMBER LIKE #{updateTime}
+            <if test="COMMERCIAL_REGISTRATION_NUM!=NULL">
+                AND COMMERCIAL_REGISTRATION_NUM LIKE #{commercialRegistrationNum}
             </if>
-            <if test="@Ognl@isNotEmpty(deposit)">
-                AND MOBILE_PHONE LIKE #{deposit}
+            <if test="UPDATE_TIME!=NULL">
+                AND UPDATE_TIME LIKE #{updateTime}
             </if>
-            <if test="@Ognl@isNotEmpty(creditworthiness)">
-                AND PROFESSION LIKE #{creditworthiness}
+            <if test="DEPOSIT!=NULL">
+                AND DEPOSIT LIKE #{deposit}
+            </if>
+            <if test="CREDITWORTHINESS!=NULL">
+                AND CREDITWORTHINESS LIKE #{creditworthiness}
             </if>
         </where>
     </select>
