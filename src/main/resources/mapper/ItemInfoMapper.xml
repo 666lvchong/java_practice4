@@ -31,4 +31,10 @@
             </if>
         </where>
     </select>
+    <!-- 根据id查询 -->
+    <select id="findById" parameterType="java.lang.Long" resultMap="itemInfo">
+        SELECT ID,`NAME`,`NUMBER`,ITEM_TYPE_ID,IN_TIME,UPDATE_TIME,MAKER,ADDR,MAKE_TIME,EXPIRATION,ORIGIN,DESCRIPTION,DISCOUNT
+        FROM `item_info`
+        WHERE ID=#{id}
+    </select>
 </mapper>
